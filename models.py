@@ -4,10 +4,6 @@ import sqlite3
 # from flask.ext.sqlalchemy import SQLAlchemy
 # from werkzeug import generate_password_hash, check_password_hash
 
-import geocoder
-import urllib2
-import json
-
 db_name = "Records_DB"
 
 
