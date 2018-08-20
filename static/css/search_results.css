@@ -1,0 +1,331 @@
+body
+{
+   background-color: #FFFFFF;
+   color: #000000;
+   font-family: Arial;
+   font-weight: normal;
+   font-size: 13px;
+   line-height: 1.1875;
+   margin: 0;
+   padding: 0;
+}
+#indexShape3
+{
+   width: 794px;
+   height: 144px;
+   background-color: #0568CE;
+   background-image: none;
+   border: 3px #003264 solid;
+}
+#Shape1
+{
+   width: 794px;
+   height: 648px;
+   background-color: #50A2E6;
+   background: linear-gradient(to bottom, #50A2E6 0%, #0066CC 100%);
+   border: 3px #003264 solid;
+}
+#indexShape2
+{
+   position: absolute;
+   left: 4px;
+   top: 4px;
+   width: 539px;
+   height: 65px;
+   background-color: transparent;
+   background-image: url(images/نتایج_جست_وجو_indexShape2_bkgrnd.png);
+   background-repeat: repeat;
+   background-position: left top;
+   border: 2px #003264 solid;
+   box-shadow: 4px 4px 9px rgba(0,0,0,0.52);
+}
+#indexShape2_text
+{
+   position: absolute;
+   left: 1px;
+   top: 3px;
+   width: 537px;
+   height: 61px;
+   overflow: hidden;
+   text-align: center;
+}
+#Shape2
+{
+   width: 194px;
+   height: 457px;
+   background-color: #0066CC;
+   background-image: none;
+   border: 3px #003264 solid;
+}
+#Shape4
+{
+   width: 522px;
+   height: 581px;
+   background-color: #FFFFFF;
+   background-image: none;
+   border: 3px #003264 solid;
+}
+#NavigationBar2 ul.navbar
+{
+   list-style: none;
+   margin: 0;
+   padding: 0;
+}
+#NavigationBar2 ul.navbar li
+{
+   height: 25px;
+   width: 154px;
+   margin: 0 0 10px 0;
+   vertical-align: bottom;
+}
+#NavigationBar2 ul.navbar li a
+{
+   display: block;
+   position: relative;
+}
+#NavigationBar2 ul.navbar li a img
+{
+   position: absolute;
+   left: 0;
+   z-index: 1;
+   border-width: 0;
+}
+#NavigationBar2 ul.navbar li span
+{
+   display: block;
+   height: 25px;
+   width: 154px;
+   position: absolute;
+   z-index: 2;
+}
+#NavigationBar2 a .hover
+{
+   visibility: hidden;
+}
+#NavigationBar2 a:hover .hover
+{
+   visibility: visible;
+}
+#NavigationBar2 a:hover span
+{
+   visibility: hidden;
+}
+#wb_Text1 
+{
+   background-color: transparent;
+   background-image: none;
+   border: 0px solid #000000;
+   padding: 0;
+   margin: 0;
+   text-align: left;
+}
+#wb_Text1 div
+{
+   text-align: left;
+}
+#Shape5
+{
+   border-width: 0;
+}
+#indexShape4
+{
+   width: 479px;
+   height: 26px;
+   background-color: transparent;
+   background-image: url(images/نتایج_جست_وجو_indexShape4_bkgrnd.png);
+   background-repeat: repeat;
+   background-position: left top;
+   border: 2px #003264 solid;
+}
+#wb_Text10 
+{
+   background-color: transparent;
+   background-image: none;
+   border: 0px solid #000000;
+   padding: 0;
+   margin: 0;
+   text-align: left;
+}
+#wb_Text10 div
+{
+   text-align: left;
+}
+#indexImage1
+{
+   border: 0px solid #000000;
+   padding: 0;
+   margin: 0;
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
+}
+#wb_indexText1 
+{
+   background-color: transparent;
+   background-image: none;
+   border: 0px solid #000000;
+   padding: 0;
+   margin: 0;
+   text-align: right;
+}
+#wb_indexText1 div
+{
+   text-align: right;
+}
+#wb_indexText3 
+{
+   background-color: transparent;
+   background-image: none;
+   border: 0px solid #000000;
+   padding: 0;
+   margin: 0;
+   text-align: right;
+}
+#wb_indexText3 div
+{
+   text-align: right;
+}
+#wb_page1Text1 
+{
+   background-color: transparent;
+   background-image: none;
+   border: 0px solid #000000;
+   padding: 0;
+   margin: 0;
+   text-align: right;
+}
+#wb_page1Text1 div
+{
+   text-align: right;
+}
+#page1NavigationBar1 ul.navbar
+{
+   list-style: none;
+   margin: 0;
+   padding: 0;
+}
+#page1NavigationBar1 ul.navbar li
+{
+   height: 25px;
+   width: 154px;
+   margin: 0 0 10px 0;
+   vertical-align: bottom;
+}
+#page1NavigationBar1 ul.navbar li a
+{
+   display: block;
+   position: relative;
+}
+#page1NavigationBar1 ul.navbar li a img
+{
+   position: absolute;
+   left: 0;
+   z-index: 1;
+   border-width: 0;
+}
+#page1NavigationBar1 ul.navbar li span
+{
+   display: block;
+   height: 25px;
+   width: 154px;
+   position: absolute;
+   z-index: 2;
+}
+#page1NavigationBar1 a .hover
+{
+   visibility: hidden;
+}
+#page1NavigationBar1 a:hover .hover
+{
+   visibility: visible;
+}
+#page1NavigationBar1 a:hover span
+{
+   visibility: hidden;
+}
+#page1Button1
+{
+   border: 1px solid #2E6DA4;
+   border-radius: 4px;
+   background-color: #3370B7;
+   background-image: none;
+   color: #FFFFFF;
+   font-family: Arial;
+   font-weight: normal;
+   font-size: 13px;
+   margin: 0;
+}
+#محصولات_تجسمیButton1
+{
+   border: 1px solid #FFFFFF;
+   border-radius: 4px;
+   background-color: #00BFFF;
+   background-image: none;
+   color: #FFFFFF;
+   font-family: Arial;
+   font-weight: normal;
+   font-size: 13px;
+   margin: 0;
+}
+#نتایج_جست_و_جوTable1
+{
+   border: 1px solid #BFBFBF;
+   background-color: transparent;
+   background-image: none;
+   border-collapse: collapse;
+   border-spacing: 0px;
+   margin: 0;
+}
+#نتایج_جست_و_جوTable1 td
+{
+   padding: 0;
+}
+#نتایج_جست_و_جوTable1 td div
+{
+   white-space: nowrap;
+}
+#نتایج_جست_و_جوTable1 .cell0
+{
+   background-color: transparent;
+   background-image: none;
+   border: 1px #BFBFBF solid;
+   text-align: center;
+   vertical-align: top;
+   width: 76px;
+   height: 18px;
+}
+#نتایج_جست_و_جوTable1 .cell1
+{
+   background-color: transparent;
+   background-image: none;
+   border: 1px #BFBFBF solid;
+   text-align: center;
+   vertical-align: top;
+   width: 100px;
+   height: 18px;
+}
+#نتایج_جست_و_جوTable1 .cell2
+{
+   background-color: transparent;
+   background-image: none;
+   border: 1px #BFBFBF solid;
+   text-align: left;
+   vertical-align: top;
+   width: 76px;
+   height: 18px;
+}
+#نتایج_جست_و_جوTable1 .cell3
+{
+   background-color: transparent;
+   background-image: none;
+   border: 1px #BFBFBF solid;
+   text-align: left;
+   vertical-align: top;
+   width: 100px;
+   height: 18px;
+}
+#نتایج_جست_و_جوTable1 tr:nth-child(odd)
+{
+   background-color: #F2F2F2;
+}

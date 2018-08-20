@@ -1,0 +1,54 @@
+
+{% extends "layout.html" %}{% block content %}<div id="wb_Form1" style="position:absolute;left:270px;top:236px;width:483px;height:445px;z-index:49;">
+<form name="contact" method="post" action="/sessions" id="Form1">
+    {{ form.hidden_tag() }}
+    {{ form.name(id="Editbox3", style="position:absolute;left:232px;top:15px;width:82px;height:17px;z-index:19;") }}
+    {{ form.session_subject(id="Editbox3", style="position:absolute;left:232px;top:54px;width:82px;height:17px;z-index:18;") }}
+    {{ form.prof_name(id="Editbox3", style="position:absolute;left:232px;top:91px;width:82px;height:17px;z-index:17;") }}
+    {{ form.contact_avg(id="Editbox3", style="position:absolute;left:232px;top:129px;width:82px;height:17px;z-index:16;") }}
+    {{ form.count(id="Editbox3", style="position:absolute;left:232px;top:167px;width:82px;height:17px;z-index:15;") }}
+    {{ form.country(id="Editbox3", style="position:absolute;left:232px;top:207px;width:82px;height:17px;z-index:14;") }}
+    {{ form.city(id="Combobox2", style="position:absolute;left:234px;top:243px;width:90px;height:28px;z-index:13;") }}
+    {{ form.salon(id="Combobox2", style="position:absolute;left:233px;top:283px;width:90px;height:28px;z-index:12;") }}
+    {{ form.level(id="Editbox3", style="position:absolute;left:16px;top:15px;width:82px;height:17px;z-index:4;") }}
+    {{ form.office(id="Editbox3", style="position:absolute;left:16px;top:54px;width:82px;height:17px;z-index:3;") }}
+    {{ form.achievements(id="TextArea1", style="position:absolute;left:8px;top:118px;width:90px;height:90px;z-index:2;") }}
+    {{ form.meh_moh1(id="Combobox2", style="position:absolute;left:10px;top:230px;width:90px;height:28px;z-index:1;") }}
+    {{ form.meh_moh2(id="Combobox2", style="position:absolute;left:10px;top:263px;width:90px;height:28px;z-index:0;") }}
+    {{ form.meh_moh3(id="Combobox2", style="position:absolute;left:10px;top:293px;width:90px;height:28px;z-index:11;") }}
+
+    {{form.back(id="Button3", style="position:absolute;left:88px;top:350px;width:90px;height:25px;z-index:21;")}}
+    {{form.add(id="Button1", style="position:absolute;left:304px;top:350px;width:90px;height:25px;z-index:23;")}}
+<div id="wb_page1Text7" style="position:absolute;left:118px;top:19px;width:87px;height:19px;text-align:right;z-index:5;">
+<span style="color:#000000;font-family:Arial;font-size:16px;"><strong>سطح برگزاری</strong></span></div>
+<div id="wb_page1Text8" style="position:absolute;left:118px;top:58px;width:87px;height:38px;text-align:right;z-index:6;">
+<span style="color:#000000;font-family:Arial;font-size:16px;"><strong>دفتر برگزارکننده</strong></span></div>
+<div id="wb_page1Text9" style="position:absolute;left:96px;top:95px;width:109px;height:38px;text-align:right;z-index:7;">
+<span style="color:#000000;font-family:Arial;font-size:16px;"><strong>مهم ترین دستاوردها</strong></span></div>
+<div id="wb_جلسلات_و_کارگاه_هاText2" style="position:absolute;left:96px;top:230px;width:101px;height:19px;text-align:right;z-index:8;">
+<span style="color:#000000;font-family:Arial;font-size:16px;"><strong>محور محتوایی 1</strong></span></div>
+<div id="wb_جلسلات_و_کارگاه_هاText3" style="position:absolute;left:100px;top:264px;width:101px;height:19px;text-align:right;z-index:9;">
+<span style="color:#000000;font-family:Arial;font-size:16px;"><strong>محور محتوایی 2</strong></span></div>
+<div id="wb_جلسلات_و_کارگاه_هاText4" style="position:absolute;left:100px;top:302px;width:101px;height:19px;text-align:right;z-index:10;">
+<span style="color:#000000;font-family:Arial;font-size:16px;"><strong>محور محتوایی 3</strong></span></div>
+<!--<input type="submit" id="page2Button1" name="chap" value="چاپ" style="position:absolute;left:196px;top:386px;width:90px;height:25px;z-index:20;">-->
+<div id="wb_page1Text2" style="position:absolute;left:358px;top:19px;width:110px;height:19px;text-align:right;z-index:23;">
+<span style="color:#000000;font-family:Arial;font-size:16px;"><strong>نام کارگاه یا جلسه</strong></span></div>
+<div id="wb_page1Text3" style="position:absolute;left:416px;top:58px;width:52px;height:19px;text-align:right;z-index:24;">
+<span style="color:#000000;font-family:Arial;font-size:16px;"><strong>موضوع</strong></span></div>
+<div id="wb_page1Text6" style="position:absolute;left:323px;top:171px;width:145px;height:19px;text-align:right;z-index:25;">
+<span style="color:#000000;font-family:Arial;font-size:16px;"><strong>تعداد جلسات</strong></span></div>
+<div id="wb_page2Text1" style="position:absolute;left:323px;top:207px;width:145px;height:19px;text-align:right;z-index:26;">
+<span style="color:#000000;font-family:Arial;font-size:16px;"><strong>کشور محل برگزاری</strong></span></div>
+<div id="wb_page1Text4" style="position:absolute;left:358px;top:95px;width:111px;height:19px;text-align:right;z-index:27;">
+<span style="color:#000000;font-family:Arial;font-size:16px;"><strong>نام استاد یا منتقد</strong></span></div>
+<div id="wb_page1Text5" style="position:absolute;left:358px;top:133px;width:111px;height:19px;text-align:right;z-index:28;">
+<span style="color:#000000;font-family:Arial;font-size:16px;"><strong>میانگین مخاطب</strong></span></div>
+<div id="wb_page2Text2" style="position:absolute;left:324px;top:244px;width:145px;height:19px;text-align:right;z-index:29;">
+<span style="color:#000000;font-family:Arial;font-size:16px;"><strong>استان محل برگزاری</strong></span></div>
+<div id="wb_جلسلات_و_کارگاه_هاText1" style="position:absolute;left:324px;top:283px;width:145px;height:19px;text-align:right;z-index:30;">
+<span style="color:#000000;font-family:Arial;font-size:16px;"><strong>سالن محل برگزاری</strong></span></div>
+</form>
+</div>
+</body>
+</html>{% endblock %}

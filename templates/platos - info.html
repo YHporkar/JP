@@ -1,0 +1,28 @@
+
+{% extends "layout.html" %}{% block content %}<div id="wb_Form1" style="position:absolute;left:266px;top:249px;width:483px;height:347px;z-index:30;">
+<form name="contact" method="post" action="/plato" id="Form1">
+    {{ form.hidden_tag() }}
+    {{ form.group_name(id="Editbox3", style="position:absolute;left:221px;top:15px;width:82px;height:17px;z-index:11;")}}
+    {{ form.director(id="Editbox3", style="position:absolute;left:222px;top:54px;width:82px;height:17px;z-index:2;")}}
+    {{ form.name(id="Editbox3", style="position:absolute;left:222px;top:91px;width:82px;height:17px;z-index:3;")}}
+    {{ form.clock_num(id="Editbox3", style="position:absolute;left:222px;top:129px;width:82px;height:17px;z-index:4;")}}
+    {{ form.program_kind(id="Combobox1", style="position:absolute;left:223px;top:166px;width:90px;height:28px;z-index:5;")}}
+
+    {{form.back(id="Button3", style="position:absolute;left:88px;top:350px;width:90px;height:25px;z-index:21;")}}
+    {{form.add(id="Button1", style="position:absolute;left:304px;top:350px;width:90px;height:25px;z-index:23;")}}
+
+<!--<input type="submit" id="page2Button1" name="chap" value="چاپ" style="position:absolute;left:187px;top:302px;width:90px;height:25px;z-index:1;">-->
+<div id="wb_page1Text3" style="position:absolute;left:371px;top:58px;width:87px;height:19px;text-align:right;z-index:7;">
+<span style="color:#000000;font-family:Arial;font-size:16px;"><strong>نام کارگردان</strong></span></div>
+<div id="wb_page1Text4" style="position:absolute;left:348px;top:95px;width:111px;height:19px;text-align:right;z-index:8;">
+<span style="color:#000000;font-family:Arial;font-size:16px;"><strong>نام پلاتو</strong></span></div>
+<div id="wb_page1Text5" style="position:absolute;left:348px;top:133px;width:111px;height:19px;text-align:right;z-index:9;">
+<span style="color:#000000;font-family:Arial;font-size:16px;"><strong>تعداد ساعت رزرو</strong></span></div>
+<div id="wb_page1Text6" style="position:absolute;left:314px;top:166px;width:145px;height:19px;text-align:right;z-index:10;">
+<span style="color:#000000;font-family:Arial;font-size:16px;"><strong>نوع برنامه</strong></span></div>
+<div id="wb_page1Text2" style="position:absolute;left:347px;top:19px;width:110px;height:19px;text-align:right;z-index:12;">
+<span style="color:#000000;font-family:Arial;font-size:16px;"><strong>نام نمایش یا گروه&nbsp; </strong></span></div>
+</form>
+</div>
+</body>
+</html>{% endblock %}

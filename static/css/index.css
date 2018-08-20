@@ -1,0 +1,357 @@
+body
+{
+   background-color: #FFFFFF;
+   color: #000000;
+   font-family: Arial;
+   font-weight: normal;
+   font-size: 13px;
+   line-height: 1.1875;
+   margin: 0;
+   padding: 0;
+}
+#indexShape3
+{
+   width: 794px;
+   height: 144px;
+   background-color: #0568CE;
+   background-image: none;
+   border: 3px #003264 solid;
+}
+#Shape1
+{
+   width: 794px;
+   height: 648px;
+   background-color: #50A2E6;
+   background: linear-gradient(to bottom, #50A2E6 0%, #0066CC 100%);
+   border: 3px #003264 solid;
+}
+#indexShape2
+{
+   position: absolute;
+   left: 4px;
+   top: 4px;
+   width: 539px;
+   height: 65px;
+   background-color: transparent;
+   background-image: url(images/index_indexShape2_bkgrnd.png);
+   background-repeat: repeat;
+   background-position: left top;
+   border: 2px #003264 solid;
+   box-shadow: 4px 4px 9px rgba(0,0,0,0.52);
+}
+#indexShape2_text
+{
+   position: absolute;
+   left: 1px;
+   top: 3px;
+   width: 537px;
+   height: 61px;
+   overflow: hidden;
+   text-align: center;
+}
+#Shape2
+{
+   width: 194px;
+   height: 457px;
+   background-color: #0066CC;
+   background-image: none;
+   border: 3px #003264 solid;
+}
+#Shape4
+{
+   width: 522px;
+   height: 581px;
+   background-color: #FFFFFF;
+   background-image: none;
+   border: 3px #003264 solid;
+}
+#NavigationBar2 ul.navbar
+{
+   list-style: none;
+   margin: 0;
+   padding: 0;
+}
+#NavigationBar2 ul.navbar li
+{
+   height: 25px;
+   width: 154px;
+   margin: 0 0 10px 0;
+   vertical-align: bottom;
+}
+#NavigationBar2 ul.navbar li a
+{
+   display: block;
+   position: relative;
+}
+#NavigationBar2 ul.navbar li a img
+{
+   position: absolute;
+   left: 0;
+   z-index: 1;
+   border-width: 0;
+}
+#NavigationBar2 ul.navbar li span
+{
+   display: block;
+   height: 25px;
+   width: 154px;
+   position: absolute;
+   z-index: 2;
+}
+#NavigationBar2 a .hover
+{
+   visibility: hidden;
+}
+#NavigationBar2 a:hover .hover
+{
+   visibility: visible;
+}
+#NavigationBar2 a:hover span
+{
+   visibility: hidden;
+}
+#wb_Text1 
+{
+   background-color: transparent;
+   background-image: none;
+   border: 0px solid #000000;
+   padding: 0;
+   margin: 0;
+   text-align: left;
+}
+#wb_Text1 div
+{
+   text-align: left;
+}
+#indexShape5
+{
+   width: 484px;
+   height: 26px;
+   background-color: transparent;
+   background-image: url(images/index_indexShape5_bkgrnd.png);
+   background-repeat: repeat;
+   background-position: left top;
+   border: 2px #003264 solid;
+}
+#wb_Text7 
+{
+   background-color: transparent;
+   background-image: none;
+   border: 0px solid #000000;
+   padding: 0;
+   margin: 0;
+   text-align: right;
+}
+#wb_Text7 div
+{
+   text-align: right;
+}
+#wb_Text6 
+{
+   background-color: transparent;
+   background-image: none;
+   border: 0px solid #000000;
+   padding: 0;
+   margin: 0;
+   text-align: left;
+}
+#wb_Text6 div
+{
+   text-align: left;
+}
+#Shape5
+{
+   border-width: 0;
+}
+#indexShape4
+{
+   width: 479px;
+   height: 26px;
+   background-color: transparent;
+   background-image: url(images/index_indexShape4_bkgrnd.png);
+   background-repeat: repeat;
+   background-position: left top;
+   border: 2px #003264 solid;
+}
+#wb_Text9 
+{
+   background-color: transparent;
+   background-image: none;
+   border: 0px solid #000000;
+   padding: 0;
+   margin: 0;
+   text-align: left;
+}
+#wb_Text9 div
+{
+   text-align: left;
+}
+#wb_Text10 
+{
+   background-color: transparent;
+   background-image: none;
+   border: 0px solid #000000;
+   padding: 0;
+   margin: 0;
+   text-align: left;
+}
+#wb_Text10 div
+{
+   text-align: left;
+}
+#indexImage1
+{
+   border: 0px solid #000000;
+   padding: 0;
+   margin: 0;
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
+}
+#wb_indexText1 
+{
+   background-color: transparent;
+   background-image: none;
+   border: 0px solid #000000;
+   padding: 0;
+   margin: 0;
+   text-align: right;
+}
+#wb_indexText1 div
+{
+   text-align: right;
+}
+#indexImage2
+{
+   border: 0px solid #000000;
+   padding: 0;
+   margin: 0;
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
+}
+#indexCombobox1
+{
+   border: 1px solid #CCCCCC;
+   border-radius: 4px;
+   background-color: #FFFFFF;
+   background-image: none;
+   color: #000000;
+   font-family: Arial;
+   font-weight: normal;
+   font-size: 13px;
+   padding: 4px 4px 4px 4px;
+   margin: 0;
+   box-sizing: border-box;
+}
+#indexCombobox1:focus
+{
+   border-color: #66AFE9;
+   box-shadow: inset 0px 1px 1px rgba(0,0,0,0.075), 0px 0px 8px rgba(102,175,233,0.60);
+   outline: 0;
+}
+#wb_indexText3 
+{
+   background-color: transparent;
+   background-image: none;
+   border: 0px solid #000000;
+   padding: 0;
+   margin: 0;
+   text-align: right;
+}
+#wb_indexText3 div
+{
+   text-align: right;
+}
+#wb_indexText4 
+{
+   background-color: transparent;
+   background-image: none;
+   border: 0px solid #000000;
+   padding: 0;
+   margin: 0;
+   text-align: right;
+}
+#wb_indexText4 div
+{
+   text-align: right;
+}
+#indexEditbox1
+{
+   border: 1px solid #CCCCCC;
+   border-radius: 4px;
+   background-color: #FFFFFF;
+   background-image: none;
+   color :#000000;
+   font-family: Arial;
+   font-weight: normal;
+   font-size: 13px;
+   line-height: 16px;
+   padding: 4px 4px 4px 4px;
+   margin: 0;
+   text-align: left;
+   vertical-align: middle;
+}
+#indexEditbox1:focus
+{
+   border-color: #66AFE9;
+   box-shadow: inset 0px 1px 1px rgba(0,0,0,0.075), 0px 0px 8px rgba(102,175,233,0.60);
+   outline: 0;
+}
+#indexButton1
+{
+   border: 1px solid #2E6DA4;
+   border-radius: 4px;
+   background-color: #87CEEB;
+   background-image: none;
+   color: #000000;
+   font-family: Arial;
+   font-weight: normal;
+   font-size: 13px;
+   margin: 0;
+}
+#indexButton2
+{
+   border: 1px solid #2E6DA4;
+   border-radius: 4px;
+   background-color: #87CEEB;
+   background-image: none;
+   color: #000000;
+   font-family: Arial;
+   font-weight: normal;
+   font-size: 13px;
+   margin: 0;
+}
+#indexButton3
+{
+   border: 1px solid #2E6DA4;
+   border-radius: 4px;
+   background-color: #EEE8AA;
+   background-image: none;
+   color: #000000;
+   font-family: Arial;
+   font-weight: normal;
+   font-size: 13px;
+   margin: 0;
+}
+.label1{
+   left:200px;top:40px;width:10px;height:10px;line-height:16px;z-index:1;
+}
+
+.label2{
+   left:200px;top:40px;width:10px;height:16px;line-height:16px;z-index:1;
+}
+
+.login{
+   position:absolute;left:20px;top:110px;width:90px;height:25px;z-index:1;
+}
+.error-message {
+  color: #cedb00;
+   font-size: 18px;
+}
+
+.form-group .error-message + input {
+  border-bottom: 2px solid #db4437;
+}
