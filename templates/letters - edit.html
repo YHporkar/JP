@@ -1,6 +1,6 @@
 
-{% extends "layout.html" %}{% block content %}<div id="wb_Form1" style="position:absolute;left:419px;top:239px;width:324px;height:354px;z-index:26;">
-<form name="contact" method="post" action="/letters" id="Form1">
+{% extends "layout - edit.html" %}{% block content %}<div id="wb_Form1" style="position:absolute;left:419px;top:239px;width:324px;height:354px;z-index:26;">
+<form name="contact" method="post" action="/edit_letters" id="Form1">
     {{ form.hidden_tag() }}
     <div id="wb_RadioButton4" style="position:absolute;left:195px;top:58px;width:50px;height:50px;z-index:0;">
         {{ form.result_kind(id="RadioButton4", style="position:absolute;left:0;top:0;") }}</div>

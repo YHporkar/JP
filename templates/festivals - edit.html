@@ -1,7 +1,7 @@
 
-{% extends "layout.html" %}{% block content %}<div id="wb_Form1" style="position:absolute;left:266px;top:238px;width:483px;height:419px;z-index:36;">
+{% extends "layout - edit.html" %}{% block content %}<div id="wb_Form1" style="position:absolute;left:266px;top:238px;width:483px;height:419px;z-index:36;">
 
-<form name="contact" method="post" action="/festivals" id="Form1">
+<form name="contact" method="post" action="/edit_festivals" id="Form1">
     {{ form.hidden_tag() }}
     {{ form.name(id="Editbox3", style="position:absolute;left:233px;top:22px;width:82px;height:17px;z-index:9;") }}
     {{ form.fest_subjects(id="Editbox3", style="position:absolute;left:233px;top:61px;width:82px;height:17px;z-index:8;") }}

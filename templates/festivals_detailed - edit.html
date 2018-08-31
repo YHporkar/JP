@@ -1,6 +1,6 @@
 
-{% extends "layout.html" %}{% block content %}<div id="wb_Form1" style="position:absolute;left:263px;top:219px;width:512px;height:845px;z-index:55;">
-<form name="contact" method="post" action="/festivals_detailed" id="Form1">
+{% extends "layout - edit.html" %}{% block content %}<div id="wb_Form1" style="position:absolute;left:263px;top:219px;width:512px;height:845px;z-index:55;">
+<form name="contact" method="post" action="/edit_festivals_detailed" id="Form1">
     {{ form.hidden_tag() }}
     {{ form.name(id="Editbox3", style="position:absolute;left:324px;top:61px;width:69px;height:17px;z-index:7;") }}
     {{ form.subject(id="Editbox3", style="position:absolute;left:323px;top:93px;width:70px;height:17px;z-index:8;") }}

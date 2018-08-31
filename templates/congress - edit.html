@@ -1,6 +1,6 @@
 
-{% extends "layout.html" %}{% block content %}<div id="wb_Form1" style="position:absolute;left:269px;top:230px;width:483px;height:507px;z-index:42;">
-<form name="contact" method="post" action="/congress" id="Form1">
+{% extends "layout - edit.html" %}{% block content %}<div id="wb_Form1" style="position:absolute;left:269px;top:230px;width:483px;height:507px;z-index:42;">
+<form name="contact" method="post" action="/edit_congress" id="Form1">
     {{ form.hidden_tag() }}
     {{ form.name(id="Editbox3", style="position:absolute;left:233px;top:25px;width:82px;height:17px;z-index:4;") }}
     {{ form.office(id="Combobox2", style="position:absolute;left:229px;top:63px;width:96px;height:28px;z-index:5;") }}

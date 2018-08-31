@@ -1,6 +1,6 @@
 
-{% extends "layout.html" %}{% block content %}<div id="wb_Form1" style="position:absolute;left:266px;top:235px;width:483px;height:419px;z-index:32;">
-<form name="contact" method="post" action="/projects" id="Form1">
+{% extends "layout - edit.html" %}{% block content %}<div id="wb_Form1" style="position:absolute;left:266px;top:235px;width:483px;height:419px;z-index:32;">
+<form name="contact" method="post" action="/edit_projects" id="Form1">
     {{ form.hidden_tag() }}
     {{ form.name(id="Editbox3", style="position:absolute;left:200px;top:28px;width:82px;height:17px;z-index:3;")}}
     {{ form.proj_res_name(id="Editbox3", style="position:absolute;left:199px;top:71px;width:82px;height:17px;z-index:4;")}}

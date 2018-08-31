@@ -1,6 +1,6 @@
 
-{% extends "layout.html" %}{% block content %}<div id="wb_Form1" style="position:absolute;left:278px;top:236px;width:483px;height:373px;z-index:26;">
-<form name="contact" method="post" action="/letters_expert" id="Form1">
+{% extends "layout - edit.html" %}{% block content %}<div id="wb_Form1" style="position:absolute;left:278px;top:236px;width:483px;height:373px;z-index:26;">
+<form name="contact" method="post" action="/edit_letters_expert" id="Form1">
     {{ form.hidden_tag() }}
     {{ form.kar_number(id="Editbox3", style="position:absolute;left:204px;top:24px;width:82px;height:17px;z-index:5;") }}
     {{ form.accepted_number(id="Editbox3", style="position:absolute;left:204px;top:63px;width:82px;height:17px;z-index:4;") }}

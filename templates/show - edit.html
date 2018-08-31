@@ -1,13 +1,13 @@
 
-{% extends "layout.html" %}{% block content %}<div id="wb_Form1" style="position:absolute;left:266px;top:245px;width:483px;height:355px;z-index:42;">
-<form name="contact" method="post" action="/show" id="Form1">
+{% extends "layout - edit.html" %}{% block content %}<div id="wb_Form1" style="position:absolute;left:266px;top:245px;width:483px;height:355px;z-index:42;">
+<form name="contact" method="post" action="/edit_show" id="Form1">
     {{ form.hidden_tag() }}
     {{form.name(id="Editbox3", style="position:absolute;left:232px;top:17px;width:82px;height:17px;z-index:0;")}}
     {{form.author(id="Editbox2", style="position:absolute;left:232px;top:56px;width:82px;height:17px;z-index:1;")}}
     {{form.director(id="Editbox3", style="position:absolute;left:232px;top:93px;width:82px;height:17px;z-index:2;")}}
     {{form.place(id="Editbox3", style="position:absolute;left:232px;top:131px;width:82px;height:17px;z-index:10;")}}
     {{form.salon(id="Combobox1", style="position:absolute;left:233px;top:168px;width:90px;height:28px;z-index:11;")}}
-    {{form.kind(id="Combobox2", style="position:absolute;left:234px;top:207px;width:90px;height:28px;z-index:12;")}}
+    {{form.show_kind(id="Combobox2", style="position:absolute;left:234px;top:207px;width:90px;height:28px;z-index:12;")}}
     {{form.frame(id="Combobox3", style="position:absolute;left:234px;top:246px;width:90px;height:28px;z-index:13;")}}
     {{form.ejra_num(id="Editbox3", style="position:absolute;left:16px;top:17px;width:82px;height:17px;z-index:7;")}}
     {{form.contact_num(id="Editbox3", style="position:absolute;left:16px;top:56px;width:82px;height:17px;z-index:6;")}}

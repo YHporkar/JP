@@ -1,6 +1,6 @@
 
-{% extends "layout.html" %}{% block content %}<div id="wb_Form1" style="position:absolute;left:270px;top:255px;width:483px;height:419px;z-index:26;">
-<form name="contact" method="post" action="/results_review" id="Form1">
+{% extends "layout - edit.html" %}{% block content %}<div id="wb_Form1" style="position:absolute;left:270px;top:255px;width:483px;height:419px;z-index:26;">
+<form name="contact" method="post" action="/edit_results_review" id="Form1">
 
     {{ form.hidden_tag() }}
     {{ form.kar_num(id="Editbox3", style="position:absolute;left:197px;top:73px;width:82px;height:17px;z-index:4;") }}

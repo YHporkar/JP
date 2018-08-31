@@ -356,6 +356,22 @@ body
    background-image: none;
    border: 0px solid #CCCCCC;
 }
+
+a.edaddlink:link{
+   background-color: #3370B7;
+    color: white;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+a.edaddlink:visited{
+   color: white;
+}
+a.edaddlink:hover{
+   background-color: #00BFFF;
+}
+
 .Button1
 {
    border: 1px solid #2E6DA4;
@@ -367,7 +383,6 @@ body
    font-weight: normal;
    font-size: 13px;
    margin: 0;
-   position:absolute;left:559px;top:152px;width:78px;height:21px;z-index:100;
 }
 #wb_Text4
 {

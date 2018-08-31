@@ -31,13 +31,13 @@
 <img src="{{ url_for('static', filename='img/img0052.gif') }}" id="Shape5" alt="" style="width:194px;height:110px;"></div>
 <div id="wb_indexShape4" style="position:absolute;left:271px;top:189px;width:483px;height:30px;z-index:24;">
 <div id="indexShape4"></div></div>
-<div id="wb_Text10" style="position:absolute;left:300px;top:185px;width:283px;height:19px;z-index:25;">
+<div id="wb_Text9" style="position:absolute;left:200px;top:185px;width:283px;height:19px;z-index:25;">
     {% if message %}
         <p class="error-message">{{ message }}</p>
     {% endif %}
 </div>
 <div id="wb_Text10" style="position:absolute;left:500px;top:195px;width:283px;height:19px;z-index:25;">
-    <span style="color:#000000;font-family:Arial;font-size:16px;">ثبت گزارش {% if main_subject!='' %}<strong> {{ main_subject }}</strong>{% endif %}</span>
+    <span style="color:#000000;font-family:Arial;font-size:16px;">{% if main_subject!='' %} ثبت گزارش <strong> {{ main_subject }}</strong>{% endif %}</span>
 </div>
 <div id="wb_indexImage1" style="position:absolute;left:26px;top:4px;width:198px;height:139px;z-index:26;">
 <img src="{{ url_for('static', filename='img/index.jpg') }}" id="indexImage1" alt=""></div>
@@ -50,9 +50,9 @@
 <div id="page1NavigationBar1" style="position:absolute;left:48px;top:392px;width:154px;height:70px;z-index:30;">
 <form method="post" action="change_AtoE">
     <ul class="navbar">
-            {{ form.hidden_tag() }}
-            {{ form.add_record }}
-            {{ form.edit_record }}
+
+        <li><a class="edaddlink" href="{{ url_for('edit_record') }}">ویرایش گزارش</a></li>
+        <li><a class="edaddlink" href="{{ url_for('add_record') }}">ثبت گزارش</a></li>
     <!--<li><a href="http://"><img alt="" src="{{ url_for('static', filename='img/img0054_over.gif') }}" class="hover"><span><img alt="" src="{{ url_for('static', filename='img/img0054.gif') }}"></span></a></li>-->
     <!--<li><a href="http://"><img alt="" src="{{ url_for('static', filename='img/img0055_over.gif') }}" class="hover"><span><img alt="" src="{{ url_for('static', filename='img/img0055.gif') }}"></span></a></li>-->
     </ul>
@@ -61,7 +61,7 @@
 
 <form name="logout_form" method="POST" action="/add_record" >
     {{ form.hidden_tag() }}
-    {{ form.logout(class="Button1") }}
+    {{ form.logout(class="Button1", style="position:absolute;left:553px;top:152px;width:78px;height:21px;z-index:38;") }}
 </form>
 
 {% block content %}
