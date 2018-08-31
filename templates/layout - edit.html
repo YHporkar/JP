@@ -45,10 +45,9 @@
 <span style="color:#FFFFFF;font-family:Arial;font-size:16px;">مقام معظم رهبری: سازوبرگ اصلی این حرکت عظیم و بزرگ عبارت است از همین عزم راسخ، همین امید، همین کار و تلاش پیگیر، همین برنامه‌ریزی، همین آمادگی و هشیاری</span><span style="color:#000000;font-family:Arial;font-size:16px;">.</span></div>
 <div id="wb_indexText3" style="position:absolute;left:700px;top:155px;width:52px;height:32px;text-align:right;z-index:28;">
 <span style="color:#FFFFFF;font-family:Arial;font-size:13px;"><strong>خوش آمدید</strong></span></div>
-<div id="wb_page1Text1" style="position:absolute;left:590px;top:155px;width:200px;height:16px;text-align:right;z-index:29;">
-<span style="color:#FFFFFF;font-family:Arial;font-size:13px;"><strong> {{this_page}} </strong></span></div>
+<div id="wb_page1Text1" style="position:absolute;left:390px;top:155px;width:300px;height:16px;text-align:right;z-index:29;">
+<span style="color:#FFFFFF;font-family:Arial;font-size:13px;"><strong>{{this_page}}</strong></span></div>
 <div id="page1NavigationBar1" style="position:absolute;left:48px;top:392px;width:154px;height:70px;z-index:30;">
-<form method="post" action="change_AtoE">
     <ul class="navbar">
 
         <li><a class="edaddlink" href="{{ url_for('edit_record') }}">ویرایش گزارش</a></li>
@@ -56,12 +55,11 @@
     <!--<li><a href="http://"><img alt="" src="{{ url_for('static', filename='img/img0054_over.gif') }}" class="hover"><span><img alt="" src="{{ url_for('static', filename='img/img0054.gif') }}"></span></a></li>-->
     <!--<li><a href="http://"><img alt="" src="{{ url_for('static', filename='img/img0055_over.gif') }}" class="hover"><span><img alt="" src="{{ url_for('static', filename='img/img0055.gif') }}"></span></a></li>-->
     </ul>
-    </form>
 </div>
 
 <form name="logout_form" method="POST" action="/edit_record" >
     {{ form.hidden_tag() }}
-    {{ form.logout(class="Button1", style="position:absolute;left:400px;top:151px;width:78px;height:21px;z-index:38;") }}
+    {{ form.logout(class="Button1", style="position:absolute;left:245px;top:151px;width:78px;height:21px;z-index:38;") }}
 </form>
 
 {% block content %}
