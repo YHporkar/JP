@@ -33,11 +33,11 @@ def index(error=None):
                     make_online(form.username.data)
                     session['user'] = form.username.data
                     session['logged_in'] = True
-                    return redirect(url_for('edit_record'))
+                    return redirect(url_for('add_record'))
                 else:
                     error = "رمز عبور اشتباه است"
         return render_template("index.html", form=form, error=error)
-    return redirect(url_for('edit_record'))
+    return redirect(url_for('add_record'))
 
 
 @app.route("/add_record", methods=["POST", "GET"])
