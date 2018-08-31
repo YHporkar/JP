@@ -586,7 +586,7 @@ def select_first_record(code, subject):
             'm_t_e': rec[0][4], 'rec_date_year': rec[0][5], 'rec_date_month': rec[0][6], 'rec_date_day': rec[0][7]}
 
 
-def select_show_record(code, subject):
+def select_record(code, subject):
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
     cursor.execute(''' SELECT * FROM %s WHERE id='%s';''' % (subject, code))
