@@ -20,11 +20,6 @@ class Login(Form):
     login = SubmitField('ورود')
 
 
-# class change_record(Form):
-#     add_record = SubmitField()
-#     edit_record = SubmitField()
-
-
 class adding_record(Form):
     code = StringField(validators=[DataRequired('لطفا کد را وارد کنید')])
     manager_name = StringField(validators=[DataRequired('لطفا نام مدیر را وارد کنید')])
@@ -50,9 +45,45 @@ class adding_record(Form):
     continues = SubmitField('ادامه')
     search = SubmitField('جستجو')
     logout = SubmitField('خروج')
-    # edit_records = SubmitField('ویرایش گزارش')
-    # add_records = SubmitField('ثبت گزارش')
 
+
+class records_first_info_form(Form):
+    code = StringField()
+    manager_name = StringField(render_kw={'readonly': True})
+    m_p_k = StringField(render_kw={'readonly': True})
+    m_s_e = StringField(render_kw={'readonly': True})
+    m_t_e = StringField(render_kw={'readonly': True})
+    rec_date_day = StringField(render_kw={'readonly': True})
+    rec_date_month = StringField(render_kw={'readonly': True})
+    rec_date_year = StringField(render_kw={'readonly': True})
+    subject = StringField(render_kw={'readonly': True})
+    back = SubmitField('بازگشت')
+    continues = SubmitField('ادامه')
+    logout = SubmitField('خروج')
+
+
+class enter_evaluation(Form):
+    code = StringField()
+    name = StringField()
+    time_management = SelectField()
+    people_cooperation = SelectField()
+    hold_displn = SelectField()
+    advertising = SelectField()
+    sharee_time = SelectField()
+    decor_tansb = SelectField()
+    sound_quality = SelectField()
+    light_quality = SelectField()
+    area_adv = SelectField()
+    attr_audience = SelectField()
+    famous_persons = SelectField()
+    office = StringField()
+    subject = StringField()
+    power_points_imp = TextAreaField()
+    tah_able_imp = TextAreaField()
+    description = TextAreaField()
+    trip_summerize = TextAreaField()
+    evaluator_name = StringField()
+    logout = SubmitField('خروج')
 
 class editing_record(Form):
     code = StringField()
@@ -76,6 +107,7 @@ class editing_record(Form):
                                    ('عکس_های_خریداری_شده', 'عکس های خریداری شده'),
                                    ('کارشناسی_آثار_مکتوب', 'کارشناسی آثار مکتوب'),
                                    ('جشنواره_ها_تفصیلی', 'جشنواره ها-تفصیلی'), ('مکتوبات', 'مکتوبات')])
+    evaluated = SelectField(choices=[(1, 'ارزیابی شده'), (0, 'ارزیابی نشده')])
     search = SubmitField('جستجو')
     logout = SubmitField('خروج')
 

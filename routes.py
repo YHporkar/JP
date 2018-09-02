@@ -15,7 +15,7 @@ page_dict = {'نمایش': 'show', 'استودیو': 'studio', 'پروژه_ها'
              'کارکرد_پلاتوها': 'plato', 'محصولات_تجسمی': 'visual_products', 'محصولات_موسیقی': 'music_products',
              'پژوهش': 'research', 'نمایشگاه_ها': 'exhibitions', 'همایش_ها': 'congress',
              'عکس_های_خریداری_شده': 'bought_photos', 'کارشناسی_آثار_مکتوب': 'letters_expert',
-             'جشنواره_ها_تفصیلی': 'festivals_detailed', 'مکتوبات': 'letters', 'کتاب': 'book', 'نشریه': 'journal'}
+             'جشنواره_ها_تفصیلی': 'festivals_detailed', 'کتاب': 'book', 'نشریه': 'journal', 'مکتوبات': 'letters'}
 
 
 @app.route("/")
@@ -33,17 +33,101 @@ def index(error=None):
                     make_online(form.username.data)
                     session['user'] = form.username.data
                     session['logged_in'] = True
+                    if form.username.data == 'مرکز ارزیابی':
+                        return redirect(url_for('evaluation'))
                     return redirect(url_for('add_record'))
                 else:
                     error = "رمز عبور اشتباه است"
         return render_template("index.html", form=form, error=error)
+    elif session['user'] == 'مرکز ارزیابی':
+        return redirect(url_for('evaluation'))
     return redirect(url_for('add_record'))
+
+
+@app.route("/evaluation", methods=["POST", "GET"])
+@app.route("/evaluation/<error>", methods=["POST", "GET"])
+def evaluation(error=None, message=None):
+    if session.get('logged_in'):
+        form = editing_record()
+        subs = page_dict.keys()
+        subs.remove('مکتوبات')
+        evaluated_num = evaluated_num_cal(subs)
+        if request.method == "POST":
+            if form.logout.data:
+                make_offline(session['user'])
+                session['logged_in'] = False
+                session.pop('user', None)
+                return redirect(url_for('index'))
+            elif form.search.data:
+                session['submitted'] = 0
+                session['subject'] = form.subject.data
+                if form.subject.data != 'مکتوبات':
+                    if auth_code(form.code.data, form.subject.data):
+                        session['code'] = form.code.data
+                        if request.method == "POST":
+                            session['first_records'] = {'code': request.form["code"],
+                                                        'manager_name': request.form["manager_name"],
+                                                        'm_s_e': request.form["m_s_e"], 'm_t_e': request.form["m_t_e"],
+                                                        'm_p_k': request.form["m_p_k"],
+                                                        'rec_date_day': request.form["rec_date_day"],
+                                                        'rec_date_month': request.form["rec_date_month"],
+                                                        'rec_date_year': request.form["rec_date_year"],
+                                                        'subject': request.form["subject"]}
+                            return redirect(url_for('records_first_info'))
+                    elif not auth_code(form.code.data, form.subject.data):
+                        error = 'هیچ گزارشی با این کد و موضوع وجود ندارد'
+                    elif form.subject.data == 'مکتوبات':
+                        return redirect(url_for('letters'))
+        return render_template("evaluation - add.html", this_page=session['user'], form=form, error=error,
+                               message=message, evaluated_num=evaluated_num)
+
+    return redirect('index')
+
+
+@app.route("/records_first_info", methods=["POST", "GET"])
+def records_first_info():
+    if session.get('logged_in'):
+        form = records_first_info_form()
+        form.code.data = select_record(session['code'], session['subject'])[0][0]
+        form.manager_name.data = select_record(session['code'], session['subject'])[0][1]
+        form.m_p_k.data = select_record(session['code'], session['subject'])[0][2]
+        form.m_s_e.data = select_record(session['code'], session['subject'])[0][3]
+        form.m_t_e.data = select_record(session['code'], session['subject'])[0][4]
+        form.rec_date_year.data = select_record(session['code'], session['subject'])[0][5]
+        form.rec_date_month.data = select_record(session['code'], session['subject'])[0][6]
+        form.rec_date_day.data = select_record(session['code'], session['subject'])[0][7]
+        form.subject.data = session['subject']
+        if request.method == "POST":
+            if form.logout.data:
+                make_offline(session['user'])
+                session['logged_in'] = False
+                session.pop('user', None)
+                return redirect(url_for('index'))
+            elif form.continues.data:
+                session['submitted'] = 0
+                session['subject'] = form.subject.data
+                if form.subject.data == 'مکتوبات':
+                    return redirect(url_for('letters'))
+                return redirect(url_for('last_evaluation'))
+
+        return render_template("evaluation - first_results.html", this_page=session['user'], form=form)
+    return redirect('index')
+
+
+@app.route("/last_evaluation", methods=["POST", "GET"])
+def last_evaluation():
+    if session.get('logged_in'):
+        form = enter_evaluation()
+        return render_template("evaluation - last_results.html", this_page=session['user'], form=form)
+    return redirect('index')
+
+
 
 
 @app.route("/add_record", methods=["POST", "GET"])
 @app.route("/add_record/<error>", methods=["POST", "GET"])
 def add_record(error=None, message=None):
-    if session.get('logged_in'):
+    if session.get('logged_in') and session['user'] != 'مرکز ارزیابی':
         form = adding_record()
         if request.method == "POST":
             if form.logout.data:
@@ -74,6 +158,8 @@ def add_record(error=None, message=None):
             message = 'گزارش با موفقیت ثبت شد'
             session['added'] = 0
         return render_template("add_record.html", this_page=session['user'], form=form, error=error, message=message)
+    elif session['user'] == 'مرکز ارزیابی':
+        return redirect('evaluation')
     return redirect('index')
 
 
@@ -101,7 +187,7 @@ def edit_record(error=None, message=None):
                         # form.rec_date_year.data = select_record(session['code'], session['subject'])[0][5]
                         # form.rec_date_month.data = select_record(session['code'], session['subject'])[0][6]
                         # form.rec_date_day.data = select_record(session['code'], session['subject'])[0][7]
-                        # session['code'] = form.code.data
+                        session['code'] = form.code.data
                         # return redirect(url_for('edit_record'))
                         if request.method == "POST":
                             session['first_records'] = {'code': request.form["code"], 'manager_name': request.form["manager_name"],
@@ -122,6 +208,8 @@ def edit_record(error=None, message=None):
             message = 'تغییرات گزارش با موفقیت ثبت شد'
             session['added'] = 0
         return render_template("add_record - edit.html", this_page=session['user'], form=form, error=error, message=message)
+    elif session['user'] == 'مرکز ارزیابی':
+        return redirect('evaluation')
     return redirect(url_for('index'))
 
 

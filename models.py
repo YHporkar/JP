@@ -485,6 +485,25 @@ def make_database(db_name):
                           valued INTEGER NOT NULL DEFAULT 0
                           );
                           ''')
+    cursor.execute('''CREATE TABLE IF NOT EXISTS ارزیابی (
+                        time_management VARCHAR(200), 
+                        people_cooperation VARCHAR(200), 
+                        hold_displn VARCHAR(200), 
+                        advertising VARCHAR(200), 
+                        sharee_time VARCHAR(200), 
+                        decor_tansb VARCHAR(200), 
+                        sound_quality VARCHAR(200), 
+                        light_quality VARCHAR(200), 
+                        area_adv VARCHAR(200), 
+                        attr_audience VARCHAR(200), 
+                        famous_persons VARCHAR(200), 
+                        power_points_imp VARCHAR(200), 
+                        tah_able_imp VARCHAR(200), 
+                        description VARCHAR(200), 
+                        trip_summerize VARCHAR(200), 
+                        evaluator_name VARCHAR(200)
+                      );                  
+                      ''')
     conn.close()
 
 
@@ -554,6 +573,22 @@ def auth_code(code, subject):
     conn.close()
     return len(rec) == 1
 
+
+def evaluated_num_cal(subjects):
+    conn = sqlite3.connect(db_name)
+    cursor = conn.cursor()
+    i = 0
+    for subject in subjects:
+        cursor.execute("SELECT count(valued) FROM %s WHERE valued=0" % subject)
+        i += cursor.fetchall()[0][0]
+    return i
+
+
+def evaluated(code, subject):
+    conn = sqlite3.connect(db_name)
+    cursor = conn.cursor()
+    cursor.execute("SELECT valued FROM %s WHERE id = '%s';" % (subject, code))
+    return cursor.fetchall()[0][0]
 
 def first_record(first_records, edit_mode):
     conn = sqlite3.connect(db_name)

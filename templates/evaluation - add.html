@@ -1,0 +1,49 @@
+{% extends "layout - eval.html" %}
+
+{% block content %}
+
+<div id="wb_Form1" style="position:absolute;left:270px;top:233px;width:483px;height:355px;z-index:36;">
+<form name="edit_record_form" method="post" action="/evaluation" id="Form1">
+    {{ form.hidden_tag() }}
+    {% if error %}
+        <div style="position:absolute;left:210px;top:25px;width:200px;height:17px;z-index:1;"><p class="error-message">{{ error }}</p></div>
+    {% endif %}
+    {{ form.code(id="Editbox3", style="position:absolute;left:205px;top:57px;width:82px;height:17px;z-index:1;") }}
+    {{ form.manager_name(id="Editbox3") }}
+    {{ form.m_p_k(id="Editbox4") }}
+    {{ form.m_s_e(id="Editbox5") }}
+    {{ form.m_t_e(id="Editbox6") }}
+    {{ form.rec_date_day(id="Combobox1") }}
+    {{ form.rec_date_month(id="Combobox2") }}
+    {{ form.rec_date_year(id="Combobox3") }}
+    {{ form.subject(id="Combobox4") }}
+    <!--{{ form.evaluated(id="Combobox4", style="absolute;left:36px;top:200px;width:90px;height:28px;z-index:7") }}-->
+    {{ form.search(id="Button1", style="position:absolute;left:93px;top:280px;width:96px;height:25px;z-index:0;") }}
+
+    <div id="wb_Text4" style="position:absolute;left:389px;top:61px;width:52px;height:19px;text-align:right;z-index:10;">
+        <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>کد</strong></span></div>
+    <div id="wb_Text5" style="position:absolute;left:389px;top:100px;width:52px;height:19px;text-align:right;z-index:11;">
+        <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>نام مدیر</strong></span></div>
+    <div id="wb_Text7" style="position:absolute;left:331px;top:137px;width:111px;height:19px;text-align:right;z-index:12;">
+        <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>مسئول پیگیری کننده</strong></span></div>
+    <div id="wb_Text8" style="position:absolute;left:331px;top:175px;width:111px;height:19px;text-align:right;z-index:13;">
+        <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>مسئول ثبت اطلاعات</strong></span></div>
+    <div id="wb_Text9" style="position:absolute;left:297px;top:215px;width:145px;height:19px;text-align:right;z-index:14;">
+        <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>مسئول تأیید کننده اطلاعات</strong></span></div>
+    <div id="wb_Text3" style="position:absolute;left:137px;top:100px;width:52px;height:19px;text-align:right;z-index:15;">
+        <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>ماه</strong></span></div>
+    <div id="wb_Text11" style="position:absolute;left:137px;top:61px;width:52px;height:19px;text-align:right;z-index:16;">
+        <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>سال</strong></span></div>
+    <div id="wb_Text12" style="position:absolute;left:137px;top:137px;width:52px;height:19px;text-align:right;z-index:17;">
+        <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>روز</strong></span></div>
+    <div id="wb_Text13" style="position:absolute;left:137px;top:175px;width:52px;height:19px;text-align:right;z-index:18;">
+        <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>موضوع</strong></span></div>
+    <!--<div id="wb_Text14" style="position:absolute;left:137px;top:210px;width:52px;height:19px;text-align:right;z-index:18;">
+<span style="color:#000000;font-family:Arial;font-size:16px;"><strong>وضعیت</strong></span></div>-->
+    <div id="wb_Text6" style="position:absolute;left:306px;top:250px;width:173px;height:19px;text-align:right;z-index:21;">
+    <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>تعداد گزارش های ارزیابی نشده </strong></span></div>
+    <div id="wb_Text2" style="position:absolute;left:115px;top:250px;width:173px;height:19px;text-align:right;z-index:22;">
+    <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>{{ evaluated_num }}</strong></span></div>
+</form>
+</div>
+{% endblock %}
