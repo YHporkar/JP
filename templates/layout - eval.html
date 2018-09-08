@@ -47,20 +47,10 @@
 <span style="color:#FFFFFF;font-family:Arial;font-size:13px;"><strong>خوش آمدید</strong></span></div>
 <div id="wb_page1Text1" style="position:absolute;left:390px;top:155px;width:300px;height:16px;text-align:right;z-index:29;">
 <span style="color:#FFFFFF;font-family:Arial;font-size:13px;"><strong>{{this_page}}</strong></span></div>
-<!--<div id="page1NavigationBar1" style="position:absolute;left:48px;top:392px;width:154px;height:70px;z-index:30;">
-    <ul class="navbar">
 
-        <li><a class="edaddlink" href="{{ url_for('edit_record') }}">ویرایش گزارش</a></li>
-        <li><a class="edaddlink" href="{{ url_for('add_record') }}">ثبت گزارش</a></li>
-    &lt;!&ndash;<li><a href="http://"><img alt="" src="{{ url_for('static', filename='img/img0054_over.gif') }}" class="hover"><span><img alt="" src="{{ url_for('static', filename='img/img0054.gif') }}"></span></a></li>&ndash;&gt;
-    &lt;!&ndash;<li><a href="http://"><img alt="" src="{{ url_for('static', filename='img/img0055_over.gif') }}" class="hover"><span><img alt="" src="{{ url_for('static', filename='img/img0055.gif') }}"></span></a></li>&ndash;&gt;
-    </ul>
-</div>-->
 
-<form name="logout_form" method="POST" action="/evaluation" >
-    {{ form.hidden_tag() }}
-    {{ form.logout(class="Button1", style="position:absolute;left:245px;top:151px;width:78px;height:21px;z-index:38;") }}
-</form>
+<a href="{{ url_for('logout') }}" class="logoutlink", style="position:absolute;left:245px;top:150px;width:50px;z-index:38;">خروج</a>
+
 
 {% block content %}
 {% endblock %}

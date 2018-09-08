@@ -51,18 +51,15 @@
 <form method="post" action="change_AtoE">
     <ul class="navbar">
 
-        <li><a class="edaddlink" href="{{ url_for('edit_record') }}">ویرایش گزارش</a></li>
-        <li><a class="edaddlink" href="{{ url_for('add_record') }}">ثبت گزارش</a></li>
+        <li><a class="edaddlink" href="{{ url_for('edit_search_record') }}">ویرایش گزارش</a></li>
+        <li><a class="edaddlink" href="{{ url_for('first_add_record') }}">ثبت گزارش</a></li>
     <!--<li><a href="http://"><img alt="" src="{{ url_for('static', filename='img/img0054_over.gif') }}" class="hover"><span><img alt="" src="{{ url_for('static', filename='img/img0054.gif') }}"></span></a></li>-->
     <!--<li><a href="http://"><img alt="" src="{{ url_for('static', filename='img/img0055_over.gif') }}" class="hover"><span><img alt="" src="{{ url_for('static', filename='img/img0055.gif') }}"></span></a></li>-->
     </ul>
     </form>
 </div>
 
-<form name="logout_form" method="POST" action="/add_record" >
-    {{ form.hidden_tag() }}
-    {{ form.logout(class="Button1", style="position:absolute;left:245px;top:151px;width:78px;height:21px;z-index:38;") }}
-</form>
+<a href="{{ url_for('logout') }}" class="logoutlink", style="position:absolute;left:245px;top:150px;width:50px;z-index:38;">خروج</a>
 
 {% block content %}
 {% endblock %}

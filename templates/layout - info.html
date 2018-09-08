@@ -59,10 +59,7 @@
     </form>
 </div>
 
-<form name="logout_form" method="POST" action="/add_record" >
-    {{ form.hidden_tag() }}
-    {{ form.logout(class="Button1") }}
-</form>
+<a href="{{ url_for('logout') }}" class="logoutlink", style="position:absolute;left:245px;top:150px;width:50px;z-index:38;">خروج</a>
 
 {% block content %}
 {% endblock %}

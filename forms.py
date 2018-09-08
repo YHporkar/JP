@@ -26,9 +26,9 @@ class adding_record(Form):
     m_p_k = StringField(validators=[DataRequired('لطفا نام مسئول پیگیری کننده را وارد کنید')])
     m_s_e = StringField(validators=[DataRequired('لطفا کد را وارد کنید')])
     m_t_e = StringField(validators=[DataRequired('لطفا کد را وارد کنید')])
-    rec_date_day = SelectField(choices=[(i, i) for i in range(1385, 1411)])
+    rec_date_year = SelectField(choices=[(i, i) for i in range(1385, 1411)])
     rec_date_month = SelectField(choices=[(i, i) for i in range(1, 13)])
-    rec_date_year = SelectField(choices=[(i, i) for i in range(1, 32)])
+    rec_date_day = SelectField(choices=[(i, i) for i in range(1, 32)])
     subject = SelectField(choices=[('نمایش', 'نمایش'), ('استودیو', 'استودیو'), ('پروژه_ها', 'پروژه ها'),
                                    ('پروژه_های_عکاسی', 'پروژه های عکاسی'), ('جشنواره_ها', 'جشنواره ها'),
                                    ('کارشناسی_رمان', 'کارشناسی رمان'),
@@ -47,15 +47,15 @@ class adding_record(Form):
     logout = SubmitField('خروج')
 
 
-class records_first_info_form(Form):
+class records_first_info_eval(Form):
     code = StringField()
     manager_name = StringField(render_kw={'readonly': True})
     m_p_k = StringField(render_kw={'readonly': True})
     m_s_e = StringField(render_kw={'readonly': True})
     m_t_e = StringField(render_kw={'readonly': True})
-    rec_date_day = StringField(render_kw={'readonly': True})
-    rec_date_month = StringField(render_kw={'readonly': True})
     rec_date_year = StringField(render_kw={'readonly': True})
+    rec_date_month = StringField(render_kw={'readonly': True})
+    rec_date_day = StringField(render_kw={'readonly': True})
     subject = StringField(render_kw={'readonly': True})
     back = SubmitField('بازگشت')
     continues = SubmitField('ادامه')
@@ -85,15 +85,26 @@ class enter_evaluation(Form):
     evaluator_name = StringField()
     logout = SubmitField('خروج')
 
+
 class editing_record(Form):
-    code = StringField()
-    manager_name = StringField()
-    m_p_k = StringField()
-    m_s_e = StringField()
-    m_t_e = StringField()
-    rec_date_day = SelectField(choices=[(i, i) for i in range(1385, 1411)])
-    rec_date_month = SelectField(choices=[(i, i) for i in range(1, 13)])
-    rec_date_year = SelectField(choices=[(i, i) for i in range(1, 32)])
+    subject = SelectField(choices=[('نمایش', 'نمایش'), ('استودیو', 'استودیو'), ('پروژه_ها', 'پروژه ها'),
+                                   ('پروژه_های_عکاسی', 'پروژه های عکاسی'), ('جشنواره_ها', 'جشنواره ها'),
+                                   ('کارشناسی_رمان', 'کارشناسی رمان'),
+                                   ('جلسات_و_کارگاه_ها', 'جلسات و کارگاه ها'), ('چند_رسانه_ای', 'چند رسانه ای'),
+                                   ('کتابخانه_انقلاب', 'کتابخانه انقلاب'),
+                                   ('کتابخانه_جنگ', 'کتابخانه جنگ'), ('بازبینی_آثار', 'بازبینی آثار'),
+                                   ('کارشناسی_شعر', 'کارشناسی شعر'),
+                                   ('کارکرد_پلاتوها', 'کارکرد پلاتوها'), ('محصولات_تجسمی', 'محصولات تجسمی'),
+                                   ('محصولات_موسیقی', 'محصولات موسیقی'),
+                                   ('پژوهش', 'پژوهش'), ('نمایشگاه_ها', 'نمایشگاه ها'), ('همایش_ها', 'همایش ها'),
+                                   ('عکس_های_خریداری_شده', 'عکس های خریداری شده'),
+                                   ('کارشناسی_آثار_مکتوب', 'کارشناسی آثار مکتوب'),
+                                   ('جشنواره_ها_تفصیلی', 'جشنواره ها-تفصیلی'), ('مکتوبات', 'مکتوبات')])
+    search = SubmitField('جستجو')
+    logout = SubmitField('خروج')
+
+
+class eval_record(Form):
     subject = SelectField(choices=[('نمایش', 'نمایش'), ('استودیو', 'استودیو'), ('پروژه_ها', 'پروژه ها'),
                                    ('پروژه_های_عکاسی', 'پروژه های عکاسی'), ('جشنواره_ها', 'جشنواره ها'),
                                    ('کارشناسی_رمان', 'کارشناسی رمان'),
@@ -110,6 +121,38 @@ class editing_record(Form):
     evaluated = SelectField(choices=[(1, 'ارزیابی شده'), (0, 'ارزیابی نشده')])
     search = SubmitField('جستجو')
     logout = SubmitField('خروج')
+
+
+class editing_first_record(Form):
+    code = StringField(render_kw={'readonly': True})
+    manager_name = StringField()
+    m_p_k = StringField()
+    m_s_e = StringField()
+    m_t_e = StringField()
+    # rec_date_year = SelectField(choices=[(i, i) for i in range(1385, 1411)])
+    # rec_date_month = SelectField(choices=[(i, i) for i in range(1, 13)])
+    # rec_date_day = SelectField(choices=[(i, i) for i in range(1, 32)])
+    rec_date_year = StringField()
+    rec_date_month = StringField()
+    rec_date_day = StringField()
+    subject = SelectField(choices=[('نمایش', 'نمایش'), ('استودیو', 'استودیو'), ('پروژه_ها', 'پروژه ها'),
+                                   ('پروژه_های_عکاسی', 'پروژه های عکاسی'), ('جشنواره_ها', 'جشنواره ها'),
+                                   ('کارشناسی_رمان', 'کارشناسی رمان'),
+                                   ('جلسات_و_کارگاه_ها', 'جلسات و کارگاه ها'), ('چند_رسانه_ای', 'چند رسانه ای'),
+                                   ('کتابخانه_انقلاب', 'کتابخانه انقلاب'),
+                                   ('کتابخانه_جنگ', 'کتابخانه جنگ'), ('بازبینی_آثار', 'بازبینی آثار'),
+                                   ('کارشناسی_شعر', 'کارشناسی شعر'),
+                                   ('کارکرد_پلاتوها', 'کارکرد پلاتوها'), ('محصولات_تجسمی', 'محصولات تجسمی'),
+                                   ('محصولات_موسیقی', 'محصولات موسیقی'),
+                                   ('پژوهش', 'پژوهش'), ('نمایشگاه_ها', 'نمایشگاه ها'), ('همایش_ها', 'همایش ها'),
+                                   ('عکس_های_خریداری_شده', 'عکس های خریداری شده'),
+                                   ('کارشناسی_آثار_مکتوب', 'کارشناسی آثار مکتوب'),
+                                   ('جشنواره_ها_تفصیلی', 'جشنواره ها-تفصیلی'), ('مکتوبات', 'مکتوبات')])
+    evaluated = SelectField(choices=[(1, 'ارزیابی شده'), (0, 'ارزیابی نشده')])
+    continues = SubmitField('ادامه')
+    logout = SubmitField('خروج')
+
+
 
 
 class show_form(Form):

@@ -590,6 +590,7 @@ def evaluated(code, subject):
     cursor.execute("SELECT valued FROM %s WHERE id = '%s';" % (subject, code))
     return cursor.fetchall()[0][0]
 
+
 def first_record(first_records, edit_mode):
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
@@ -600,13 +601,13 @@ def first_record(first_records, edit_mode):
                           first_records['m_p_k'], first_records['m_s_e'], first_records['m_t_e'],
                           first_records['rec_date_year'], first_records['rec_date_month'], first_records['rec_date_day']))
     elif edit_mode:
-        cursor.execute("UPDATE %s SET id = '%s', manager = '%s', m_p_k = '%s'"
+        cursor.execute("UPDATE %s SET manager = '%s', m_p_k = '%s'"
                        ", m_s_e = '%s', m_t_e = '%s', rec_date_year = '%s', rec_date_month = '%s',"
-                       " rec_date_day = '%s';"
-                       % (first_records['subject'], first_records['code'], first_records['manager_name'],
+                       " rec_date_day = '%s' WHERE id= '%s';"
+                       % (first_records['subject'], first_records['manager_name'],
                           first_records['m_p_k'], first_records['m_s_e'], first_records['m_t_e'],
                           first_records['rec_date_year'], first_records['rec_date_month'],
-                          first_records['rec_date_day']))
+                          first_records['rec_date_day'], first_records['code']))
     conn.commit()
     conn.close()
 
@@ -625,6 +626,14 @@ def select_record(code, subject):
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
     cursor.execute(''' SELECT * FROM %s WHERE id='%s';''' % (subject, code))
+    rec = cursor.fetchall()
+    return rec
+
+
+def select_rec_by_subject(subject):
+    conn = sqlite3.connect(db_name)
+    cursor = conn.cursor()
+    cursor.execute(''' SELECT * FROM %s;''' % subject)
     rec = cursor.fetchall()
     return rec
 

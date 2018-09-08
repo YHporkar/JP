@@ -1,3 +1,6 @@
+{% extends "layout - eval.html" %}
+
+{% block content %}
 
 <table style="position:absolute;left:263px;top:237px;width:494px;height:58px;z-index:19;" id="نتایج_جست_و_جوTable1">
 <tr>
@@ -9,24 +12,17 @@
 <td class="cell1"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"> نام</span></td>
 <td class="cell1"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"> کد</span></td>
 </tr>
+{% for res in search_results %}
 <tr>
-<td class="cell2">&nbsp;</td>
-<td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"> </span></td>
-<td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"> </span></td>
-<td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"> </span></td>
-<td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"> </span></td>
-<td class="cell3"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"> </span></td>
-<td class="cell3"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"> </span></td>
+<td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ res[0] }} </span></td>
+<td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ res[1] }} </span></td>
+<td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ res[2] }} </span></td>
+<td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ res[3] }} </span></td>
+<td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ res[4] }} </span></td>
+<td class="cell3"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ res[0] }} </span></td>
+<td class="cell3"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ res[0] }} </span></td>
 </tr>
-<tr>
-<td class="cell2">&nbsp;</td>
-<td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"> </span></td>
-<td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"> </span></td>
-<td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"> </span></td>
-<td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"> </span></td>
-<td class="cell3"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"> </span></td>
-<td class="cell3"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"> </span></td>
-</tr>
+{% endfor %}
 </table>
 <input type="submit" id="page1Button1" name="بازگشت" value="بازگشت" style="position:absolute;left:352px;top:488px;width:96px;height:25px;z-index:20;">
 </body>
