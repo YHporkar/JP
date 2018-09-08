@@ -3,7 +3,7 @@
 {% block content %}
 
 <div id="wb_Form1" style="position:absolute;left:270px;top:233px;width:483px;height:355px;z-index:36;">
-<form name="edit_record_form" method="post" action="/records_first_info" id="Form1">
+<form name="edit_record_form" method="post" action="{{ url_for('eval_first_record', code='None' ) }}" id="Form1">
     {{ form.hidden_tag() }}
     {% if error %}
         <div style="position:absolute;left:210px;top:25px;width:200px;height:17px;z-index:1;"><p class="error-message">{{ error }}</p></div>
@@ -13,13 +13,13 @@
     {{ form.m_p_k(id="Editbox4") }}
     {{ form.m_s_e(id="Editbox5") }}
     {{ form.m_t_e(id="Editbox6") }}
-    {{ form.rec_date_day(id="Combobox1") }}
-    {{ form.rec_date_month(id="Combobox2") }}
-    {{ form.rec_date_year(id="Combobox3") }}
-    {{ form.subject(id="Combobox4") }}
+    {{ form.rec_date_day(id="Combobox1", style="position:absolute;left:36px;top:130px;width:90px;height:28px;z-index:2;") }}
+    {{ form.rec_date_month(id="Combobox2", style="position:absolute;left:36px;top:95px;width:90px;height:28px;z-index:4;") }}
+    {{ form.rec_date_year(id="Combobox3", style="position:absolute;left:36px;top:60px;width:90px;height:28px;z-index:5;") }}
+    {{ form.subject(id="Combobox4", style="position:absolute;left:36px;top:170px;width:90px;height:28px;z-index:6;") }}
 
-    {{form.back(id="Button3", style="position:absolute;left:200px;top:280px;width:90px;height:25px;z-index:21;")}}
     {{ form.continues(id="Button1", style="position:absolute;left:93px;top:280px;width:96px;height:25px;z-index:0;") }}
+    {{form.back(id="Button3", style="position:absolute;left:200px;top:280px;width:90px;height:25px;z-index:21;")}}
 
     <div id="wb_Text4" style="position:absolute;left:389px;top:61px;width:52px;height:19px;text-align:right;z-index:10;">
         <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>کد</strong></span></div>

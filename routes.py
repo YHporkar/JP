@@ -47,69 +47,84 @@ def index(error=None):
 @app.route("/evaluation", methods=["POST", "GET"])
 @app.route("/evaluation/<error>", methods=["POST", "GET"])
 def evaluation(error=None, message=None):
-    if session.get('logged_in'):
+    if session.get('logged_in') and session['user'] == 'مرکز ارزیابی':
         form = eval_record()
         subs = page_dict.keys()
         subs.remove('مکتوبات')
         evaluated_num = evaluated_num_cal(subs)
         if request.method == "POST":
-
             if form.search.data:
-                session['submitted'] = 0
                 session['subject'] = form.subject.data
                 if form.subject.data != 'مکتوبات':
-                    if auth_code(form.code.data, form.subject.data):
-                        session['code'] = form.code.data
-                        if request.method == "POST":
-                            session['first_records'] = {'code': request.form["code"],
-                                                        'manager_name': request.form["manager_name"],
-                                                        'm_s_e': request.form["m_s_e"], 'm_t_e': request.form["m_t_e"],
-                                                        'm_p_k': request.form["m_p_k"],
-                                                        'rec_date_day': request.form["rec_date_day"],
-                                                        'rec_date_month': request.form["rec_date_month"],
-                                                        'rec_date_year': request.form["rec_date_year"],
-                                                        'subject': request.form["subject"]}
-                            return redirect(url_for('records_first_info'))
-                    elif not auth_code(form.code.data, form.subject.data):
-                        error = 'هیچ گزارشی با این کد و موضوع وجود ندارد'
-                    elif form.subject.data == 'مکتوبات':
-                        return redirect(url_for('letters'))
+                    session['search_results'] = select_rec_by_subject_eval(form.subject.data, form.evaluated.data)
+                    return redirect(url_for('eval_search_results'))
+                elif form.subject.data == 'مکتوبات':
+                    return redirect(url_for('letters'))
         return render_template("evaluation - add.html", this_page=session['user'], form=form, error=error,
                                message=message, evaluated_num=evaluated_num)
-
+    elif not session['user'] == 'مرکز ارزیابی':
+        return redirect('first_add_record')
     return redirect('index')
 
 
-@app.route("/records_first_info", methods=["POST", "GET"])
-def records_first_info():
+# search results for choose what to edit
+@app.route('/eval_search_results', methods=["POST", "GET"])
+def eval_search_results():
     if session.get('logged_in'):
-        form = records_first_info_eval()
-        form.code.data = select_record(session['code'], session['subject'])[0][0]
-        form.manager_name.data = select_record(session['code'], session['subject'])[0][1]
-        form.m_p_k.data = select_record(session['code'], session['subject'])[0][2]
-        form.m_s_e.data = select_record(session['code'], session['subject'])[0][3]
-        form.m_t_e.data = select_record(session['code'], session['subject'])[0][4]
-        form.rec_date_year.data = select_record(session['code'], session['subject'])[0][5]
-        form.rec_date_month.data = select_record(session['code'], session['subject'])[0][6]
-        form.rec_date_day.data = select_record(session['code'], session['subject'])[0][7]
-        form.subject.data = session['subject']
-        if request.method == "POST":
+        session['first_search'] = 1
+        return render_template("eval_search_results.html", main_subject=session.get('subject'),
+                               this_page=session['user'], search_results=session['search_results'])
+    return redirect('index')
 
+
+@app.route('/eval_first_record/<code>', methods=["POST", "GET"])
+@app.route('/eval_first_record', methods=["POST", "GET"])
+def eval_first_record(code):
+    if session.get('logged_in') and session['user'] == 'مرکز ارزیابی':
+        form = eval_first_records()
+        if session['first_search']:
+            session['code'] = code
+            form.code.data = code
+            form.manager_name.data = select_record(code, session['subject'])[0][1]
+            form.m_p_k.data = select_record(code, session['subject'])[0][2]
+            form.m_s_e.data = select_record(code, session['subject'])[0][3]
+            form.m_t_e.data = select_record(code, session['subject'])[0][4]
+            form.rec_date_year.data = select_record(code, session['subject'])[0][5]
+            form.rec_date_month.data = select_record(code, session['subject'])[0][6]
+            form.rec_date_day.data = select_record(code, session['subject'])[0][7]
+            form.subject.data = session['subject']
+            session['first_search'] = 0
+        if request.method == "POST" and not session['first_search']:
             if form.continues.data:
-                session['submitted'] = 0
-                session['subject'] = form.subject.data
-                if form.subject.data == 'مکتوبات':
-                    return redirect(url_for('letters'))
-                return redirect(url_for('last_evaluation'))
+                return redirect('last_evaluation')
+                # if request.form['subject'] != 'مکتوبات':
+                #     for i in range(page_dict.keys().__len__()):
+                #         if page_dict.keys()[i] == request.form['subject']:
+                #             session['first_search'] = 1
+                #             return redirect(url_for('edit_' + page_dict.values()[i]))
+                # elif request.form['subject'] == 'مکتوبات':
+                #     return redirect(url_for('letters'))
 
         return render_template("evaluation - first_results.html", this_page=session['user'], form=form)
+    elif not session['user'] == 'مرکز ارزیابی':
+        return redirect('first_add_record')
     return redirect('index')
 
 
 @app.route("/last_evaluation", methods=["POST", "GET"])
 def last_evaluation():
-    if session.get('logged_in'):
+    if session.get('logged_in') and session['user'] == 'مرکز ارزیابی':
         form = enter_evaluation()
+        form.code.data = session['code']
+        form.subject.data = session['subject']
+        if request.method == "POST":
+            add_eval(form.time_management.data, form.people_cooperation.data, form.hold_displn.data,
+                     form.advertising.data, form.sharee_time.data, form.decor_tansb.data, form.sound_quality.data,
+                     form.light_quality.data, form.area_adv.data, form.attr_audience.data, form.famous_persons.data,
+                     form.power_points_imp.data, form.tah_able_imp.data, form.description.data, form.trip_summerize.data,
+                     form.evaluator_name.data)
+            set_evaluated(session['code'], session['subject'])
+            return redirect('evaluation')
         return render_template("evaluation - last_results.html", this_page=session['user'], form=form)
     return redirect('index')
 
@@ -596,6 +611,7 @@ def edit_search_record(error=None, message=None):
                                message=message)
     elif session['user'] == 'مرکز ارزیابی':
         return redirect('evaluation')
+    return redirect('index')
 
 
 # search results for choose what to edit
@@ -603,7 +619,7 @@ def edit_search_record(error=None, message=None):
 def edit_search_results():
     if session.get('logged_in'):
         session['first_search'] = 1
-        return render_template("search_results.html", main_subject=session.get('subject'),
+        return render_template("edit_search_results.html", main_subject=session.get('subject'),
                                this_page=session['user'], search_results=session['search_results'])
 
 

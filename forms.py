@@ -47,8 +47,8 @@ class adding_record(Form):
     logout = SubmitField('خروج')
 
 
-class records_first_info_eval(Form):
-    code = StringField()
+class eval_first_records(Form):
+    code = StringField(render_kw={'readonly': True})
     manager_name = StringField(render_kw={'readonly': True})
     m_p_k = StringField(render_kw={'readonly': True})
     m_s_e = StringField(render_kw={'readonly': True})
@@ -63,27 +63,39 @@ class records_first_info_eval(Form):
 
 
 class enter_evaluation(Form):
-    code = StringField()
-    name = StringField()
-    time_management = SelectField()
-    people_cooperation = SelectField()
-    hold_displn = SelectField()
-    advertising = SelectField()
-    sharee_time = SelectField()
-    decor_tansb = SelectField()
-    sound_quality = SelectField()
-    light_quality = SelectField()
-    area_adv = SelectField()
-    attr_audience = SelectField()
-    famous_persons = SelectField()
-    office = StringField()
-    subject = StringField()
+    code = StringField(render_kw={'readonly': True})
+    name = StringField(render_kw={'readonly': True})
+    time_management = SelectField(choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
+                                           ('موضوعیتی_ندارد', 'موضوعیتی ندارد')])
+    people_cooperation = SelectField(choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
+                                              ('موضوعیتی_ندارد', 'موضوعیتی ندارد')])
+    hold_displn = SelectField(choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
+                                       ('موضوعیتی_ندارد', 'موضوعیتی ندارد')])
+    advertising = SelectField(choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
+                                       ('موضوعیتی_ندارد', 'موضوعیتی ندارد')])
+    sharee_time = SelectField(choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
+                                       ('موضوعیتی_ندارد', 'موضوعیتی ندارد')])
+    decor_tansb = SelectField(choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
+                                       ('موضوعیتی_ندارد', 'موضوعیتی ندارد')])
+    sound_quality = SelectField(choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
+                                         ('موضوعیتی_ندارد', 'موضوعیتی ندارد')])
+    light_quality = SelectField(choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
+                                         ('موضوعیتی_ندارد', 'موضوعیتی ندارد')])
+    area_adv = SelectField(choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
+                                   ('موضوعیتی_ندارد', 'موضوعیتی ندارد')])
+    attr_audience = SelectField(choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
+                                         ('موضوعیتی_ندارد', 'موضوعیتی ندارد')])
+    famous_persons = SelectField(choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
+                                          ('موضوعیتی_ندارد', 'موضوعیتی ندارد')])
+    office = StringField(render_kw={'readonly': True})
+    subject = StringField(render_kw={'readonly': True})
     power_points_imp = TextAreaField()
     tah_able_imp = TextAreaField()
     description = TextAreaField()
     trip_summerize = TextAreaField()
     evaluator_name = StringField()
-    logout = SubmitField('خروج')
+    add = SubmitField('ثبت')
+    back = SubmitField('بازگشت')
 
 
 class editing_record(Form):
@@ -118,7 +130,7 @@ class eval_record(Form):
                                    ('عکس_های_خریداری_شده', 'عکس های خریداری شده'),
                                    ('کارشناسی_آثار_مکتوب', 'کارشناسی آثار مکتوب'),
                                    ('جشنواره_ها_تفصیلی', 'جشنواره ها-تفصیلی'), ('مکتوبات', 'مکتوبات')])
-    evaluated = SelectField(choices=[(1, 'ارزیابی شده'), (0, 'ارزیابی نشده')])
+    evaluated = SelectField(choices=[(0, 'ارزیابی نشده'), (1, 'ارزیابی شده')], default=0)
     search = SubmitField('جستجو')
     logout = SubmitField('خروج')
 
@@ -151,8 +163,6 @@ class editing_first_record(Form):
     evaluated = SelectField(choices=[(1, 'ارزیابی شده'), (0, 'ارزیابی نشده')])
     continues = SubmitField('ادامه')
     logout = SubmitField('خروج')
-
-
 
 
 class show_form(Form):

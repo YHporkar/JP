@@ -599,7 +599,8 @@ def first_record(first_records, edit_mode):
                        " VALUES ('%s','%s','%s','%s','%s','%s','%s','%s');"
                        % (first_records['subject'], first_records['code'], first_records['manager_name'],
                           first_records['m_p_k'], first_records['m_s_e'], first_records['m_t_e'],
-                          first_records['rec_date_year'], first_records['rec_date_month'], first_records['rec_date_day']))
+                          first_records['rec_date_year'], first_records['rec_date_month'],
+                          first_records['rec_date_day']))
     elif edit_mode:
         cursor.execute("UPDATE %s SET manager = '%s', m_p_k = '%s'"
                        ", m_s_e = '%s', m_t_e = '%s', rec_date_year = '%s', rec_date_month = '%s',"
@@ -638,7 +639,32 @@ def select_rec_by_subject(subject):
     return rec
 
 
-def show_record(edit_mode, first_records, name, author, director, show_place, show_salon, show_kind, show_frame, show_num, contacts_num,
+def select_rec_by_subject_eval(subject, valued):
+    conn = sqlite3.connect(db_name)
+    cursor = conn.cursor()
+    cursor.execute(''' SELECT * FROM %s WHERE valued = '%s';''' % (subject, valued))
+    rec = cursor.fetchall()
+    return rec
+
+
+def add_eval(time_management, people_cooperation, hold_displn, advertising, sharee_time, decor_tansb, sound_quality,
+             light_quality, area_adv, attr_audience, famous_persons, power_points_imp, tah_able_imp, description,
+             trip_summerize, evaluator_name):
+    conn = sqlite3.connect(db_name)
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO ارزیابی"
+                   " VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');" % (
+                       time_management, people_cooperation, hold_displn, advertising, sharee_time, decor_tansb,
+                       sound_quality,
+                       light_quality, area_adv, attr_audience, famous_persons, power_points_imp, tah_able_imp,
+                       description,
+                       trip_summerize, evaluator_name))
+    conn.commit()
+    conn.close()
+
+
+def show_record(edit_mode, first_records, name, author, director, show_place, show_salon, show_kind, show_frame,
+                show_num, contacts_num,
                 contacts_pos, meh_moh):
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
@@ -646,8 +672,9 @@ def show_record(edit_mode, first_records, name, author, director, show_place, sh
     cursor.execute("UPDATE نمایش SET name = '%s', author = '%s', director = '%s',"
                    " show_place = '%s', show_salon = '%s', show_kind = '%s', show_frame = '%s', show_num = '%s',"
                    " contacts_num = '%s', contacts_pos = '%s', meh_moh = '%s'"
-                   "WHERE id = '%s';" % (name, author, director, show_place, show_salon, show_kind, show_frame, show_num,
-                                         contacts_num, contacts_pos, meh_moh, first_records['code']))
+                   "WHERE id = '%s';" % (
+                       name, author, director, show_place, show_salon, show_kind, show_frame, show_num,
+                       contacts_num, contacts_pos, meh_moh, first_records['code']))
 
     conn.commit()
     conn.close()
@@ -673,7 +700,7 @@ def projects_record(edit_mode, first_records, name, proj_res_name, gerd_vaz, ach
     cursor.execute("UPDATE پروژه_ها SET name = '%s', proj_res_name = '%s', gerd_vaz = '%s',"
                    " ach_vaz = '%s', pey_office = '%s', subject_description = '%s'"
                    "WHERE id = '%s';" % (
-                   name, proj_res_name, gerd_vaz, ach_vaz, pey_office, subject_description, first_records['code']))
+                       name, proj_res_name, gerd_vaz, ach_vaz, pey_office, subject_description, first_records['code']))
 
     conn.commit()
     conn.close()
@@ -690,7 +717,8 @@ def photography_projects_record(edit_mode, first_records, name, photo_subject, p
     conn.close()
 
 
-def festivals_record(edit_mode, first_records, name, fest_subjects, level, country, city, salon, referee, amalkard_description):
+def festivals_record(edit_mode, first_records, name, fest_subjects, level, country, city, salon, referee,
+                     amalkard_description):
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
     first_record(first_records, edit_mode)
@@ -704,7 +732,8 @@ def festivals_record(edit_mode, first_records, name, fest_subjects, level, count
     conn.close()
 
 
-def romance_record(edit_mode, first_records, sent_asar_num, seen_asar_num, short_story_num, romance_num, sent_to_mehr_asar_num,
+def romance_record(edit_mode, first_records, sent_asar_num, seen_asar_num, short_story_num, romance_num,
+                   sent_to_mehr_asar_num,
                    sent_to_city_asar_num, printed_num, in_printed_num, rejected_num):
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
@@ -859,7 +888,8 @@ def poem_expert_record(edit_mode, first_records, sent_asar, seen_asar_num, colle
                    " printed_num = '%s',in_printed_num = '%s', rejected_num = '%s', famous_persons = '%s'"
                    "WHERE id = '%s';" % (sent_asar, seen_asar_num, collections_num,
                                          one_asar_num, sent_to_mehr_asar_num, sent_to_city_asar_num,
-                                         printed_num, in_printed_num, rejected_num, famous_persons, first_records['code']))
+                                         printed_num, in_printed_num, rejected_num, famous_persons,
+                                         first_records['code']))
 
     conn.commit()
     conn.close()
@@ -909,7 +939,8 @@ def research_record(edit_mode, first_records, research_name, author, research_su
     first_record(first_records, edit_mode)
     cursor.execute("UPDATE پژوهش SET research_name = '%s', author = '%s', research_subject = '%s',"
                    "outing_place = '%s', meh_moh = '%s'"
-                   "WHERE id = '%s';" % (research_name, author, research_subject, outing_place, meh_moh, first_records['code']))
+                   "WHERE id = '%s';" % (
+                       research_name, author, research_subject, outing_place, meh_moh, first_records['code']))
 
     conn.commit()
     conn.close()
@@ -924,7 +955,7 @@ def exhibitions_record(edit_mode, first_records, name, show_subject, os_city,
                    " city = '%s', contact_num = '%s', meh_moh = '%s', finish_date = '%s',"
                    " description = '%s'"
                    "WHERE id = '%s';" % (name, show_subject, os_city, city, contact_num, meh_moh,
-                                         (finish_date_day+'-'+finish_date_month+'-'+finish_date_year),
+                                         (finish_date_day + '-' + finish_date_month + '-' + finish_date_year),
                                          description, first_records['code']))
 
     conn.commit()
@@ -1033,5 +1064,12 @@ def search_record(first_records):
     conn.close()
     return len(rec) == 1
 
+
+def set_evaluated(code, subject):
+    conn = sqlite3.connect(db_name)
+    cursor = conn.cursor()
+    cursor.execute('''UPDATE %s SET valued = 1 WHERE id = '%s';''' % (subject, code))
+    conn.commit()
+    conn.close()
 
 make_database(db_name)
