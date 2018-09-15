@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
+from tarfile import _data
 
 from flask import Flask, render_template, request, session, redirect, url_for
 from forms import *
+from forms import adding_record
 from models import *
 
 app = Flask(__name__)
@@ -16,6 +18,11 @@ page_dict = {'نمایش': 'show', 'استودیو': 'studio', 'پروژه_ها'
              'پژوهش': 'research', 'نمایشگاه_ها': 'exhibitions', 'همایش_ها': 'congress',
              'عکس_های_خریداری_شده': 'bought_photos', 'کارشناسی_آثار_مکتوب': 'letters_expert',
              'جشنواره_ها_تفصیلی': 'festivals_detailed', 'کتاب': 'book', 'نشریه': 'journal', 'مکتوبات': 'letters'}
+
+units_dict = {'خانه عکاسان': 'a', 'روابط عمومی': 'b', 'مؤسسه سپهر سوره مهر': 'c',
+              'مرکز آفرینش های ادبی': 'd', 'مرکز تجسمی': 'e', 'مرکز ترجمه': 'f', 'مرکز طنز': 'g',
+              'مرکز تحقیقات و مطالعات فرهنگ و ادب پایداری': 'h', 'مرکز معماری': 'i', 'مرکز موسیقی': 'j',
+              'مرکز هنرهای نمایشی': 'k', 'کودک و نوجوان': 'l'}
 
 
 @app.route("/")
@@ -121,7 +128,8 @@ def last_evaluation():
             add_eval(form.time_management.data, form.people_cooperation.data, form.hold_displn.data,
                      form.advertising.data, form.sharee_time.data, form.decor_tansb.data, form.sound_quality.data,
                      form.light_quality.data, form.area_adv.data, form.attr_audience.data, form.famous_persons.data,
-                     form.power_points_imp.data, form.tah_able_imp.data, form.description.data, form.trip_summerize.data,
+                     form.power_points_imp.data, form.tah_able_imp.data, form.description.data,
+                     form.trip_summerize.data,
                      form.evaluator_name.data)
             set_evaluated(session['code'], session['subject'])
             return redirect('evaluation')
@@ -134,26 +142,29 @@ def last_evaluation():
 def first_add_record(error=None, message=None):
     if session.get('logged_in') and session['user'] != 'مرکز ارزیابی':
         form = adding_record()
-        if request.method == "POST":
-            if form.continues.data:
-                session['submitted'] = 0
-                session['subject'] = form.subject.data
-                session['first_records'] = {'code': form.code.data, 'manager_name': form.manager_name.data,
-                                            'm_s_e': form.m_s_e.data, 'm_t_e': form.m_t_e.data,
-                                            'm_p_k': form.m_p_k.data,
-                                            'rec_date_day': form.rec_date_day.data,
-                                            'rec_date_month': form.rec_date_month.data,
-                                            'rec_date_year': form.rec_date_year.data,
-                                            'subject': form.subject.data}
-                if form.subject.data != 'مکتوبات':
-                    if auth_code(form.code.data, form.subject.data):
-                        error = 'این کد قبلا ثبت شده است'
-                    else:
-                        for i in range(page_dict.keys().__len__()):
-                            if page_dict.keys()[i] == form.subject.data:
-                                return redirect(url_for(page_dict.values()[i]))
-                elif form.subject.data == 'مکتوبات':
-                    return redirect(url_for('letters'))
+        if request.method == "POST" and form.continues.data:
+            session['submitted'] = 0
+            session['subject'] = form.subject.data
+            for i in range(units_dict.keys().__len__()):
+                if units_dict.keys()[i] == session['user']:
+                    session['code'] = units_dict.values()[i] + form.code.data
+            session['first_records'] = {'code': session['code'], 'manager_name': form.manager_name.data,
+                                        'm_s_e': form.m_s_e.data, 'm_t_e': form.m_t_e.data,
+                                        'm_p_k': form.m_p_k.data,
+                                        'rec_date_day': form.rec_date_day.data,
+                                        'rec_date_month': form.rec_date_month.data,
+                                        'rec_date_year': form.rec_date_year.data,
+                                        'subject': form.subject.data}
+
+            if not form.subject.data == 'مکتوبات':
+                if auth_code(session['first_records']['code'], form.subject.data):
+                    error = 'این کد قبلا ثبت شده است'
+                else:
+                    for i in range(page_dict.keys().__len__()):
+                        if page_dict.keys()[i] == form.subject.data:
+                            return redirect(url_for(page_dict.values()[i]))
+            elif form.subject.data == 'مکتوبات':
+                return redirect(url_for('letters'))
         if session.get('added'):
             message = 'گزارش با موفقیت ثبت شد'
             session['added'] = 0
@@ -629,22 +640,27 @@ def edit_first_record(code, message=None):
     if session.get('logged_in') and session['user'] != 'مرکز ارزیابی':
         form = editing_first_record()
         if session['first_search']:
-            session['code'] = code
+            for i in range(units_dict.keys().__len__()):
+                if units_dict.keys()[i] == session['user']:
+                    session['code'] = units_dict.values()[i] + form.code.data
             form.code.data = code
-            form.manager_name.data = select_record(code, session['subject'])[0][1]
-            form.m_p_k.data = select_record(code, session['subject'])[0][2]
-            form.m_s_e.data = select_record(code, session['subject'])[0][3]
-            form.m_t_e.data = select_record(code, session['subject'])[0][4]
-            form.rec_date_year.data = select_record(code, session['subject'])[0][5]
-            form.rec_date_month.data = select_record(code, session['subject'])[0][6]
-            form.rec_date_day.data = select_record(code, session['subject'])[0][7]
+            form.manager_name.data = select_record(session['code'], session['subject'])[0][1]
+            form.m_p_k.data = select_record(session['code'], session['subject'])[0][2]
+            form.m_s_e.data = select_record(session['code'], session['subject'])[0][3]
+            form.m_t_e.data = select_record(session['code'], session['subject'])[0][4]
+            form.rec_date_year.data = select_record(session['code'], session['subject'])[0][5]
+            form.rec_date_month.data = select_record(session['code'], session['subject'])[0][6]
+            form.rec_date_day.data = select_record(session['code'], session['subject'])[0][7]
             form.subject.data = session['subject']
             session['first_search'] = 0
         if request.method == "POST" and not session['first_search']:
             if form.continues.data:
+                for i in range(units_dict.keys().__len__()):
+                    if units_dict.keys()[i] == session['user']:
+                        session['code'] = units_dict.values()[i] + request.form['code']
                 session['submitted'] = 0
                 session['first_rec_for_edit'] = {
-                    'code': request.form['code'], 'manager_name': request.form['manager_name'],
+                    'code': session['code'], 'manager_name': request.form['manager_name'],
                     'm_s_e': request.form['m_s_e'], 'm_t_e': request.form['m_t_e'],
                     'm_p_k': request.form['m_p_k'],
                     'rec_date_day': request.form['rec_date_day'],
@@ -1373,6 +1389,103 @@ def edit_journal():
         return render_template("journal - edit.html", form=form, this_page=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('index'))
+
+
+@app.route("/amar_first_page", methods=["POST", "GET"])
+def amar_first_page():
+    if session['logged_in'] and session['user'] == 'مرکز ارزیابی':
+        form = amar_first_form()
+        if request.method == "POST":
+            session['unit'] = form.username.data
+            return redirect(url_for('amar_second_page'))
+        return render_template("Amar_first_page.html", form=form, this_page=session['user'])
+    elif not session['user'] == 'مرکز ارزیابی':
+        return redirect('first_add_record')
+    return redirect('index')
+
+
+@app.route("/amar_second_page", methods=["POST", "GET"])
+def amar_second_page():
+    if session['logged_in'] and session['user'] == 'مرکز ارزیابی':
+        for i in range(units_dict.keys().__len__()):
+            if units_dict.keys()[i] == session['unit']:
+                unit_code = units_dict.values()[i]
+        perf_percent = {}
+        contacts_avgs = {}
+        subs = page_dict.keys()
+        subs.remove('مکتوبات')
+        for subject in subs:
+            if not performance_percent(unit_code, subject) == 0:
+                perf_percent.update({subject: 100*performance_percent(unit_code, subject)/23})
+        for subject in ['نمایش', 'جلسات_و_کارگاه_ها', 'نمایشگاه_ها', 'همایش_ها']:
+            if not select_contacts_num(subject) is None:
+                contacts_avgs.update({subject: int(select_contacts_num(subject))})
+        form = amar_second_form()
+        if request.method == "POST":
+            session['datas_for_search'] = {'subject': form.subject.data, 'year': form.year.data,
+                                           'from_month': form.from_month.data, 'to_month': form.to_month.data}
+            return redirect(url_for('amar_search_results'))
+        return render_template("Amar_second_page.html", form=form, this_page=session['user'],
+                               performance_percents=perf_percent, contacts_avgs=contacts_avgs)
+    elif not session['user'] == 'مرکز ارزیابی':
+        return redirect('first_add_record')
+    return redirect('index')
+
+
+@app.route("/amar_search_results", methods=["POST", "GET"])
+def amar_search_results():
+    if session['logged_in'] and session['user'] == 'مرکز ارزیابی':
+        data_for_search = session['datas_for_search']
+        print select_record_amar(data_for_search['subject'],
+                                 data_for_search['year'],
+                                 data_for_search['from_month'],
+                                 data_for_search['to_month'])
+        if data_for_search['subject'] == 'نمایش':
+            col_search_results = ['نام اثر', 'نویسنده', 'کارگردان', 'سالن اجرا', 'تعداد اجرا']
+        elif data_for_search['subject'] == 'جشنواره_ها':
+            col_search_results = ['نام جشنواره', 'سال', 'ماه', 'روز', 'توضیح و معرفی']
+        elif data_for_search['subject'] == 'جلسات_و_کارگاه_ها':
+            col_search_results = ['عنوان کارگاه', 'موضوع محوری', 'مهمترین دستاوردها']
+        elif data_for_search['subject'] == 'عکس_های_خریداری_شده':
+            col_search_results = ['موضوع مجموعه عکس', 'سال', 'ماه', 'روز', 'تعداد', 'طرف قرارداد']
+        elif data_for_search['subject'] == 'محصولات_تجسمی':
+            col_search_results = ['نام رشته', 'تعداد اثر', 'نام هنرمندان']
+        elif data_for_search['subject'] == 'محصولات_موسیقی':
+            col_search_results = ['نام اثر', 'نام خواننده', 'سال', 'ماه', 'روز']
+        elif data_for_search['subject'] == 'نشریه':
+            col_search_results = ['نام نشریه', 'نام سردبیر', 'قالب', 'تعداد صفحه']
+        elif data_for_search['subject'] == 'نمایشگاه_ها':
+            col_search_results = ['نام نمایشگاه', 'سال', 'ماه', 'روز', 'محور محتوایی', 'توضیحات']
+        elif data_for_search['subject'] == 'همایش_ها':
+            col_search_results = ['عنوان همایش', 'محور محتوایی', 'مهمان های خاص']
+        elif data_for_search['subject'] == 'پروژه_ها':
+            col_search_results = ['نام پروژه', 'مسئول پروژه', 'وضعیت گردآوری', 'وضعیت آماده چاپ', 'وضعیت تدوین']
+        elif data_for_search['subject'] == 'پروژه_های_عکاسی':
+            col_search_results = ['نام پروژه', 'سال', 'ماه', 'روز', 'موضوع', 'هنرمند']
+        elif data_for_search['subject'] == 'چند_رسانه_ای':
+            col_search_results = ['نام محصول', 'مدت زمان محصول']
+        elif data_for_search['subject'] == 'کارشناسی_آثار_مکتوب':
+            col_search_results = ['تعداد آثار کارشناسی شده', 'تعدا آثار تأیید شده', 'اثر پژوهشی', 'نمایشنامه']
+        elif data_for_search['subject'] == 'کارشناسی_رمان':
+            col_search_results = ['تعداد آثار ارسال شده', 'داستان کوتاه', 'رمان', 'تعداد آثار ارسالی به سوره مهر',
+                                  'تعداد آثار ارسالی به استان ها']
+        elif data_for_search['subject'] == 'کارشناسی_شعر':
+            col_search_results = ['تعداد آثار', 'تک اثر', 'مجموعه اثر', 'شاخص ترین هنرمندان']
+        elif data_for_search['subject'] == 'کارکرد_ پلاتوها':
+            col_search_results = ['تعداد گروه نمایشی', 'تعداد ساعت رزرو پلاتو در روز', 'تعداد اجرای عمومی',
+                                  'تعداد جشنواره داخلی', 'تعداد جشنواره مشارکت']
+        elif data_for_search['subject'] == 'کتاب':
+            col_search_results = ['نام کتاب', 'نویسنده', 'قالب', 'تعداد صفحه', 'محور محتوایی']
+        return render_template("Amar_search_results.html", main_subjec=session['datas_for_search']['subject'],
+                               this_page=session['user'],
+                               row_search_results=select_record_amar(data_for_search['subject'],
+                                                                     data_for_search['year'],
+                                                                     data_for_search['from_month'],
+                                                                     data_for_search['to_month']),
+                               col_search_results=col_search_results, subject=data_for_search['subject'])
+    elif not session['user'] == 'مرکز ارزیابی':
+        return redirect('first_add_record')
+    return redirect('index')
 
 
 @app.route('/logout')

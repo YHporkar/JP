@@ -15,13 +15,13 @@ def make_database(db_name):
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
     cursor.execute('''CREATE TABLE IF NOT EXISTS  Admin (
-                      id INTEGER PRIMARY KEY AUTOINCREMENT,
+                      id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                       username VARCHAR(200) NOT NULL ,
                       password VARCHAR(200) NOT NULL ,
                       is_online INTEGER NOT NULL DEFAULT 0);
                       ''')
     cursor.execute('''CREATE TABLE IF NOT EXISTS نمایش (
-                      id INTEGER PRIMARY KEY NOT NULL ,
+                      id VARCHAR(200) PRIMARY KEY NOT NULL ,
                       manager VARCHAR(200),
                       m_p_k VARCHAR(200),
                       m_s_e VARCHAR(200),
@@ -43,7 +43,7 @@ def make_database(db_name):
                       ''')
 
     cursor.execute('''CREATE TABLE IF NOT EXISTS استودیو (
-                      id INTEGER PRIMARY KEY NOT NULL ,
+                      id VARCHAR(200) PRIMARY KEY NOT NULL ,
                       manager VARCHAR(200),
                       m_p_k VARCHAR(200),
                       m_s_e VARCHAR(200),
@@ -59,7 +59,7 @@ def make_database(db_name):
                       );
                   ''')
     cursor.execute('''CREATE TABLE IF NOT EXISTS پروژه_ها (
-                      id INTEGER PRIMARY KEY NOT NULL ,
+                      id VARCHAR(200) PRIMARY KEY NOT NULL ,
                       manager VARCHAR(200),
                       m_p_k VARCHAR(200),
                       m_s_e VARCHAR(200),
@@ -77,7 +77,7 @@ def make_database(db_name):
 
     cursor.execute('''
                       CREATE TABLE IF NOT EXISTS پروژه_های_عکاسی (
-                      id INTEGER PRIMARY KEY NOT NULL ,
+                      id VARCHAR(200) PRIMARY KEY NOT NULL ,
                       manager VARCHAR(200),
                       m_p_k VARCHAR(200),
                       m_s_e VARCHAR(200),
@@ -90,7 +90,7 @@ def make_database(db_name):
                       );''')
 
     cursor.execute('''CREATE TABLE IF NOT EXISTS جشنواره_ها (
-                      id INTEGER PRIMARY KEY NOT NULL ,
+                      id VARCHAR(200) PRIMARY KEY NOT NULL ,
                       manager VARCHAR(200),
                       m_p_k VARCHAR(200),
                       m_s_e VARCHAR(200),
@@ -108,7 +108,7 @@ def make_database(db_name):
                       );
                       ''')
     cursor.execute('''CREATE TABLE IF NOT EXISTS کارشناسی_رمان (
-                      id INTEGER PRIMARY KEY NOT NULL ,
+                      id VARCHAR(200) PRIMARY KEY NOT NULL ,
                       manager VARCHAR(200),
                       m_p_k VARCHAR(200),
                       m_s_e VARCHAR(200),
@@ -127,7 +127,7 @@ def make_database(db_name):
                       );
                   ''')
     cursor.execute('''CREATE TABLE IF NOT EXISTS جلسات_و_کارگاه_ها (
-                      id INTEGER PRIMARY KEY NOT NULL ,
+                      id VARCHAR(200) PRIMARY KEY NOT NULL ,
                       manager VARCHAR(200),
                       m_p_k VARCHAR(200),
                       m_s_e VARCHAR(200),
@@ -136,7 +136,7 @@ def make_database(db_name):
                       name VARCHAR(200),
                       session_subject VARCHAR(200),
                       prof_name VARCHAR(200),
-                      contact_avg INTEGER,
+                      contacts_num INTEGER,
                       count INTEGER,
                       country VARCHAR(200),
                       city VARCHAR(200),
@@ -151,7 +151,7 @@ def make_database(db_name):
                       );
                       ''')
     cursor.execute('''CREATE TABLE IF NOT EXISTS چند_رسانه_ای (
-                      id INTEGER PRIMARY KEY NOT NULL ,
+                      id VARCHAR(200) PRIMARY KEY NOT NULL ,
                       manager VARCHAR(200),
                       m_p_k VARCHAR(200),
                       m_s_e VARCHAR(200),
@@ -171,7 +171,7 @@ def make_database(db_name):
                   ''')
 
     cursor.execute('''CREATE TABLE IF NOT EXISTS بازبینی_آثار (
-                      id INTEGER PRIMARY KEY NOT NULL ,
+                      id VARCHAR(200) PRIMARY KEY NOT NULL ,
                       manager VARCHAR(200),
                       m_p_k VARCHAR(200),
                       m_s_e VARCHAR(200),
@@ -185,7 +185,7 @@ def make_database(db_name):
                       ''')
 
     cursor.execute('''CREATE TABLE IF NOT EXISTS کارشناسی_شعر (
-                      id INTEGER PRIMARY KEY NOT NULL ,
+                      id VARCHAR(200) PRIMARY KEY NOT NULL ,
                       manager VARCHAR(200),
                       m_p_k VARCHAR(200),
                       m_s_e VARCHAR(200),
@@ -206,7 +206,7 @@ def make_database(db_name):
                       ''')
 
     cursor.execute('''CREATE TABLE IF NOT EXISTS کارکرد_پلاتوها (
-                      id INTEGER PRIMARY KEY NOT NULL ,
+                      id VARCHAR(200) PRIMARY KEY NOT NULL ,
                       manager VARCHAR(200),
                       m_p_k VARCHAR(200),
                       m_s_e VARCHAR(200),
@@ -221,7 +221,7 @@ def make_database(db_name):
                       );
                     ''')
     cursor.execute('''CREATE TABLE IF NOT EXISTS محصولات_تجسمی (
-                      id INTEGER PRIMARY KEY NOT NULL ,
+                      id VARCHAR(200) PRIMARY KEY NOT NULL ,
                       manager VARCHAR(200),
                       m_p_k VARCHAR(200),
                       m_s_e VARCHAR(200),
@@ -235,7 +235,7 @@ def make_database(db_name):
                       ''')
 
     cursor.execute('''CREATE TABLE IF NOT EXISTS محصولات_موسیقی (
-                      id INTEGER PRIMARY KEY NOT NULL ,
+                      id VARCHAR(200) PRIMARY KEY NOT NULL ,
                       manager VARCHAR(200),
                       m_p_k VARCHAR(200),
                       m_s_e VARCHAR(200),
@@ -255,7 +255,7 @@ def make_database(db_name):
                       ''')
 
     cursor.execute('''CREATE TABLE IF NOT EXISTS پژوهش (
-                      id INTEGER PRIMARY KEY NOT NULL ,
+                      id VARCHAR(200) PRIMARY KEY NOT NULL ,
                       manager VARCHAR(200),
                       m_p_k VARCHAR(200),
                       m_s_e VARCHAR(200),
@@ -270,7 +270,7 @@ def make_database(db_name):
                       );
                       ''')
     cursor.execute('''CREATE TABLE IF NOT EXISTS نمایشگاه_ها (
-                      id INTEGER PRIMARY KEY NOT NULL ,
+                      id VARCHAR(200) PRIMARY KEY NOT NULL ,
                       manager VARCHAR(200),
                       m_p_k VARCHAR(200),
                       m_s_e VARCHAR(200),
@@ -280,7 +280,7 @@ def make_database(db_name):
                       show_subject VARCHAR(200),
                       os_city VARCHAR(200),
                       city VARCHAR(200),
-                      contact_num INTEGER,
+                      contacts_num INTEGER,
                       meh_moh VARCHAR(200),
                       finish_date DATE,
                       description VARCHAR(1000),
@@ -289,7 +289,7 @@ def make_database(db_name):
                       ''')
 
     cursor.execute('''CREATE TABLE IF NOT EXISTS همایش_ها (
-                      id INTEGER PRIMARY KEY NOT NULL ,
+                      id VARCHAR(200) PRIMARY KEY NOT NULL ,
                       manager VARCHAR(200),
                       m_p_k VARCHAR(200),
                       m_s_e VARCHAR(200),
@@ -297,7 +297,7 @@ def make_database(db_name):
                       rec_date_year INTEGER, rec_date_month INTEGER, rec_date_day INTEGER,
                       name VARCHAR(200),
                       office VARCHAR(200),
-                      contact_num INTEGER,
+                      contacts_num INTEGER,
                       contact_pos VARCHAR(200),
                       country VARCHAR(200),
                       city VARCHAR(200),
@@ -311,7 +311,7 @@ def make_database(db_name):
                       ''')
 
     cursor.execute('''CREATE TABLE IF NOT EXISTS عکس_های_خریداری_شده(
-                      id INTEGER PRIMARY KEY NOT NULL ,
+                      id VARCHAR(200) PRIMARY KEY NOT NULL ,
                       manager VARCHAR(200),
                       m_p_k VARCHAR(200),
                       m_s_e VARCHAR(200),
@@ -325,7 +325,7 @@ def make_database(db_name):
                       ''')
 
     cursor.execute('''CREATE TABLE IF NOT EXISTS کارشناسی_آثار_مکتوب (
-                      id INTEGER PRIMARY KEY NOT NULL ,
+                      id VARCHAR(200) PRIMARY KEY NOT NULL ,
                       manager VARCHAR(200),
                       m_p_k VARCHAR(200),
                       m_s_e VARCHAR(200),
@@ -339,7 +339,7 @@ def make_database(db_name):
                       ''')
 
     cursor.execute('''CREATE TABLE IF NOT EXISTS جشنواره_ها_تفصیلی (
-                      id INTEGER PRIMARY KEY NOT NULL ,
+                      id VARCHAR(200) PRIMARY KEY NOT NULL ,
                       manager VARCHAR(200),
                       m_p_k VARCHAR(200),
                       m_s_e VARCHAR(200),
@@ -367,7 +367,7 @@ def make_database(db_name):
                       ''')
 
     cursor.execute('''CREATE TABLE IF NOT EXISTS کتاب (
-                      id INTEGER PRIMARY KEY NOT NULL ,
+                      id VARCHAR(200) PRIMARY KEY NOT NULL ,
                       manager VARCHAR(200),
                       m_p_k VARCHAR(200),
                       m_s_e VARCHAR(200),
@@ -390,7 +390,7 @@ def make_database(db_name):
                       ''')
 
     cursor.execute('''CREATE TABLE IF NOT EXISTS نشریه (
-                      id INTEGER PRIMARY KEY NOT NULL ,
+                      id VARCHAR(200) PRIMARY KEY NOT NULL ,
                       manager VARCHAR(200),
                       m_p_k VARCHAR(200),
                       m_s_e VARCHAR(200),
@@ -411,7 +411,7 @@ def make_database(db_name):
                       ''')
 
     cursor.execute('''CREATE TABLE IF NOT EXISTS کتابخانه_انقلاب (
-                      id INTEGER PRIMARY KEY NOT NULL ,
+                      id VARCHAR(200) PRIMARY KEY NOT NULL ,
                       manager VARCHAR(200),
                       m_p_k VARCHAR(200),
                       m_s_e VARCHAR(200),
@@ -449,7 +449,7 @@ def make_database(db_name):
                       ''')
 
     cursor.execute('''CREATE TABLE IF NOT EXISTS کتابخانه_جنگ (
-                          id INTEGER PRIMARY KEY NOT NULL ,
+                          id VARCHAR(200) PRIMARY KEY NOT NULL ,
                           manager VARCHAR(200),
                           m_p_k VARCHAR(200),
                           m_s_e VARCHAR(200),
@@ -627,8 +627,8 @@ def select_record(code, subject):
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
     cursor.execute(''' SELECT * FROM %s WHERE id='%s';''' % (subject, code))
-    rec = cursor.fetchall()
-    return rec
+
+    return cursor.fetchall()
 
 
 def select_rec_by_subject(subject):
@@ -749,16 +749,16 @@ def romance_record(edit_mode, first_records, sent_asar_num, seen_asar_num, short
     conn.close()
 
 
-def sessions_record(edit_mode, first_records, name, session_subject, prof_name, contact_avg, count, country, city,
+def sessions_record(edit_mode, first_records, name, session_subject, prof_name, contacts_num, count, country, city,
                     salon, level, office, achievements, meh_moh1, meh_moh2, meh_moh3):
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
     first_record(first_records, edit_mode)
     cursor.execute('''UPDATE جلسات_و_کارگاه_ها SET name = '%s', session_subject = '%s', prof_name = '%s',
-                   contact_avg = '%s', count = '%s', country = '%s', city = '%s',
+                   contacts_num = '%s', count = '%s', country = '%s', city = '%s',
                    salon = '%s', level = '%s', office = '%s', achievements = '%s', meh_moh1 = '%s',
                    meh_moh2 = '%s', meh_moh3 = '%s' WHERE id = '%s';'''
-                   % (name, session_subject, prof_name, contact_avg, count, country, city,
+                   % (name, session_subject, prof_name, contacts_num, count, country, city,
                       salon, level, office, achievements, meh_moh1, meh_moh2, meh_moh3, first_records['code']))
 
     conn.commit()
@@ -947,14 +947,14 @@ def research_record(edit_mode, first_records, research_name, author, research_su
 
 
 def exhibitions_record(edit_mode, first_records, name, show_subject, os_city,
-                       city, contact_num, meh_moh, finish_date_day, finish_date_month, finish_date_year, description):
+                       city, contacts_num, meh_moh, finish_date_day, finish_date_month, finish_date_year, description):
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
     first_record(first_records, edit_mode)
     cursor.execute("UPDATE نمایشگاه_ها SET name = '%s', show_subject = '%s', os_city = '%s',"
-                   " city = '%s', contact_num = '%s', meh_moh = '%s', finish_date = '%s',"
+                   " city = '%s', contacts_num = '%s', meh_moh = '%s', finish_date = '%s',"
                    " description = '%s'"
-                   "WHERE id = '%s';" % (name, show_subject, os_city, city, contact_num, meh_moh,
+                   "WHERE id = '%s';" % (name, show_subject, os_city, city, contacts_num, meh_moh,
                                          (finish_date_day + '-' + finish_date_month + '-' + finish_date_year),
                                          description, first_records['code']))
 
@@ -962,15 +962,15 @@ def exhibitions_record(edit_mode, first_records, name, show_subject, os_city,
     conn.close()
 
 
-def congress_record(edit_mode, first_records, name, office, contact_num,
+def congress_record(edit_mode, first_records, name, office, contacts_num,
                     contact_pos, country, city, salon, frame, meh_moh, famous_persons, sokhanrans):
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
     first_record(first_records, edit_mode)
-    cursor.execute("UPDATE همایش_ها SET name = '%s', office = '%s', contact_num = '%s',"
+    cursor.execute("UPDATE همایش_ها SET name = '%s', office = '%s', contacts_num = '%s',"
                    " contact_pos = '%s', country = '%s', city = '%s', salon = '%s',"
                    " frame = '%s', meh_moh = '%s', famous_persons = '%s', sokhanrans = '%s'"
-                   "WHERE id = '%s';" % (name, office, contact_num, contact_pos, country, city, salon,
+                   "WHERE id = '%s';" % (name, office, contacts_num, contact_pos, country, city, salon,
                                          frame, meh_moh, famous_persons, sokhanrans, first_records['code']))
 
     conn.commit()
@@ -1071,5 +1071,31 @@ def set_evaluated(code, subject):
     cursor.execute('''UPDATE %s SET valued = 1 WHERE id = '%s';''' % (subject, code))
     conn.commit()
     conn.close()
+
+
+def select_record_amar(subject, year, from_month, to_month):
+    conn = sqlite3.connect(db_name)
+    cursor = conn.cursor()
+    cursor.execute(''' SELECT * FROM %s WHERE rec_date_year='%s' and rec_date_month>='%s' and rec_date_month<='%s';'''
+                   % (subject, year, from_month, to_month))
+
+    return cursor.fetchall()
+
+
+def select_contacts_num(subject):
+    conn = sqlite3.connect(db_name)
+    cursor = conn.cursor()
+    cursor.execute("SELECT AVG(contacts_num) FROM %s;" % subject)
+    return cursor.fetchall()[0][0]
+
+
+def performance_percent(unit, subject):
+    conn = sqlite3.connect(db_name)
+    cursor = conn.cursor()
+    unit_code = unit + '%'
+    cursor.execute('''SELECT COUNT(id) FROM %s WHERE id LIKE '%s';''' % (subject, unit_code))
+
+    return cursor.fetchall()[0][0]
+
 
 make_database(db_name)
