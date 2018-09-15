@@ -639,20 +639,16 @@ def edit_search_results():
 def edit_first_record(code, message=None):
     if session.get('logged_in') and session['user'] != 'مرکز ارزیابی':
         form = editing_first_record()
-        if session['first_search']:
-            for i in range(units_dict.keys().__len__()):
-                if units_dict.keys()[i] == session['user']:
-                    session['code'] = units_dict.values()[i] + form.code.data
-            form.code.data = code
-            form.manager_name.data = select_record(session['code'], session['subject'])[0][1]
-            form.m_p_k.data = select_record(session['code'], session['subject'])[0][2]
-            form.m_s_e.data = select_record(session['code'], session['subject'])[0][3]
-            form.m_t_e.data = select_record(session['code'], session['subject'])[0][4]
-            form.rec_date_year.data = select_record(session['code'], session['subject'])[0][5]
-            form.rec_date_month.data = select_record(session['code'], session['subject'])[0][6]
-            form.rec_date_day.data = select_record(session['code'], session['subject'])[0][7]
-            form.subject.data = session['subject']
-            session['first_search'] = 0
+        form.code.data = code
+        form.manager_name.data = select_record(session['code'], session['subject'])[0][1]
+        form.m_p_k.data = select_record(session['code'], session['subject'])[0][2]
+        form.m_s_e.data = select_record(session['code'], session['subject'])[0][3]
+        form.m_t_e.data = select_record(session['code'], session['subject'])[0][4]
+        form.rec_date_year.data = select_record(session['code'], session['subject'])[0][5]
+        form.rec_date_month.data = select_record(session['code'], session['subject'])[0][6]
+        form.rec_date_day.data = select_record(session['code'], session['subject'])[0][7]
+        form.subject.data = session['subject']
+        session['first_search'] = 0
         if request.method == "POST" and not session['first_search']:
             if form.continues.data:
                 for i in range(units_dict.keys().__len__()):
