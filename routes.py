@@ -1,14 +1,23 @@
 # -*- coding: utf-8 -*-
-from tarfile import _data
 
 from flask import Flask, render_template, request, session, redirect, url_for
 from forms import *
 from forms import adding_record
 from models import *
+import matplotlib.pyplot as plt
+
+from bidi.algorithm import get_display
+import arabic_reshaper
+import sys
+
+reload(sys)
+sys.setdefaultencoding("utf-8")
+
 
 app = Flask(__name__)
 
 app.secret_key = "development-key"
+
 
 page_dict = {'نمایش': 'show', 'استودیو': 'studio', 'پروژه_ها': 'projects',
              'پروژه_های_عکاسی': 'photography_projects', 'جشنواره_ها': 'festivals', 'کارشناسی_رمان': 'romance',
@@ -23,6 +32,7 @@ units_dict = {'خانه عکاسان': 'a', 'روابط عمومی': 'b', 'مؤ�
               'مرکز آفرینش های ادبی': 'd', 'مرکز تجسمی': 'e', 'مرکز ترجمه': 'f', 'مرکز طنز': 'g',
               'مرکز تحقیقات و مطالعات فرهنگ و ادب پایداری': 'h', 'مرکز معماری': 'i', 'مرکز موسیقی': 'j',
               'مرکز هنرهای نمایشی': 'k', 'کودک و نوجوان': 'l'}
+
 
 
 @app.route("/")
@@ -660,7 +670,7 @@ def edit_first_record(code, message=None):
                     'm_s_e': request.form['m_s_e'], 'm_t_e': request.form['m_t_e'],
                     'm_p_k': request.form['m_p_k'],
                     'rec_date_day': request.form['rec_date_day'],
-                    'rec_date_month': request.form['rec_date_month'],
+                    'rec_date_month': request.form['rec_date_`month'],
                     'rec_date_year': request.form['rec_date_year'],
                     'subject': request.form['subject']
                 }
@@ -1392,7 +1402,9 @@ def amar_first_page():
     if session['logged_in'] and session['user'] == 'مرکز ارزیابی':
         form = amar_first_form()
         if request.method == "POST":
-            session['unit'] = form.username.data
+            session['datas_for_search_p'] = {'unit': form.username.data, 'year': form.year.data,
+                                             'from_month': form.from_month.data, 'to_month': form.to_month.data}
+
             return redirect(url_for('amar_second_page'))
         return render_template("Amar_first_page.html", form=form, this_page=session['user'])
     elif not session['user'] == 'مرکز ارزیابی':
@@ -1402,27 +1414,82 @@ def amar_first_page():
 
 @app.route("/amar_second_page", methods=["POST", "GET"])
 def amar_second_page():
+    perf_percent = {}
+    perf_counts = {}
+    contacts_avgs = {}
+    all_subject_records = 0
+    monthes = ['فروردین', 'اردیبهشت', 'خرداد',
+               'تیر', 'مرداد', 'شهریور',
+               'مهر', 'آبان', 'آذر',
+               'دی', 'بهمن', 'اسفند']
+    farsi_monthes = []
+    selected_months = []
+    selected_months_num = []
+    ys = []
+    farsi_subjects = []
+
     if session['logged_in'] and session['user'] == 'مرکز ارزیابی':
         for i in range(units_dict.keys().__len__()):
-            if units_dict.keys()[i] == session['unit']:
+            if units_dict.keys()[i] == session['datas_for_search_p']['unit']:
                 unit_code = units_dict.values()[i]
-        perf_percent = {}
-        contacts_avgs = {}
+
+        for i in range(int(session['datas_for_search_p']['from_month'])-1,
+                       int(session['datas_for_search_p']['to_month'])):
+            selected_months.append(monthes[i])
+            selected_months_num.append(i)
+
         subs = page_dict.keys()
         subs.remove('مکتوبات')
+
         for subject in subs:
             if not performance_percent(unit_code, subject) == 0:
-                perf_percent.update({subject: 100*performance_percent(unit_code, subject)/23})
+                perf_counts.update({subject: {}})
+            all_subject_records += performance_percent(unit_code, subject)
+            for month in selected_months_num:
+                if not performance_percent(unit_code, subject) == 0:
+                    perf_counts[subject].update({month+1: select_by_month_year(unit_code, subject, month+1,
+                                                                               session['datas_for_search_p']['year'])})
+        for subject in subs:
+            if not performance_percent(unit_code, subject) == 0:
+                perf_percent.update({subject: 100*performance_percent(unit_code, subject)/all_subject_records})
+
+        for i in range(perf_percent.keys().__len__()):
+            farsi_subjects.append(make_farsi_text(perf_percent.keys()[i]))
+        data = perf_percent.values()
+        plt.axes(aspect=1)
+        plt.pie(data, labels=farsi_subjects, autopct='%.1f%%')
+        plt.legend(loc='lower right')
+        plt.savefig('static/first_table_plot.svg')
+        plt.close()
+
+        for i in range(perf_counts.values().__len__()):
+            ys.append([])
+            for j in range(perf_counts.values()[i].values().__len__()):
+                ys[i].append(perf_counts.values()[i].values()[j])
+
+        for i in range(selected_months.__len__()):
+            farsi_monthes.append(make_farsi_text(selected_months[i]))
+
+        for i in range(ys.__len__()):
+            plt.plot(farsi_monthes, ys[i], linestyle='--', marker='o', label=farsi_subjects[i])
+        plt.legend(loc='lower right')
+        plt.xlabel(make_farsi_text('ماه'))
+        plt.ylabel(make_farsi_text('عملکرد'))
+        plt.savefig('static/second_table_plot.svg')
+        plt.close()
+
         for subject in ['نمایش', 'جلسات_و_کارگاه_ها', 'نمایشگاه_ها', 'همایش_ها']:
             if not select_contacts_num(subject) is None:
                 contacts_avgs.update({subject: int(select_contacts_num(subject))})
+
         form = amar_second_form()
         if request.method == "POST":
             session['datas_for_search'] = {'subject': form.subject.data, 'year': form.year.data,
                                            'from_month': form.from_month.data, 'to_month': form.to_month.data}
             return redirect(url_for('amar_search_results'))
         return render_template("Amar_second_page.html", form=form, this_page=session['user'],
-                               performance_percents=perf_percent, contacts_avgs=contacts_avgs)
+                               performance_percents=perf_percent, contacts_avgs=contacts_avgs,
+                               selected_months=selected_months, perf_counts=perf_counts)
     elif not session['user'] == 'مرکز ارزیابی':
         return redirect('first_add_record')
     return redirect('index')
@@ -1431,11 +1498,15 @@ def amar_second_page():
 @app.route("/amar_search_results", methods=["POST", "GET"])
 def amar_search_results():
     if session['logged_in'] and session['user'] == 'مرکز ارزیابی':
+        for i in range(units_dict.keys().__len__()):
+            if units_dict.keys()[i] == session['datas_for_search_p']['unit']:
+                unit_code = units_dict.values()[i]
         data_for_search = session['datas_for_search']
-        print select_record_amar(data_for_search['subject'],
-                                 data_for_search['year'],
-                                 data_for_search['from_month'],
-                                 data_for_search['to_month'])
+        print select_record_amar(unit_code, data_for_search['subject'],
+                                                                     data_for_search['year'],
+                                                                     data_for_search['from_month'],
+                                                                     data_for_search['to_month'])
+
         if data_for_search['subject'] == 'نمایش':
             col_search_results = ['نام اثر', 'نویسنده', 'کارگردان', 'سالن اجرا', 'تعداد اجرا']
         elif data_for_search['subject'] == 'جشنواره_ها':
@@ -1474,7 +1545,7 @@ def amar_search_results():
             col_search_results = ['نام کتاب', 'نویسنده', 'قالب', 'تعداد صفحه', 'محور محتوایی']
         return render_template("Amar_search_results.html", main_subjec=session['datas_for_search']['subject'],
                                this_page=session['user'],
-                               row_search_results=select_record_amar(data_for_search['subject'],
+                               row_search_results=select_record_amar(unit_code, data_for_search['subject'],
                                                                      data_for_search['year'],
                                                                      data_for_search['from_month'],
                                                                      data_for_search['to_month']),
@@ -1491,6 +1562,12 @@ def logout():
         session['logged_in'] = False
         session.pop('user', None)
     return redirect('index')
+
+
+def make_farsi_text(x):
+    reshaped_text = arabic_reshaper.reshape(unicode(x))
+    farsi_text = get_display(reshaped_text)
+    return farsi_text
 
 
 if __name__ == "__main__":

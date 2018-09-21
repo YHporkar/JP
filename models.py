@@ -1073,11 +1073,13 @@ def set_evaluated(code, subject):
     conn.close()
 
 
-def select_record_amar(subject, year, from_month, to_month):
+def select_record_amar(unit, subject, year, from_month, to_month):
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
-    cursor.execute(''' SELECT * FROM %s WHERE rec_date_year='%s' and rec_date_month>='%s' and rec_date_month<='%s';'''
-                   % (subject, year, from_month, to_month))
+    unit_code = unit + '%'
+    cursor.execute(''' SELECT * FROM %s WHERE rec_date_year='%s' and rec_date_month>='%s'
+                       and rec_date_month<='%s' and id LIKE '%s';'''
+                   % (subject, year, from_month, to_month, unit_code))
 
     return cursor.fetchall()
 
@@ -1089,6 +1091,7 @@ def select_contacts_num(subject):
     return cursor.fetchall()[0][0]
 
 
+# select count of a subject's records according to their unit
 def performance_percent(unit, subject):
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
@@ -1098,4 +1101,14 @@ def performance_percent(unit, subject):
     return cursor.fetchall()[0][0]
 
 
-make_database(db_name)
+def select_by_month_year(unit, subject, month, year):
+    conn = sqlite3.connect(db_name)
+    cursor = conn.cursor()
+    unit_code = unit + '%'
+    cursor.execute("SELECT COUNT(id) FROM %s WHERE id LIKE '%s' and rec_date_year='%s' and rec_date_month='%s';" %
+                   (subject, unit_code, year, month))
+
+    return cursor.fetchall()[0][0]
+
+
+# make_database(db_name)

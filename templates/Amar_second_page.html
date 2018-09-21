@@ -4,51 +4,72 @@
 
 <table style="position:absolute;left:271px;top:236px;width:487px;height:58px;z-index:35;" id="نتایج_جست_و_جوTable1">
     <tr class="cell2">
-        <td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">درصد عملکرد</span></td>
         <td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">موضوع</span></td>
+        <td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">درصد عملکرد</span></td>
     </tr>
     {% for i in range(performance_percents.values().__len__()) %}
     <tr class="cell2">
-        <td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ performance_percents.values()[i] }}%</span></td>
         <td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ performance_percents.keys()[i] }}</span></td>
+        <td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ performance_percents.values()[i] }}%</span></td>
     </tr>
     {% endfor %}
-</table>
-
-<table style="position:absolute;left:271px;top:700px;width:487px;height:58px;z-index:35;" id="نتایج_جست_و_جوTable1">
+    <tr class="cell2" STYLE="border-top: 3px solid black;" align="left">
+        <td align="center"><img width="320px" height="240px" src="{{ url_for('static', filename='first_table_plot.svg') }}"></td>
+    </tr>
+    <tr style="border-bottom: 3px solid black;"></tr>
     <tr class="cell2">
         <td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">عنوان برنامه</span></td>
         <td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">میانگین مخاطب</span></td>
     </tr>
     {% for i in range(contacts_avgs.values().__len__()) %}
     <tr class="cell2">
-        <td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ contacts_avgs.values()[i] }}</span></td>
         <td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ contacts_avgs.keys()[i] }}</span></td>
+        <td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ contacts_avgs.values()[i] }}</span></td>
     </tr>
     {% endfor %}
 </table>
-<div id="wb_Form1" style="position:absolute;left:270px;top:500px;width:483px;height:355px;z-index:36;">
+
+<table style="position:absolute;left:271px;top:700px;width:487px;height:58px;z-index:35;" id="نتایج_جست_و_جوTable1">
+    <tr class="cell2">
+        <td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">موضوع</span></td>
+        {% for month in selected_months %}
+            <td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ month }}</span></td>
+        {% endfor %}
+    </tr>
+        {% for i in range(perf_counts.__len__()) %}
+        <tr class="cell2">
+            <td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ perf_counts.keys()[i] }}</span></td>
+            {% for j in range(perf_counts.values()[i].__len__()) %}
+                <td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ perf_counts.values()[i].values()[j] }}</span></td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    <tr style="border-bottom: 3px solid black;"></tr>
+    <tr class="cell2" style="border-bottom: 3px solid black">
+        <td style="alignment: center"><img width="320px" height="240px" src="{{ url_for('static', filename='second_table_plot.svg') }}"></td>
+    </tr>
+</table>
+
+<div id="wb_Form1" style="position:absolute;left:270px;top:700px;width:483px;height:355px;z-index:36;">
     <form name="edit_record_form" method="post" action="/amar_second_page" id="Form1">
-    {{ form.hidden_tag() }}
-    {% if error %}
-    <div style="position:absolute;left:210px;top:25px;width:200px;height:17px;z-index:1;"><p class="error-message">{{ error }}</p></div>
-    {% endif %}
+        {{ form.hidden_tag() }}
 
-    {{ form.subject(id="Combobox4", style="position:absolute;left:200px;top:340px;width:90px;height:28px;z-index:6;") }}
-    {{ form.year(id="Combobox4", style="position:absolute;left:200px;top:380px;width:90px;height:28px;z-index:6;") }}
-    {{ form.from_month(id="Combobox4", style="position:absolute;left:200px;top:420px;width:90px;height:28px;z-index:6;") }}
-    {{ form.to_month(id="Combobox4", style="position:absolute;left:200px;top:460px;width:90px;height:28px;z-index:6;") }}
-    {{ form.search(id="Button1", style="position:absolute;left:93px;top:500px;width:96px;height:25px;z-index:0;") }}
+        {{ form.subject(id="Combobox4", style="position:absolute;left:200px;top:340px;width:90px;height:28px;z-index:6;") }}
+        {{ form.year(id="Combobox4", style="position:absolute;left:200px;top:380px;width:90px;height:28px;z-index:6;") }}
+        {{ form.from_month(id="Combobox4", style="position:absolute;left:200px;top:420px;width:90px;height:28px;z-index:6;") }}
+        {{ form.to_month(id="Combobox4", style="position:absolute;left:200px;top:460px;width:90px;height:28px;z-index:6;") }}
+        {{ form.search(id="Button1", style="position:absolute;left:73px;top:463px;width:96px;height:25px;z-index:0;") }}
 
-    <div id="wb_Text13" style="position:absolute;left:300px;top:345px;width:52px;height:19px;text-align:right;z-index:18;">
-        <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>موضوع</strong></span></div>
-    <div id="wb_Text3" style="position:absolute;left:300px;top:425px;width:52px;height:19px;text-align:right;z-index:15;">
-        <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>از ماه</strong></span></div>
-    <div id="wb_Text9" style="position:absolute;left:300px;top:465px;width:52px;height:19px;text-align:right;z-index:15;">
-        <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>تا ماه</strong></span></div>
-    <div id="wb_Text11" style="position:absolute;left:300px;top:385px;width:52px;height:19px;text-align:right;z-index:16;">
-        <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>سال</strong></span></div>
+        <div id="wb_Text13" style="position:absolute;left:300px;top:345px;width:52px;height:19px;text-align:right;z-index:18;">
+            <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>موضوع</strong></span></div>
+        <div id="wb_Text3" style="position:absolute;left:300px;top:425px;width:52px;height:19px;text-align:right;z-index:15;">
+            <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>از ماه</strong></span></div>
+        <div id="wb_Text9" style="position:absolute;left:300px;top:465px;width:52px;height:19px;text-align:right;z-index:15;">
+            <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>تا ماه</strong></span></div>
+        <div id="wb_Text11" style="position:absolute;left:300px;top:385px;width:52px;height:19px;text-align:right;z-index:16;">
+            <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>سال</strong></span></div>
 
-</form>
+    </form>
 </div>
+
 {% endblock %}

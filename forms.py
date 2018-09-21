@@ -2,12 +2,7 @@
 
 from flask_wtf import Form
 from wtforms import StringField, PasswordField, SubmitField, SelectField, TextAreaField, RadioField, BooleanField
-from wtforms.validators import DataRequired, Email, Length
-import sys
-
-reload(sys)
-sys.setdefaultencoding("utf-8")
-
+from wtforms.validators import DataRequired
 
 class Login(Form):
     username = SelectField('نام واحد',
@@ -129,6 +124,13 @@ class amar_first_form(Form):
                                     ('مرکز معماری', 'مرکز معماری'), ('مرکز موسیقی', 'مرکز موسیقی'),
                                     ('مرکز هنرهای نمایشی', 'مرکز هنرهای نمایشی'), ('کودک و نوجوان', 'کودک و نوجوان'),
                                     ('مرکز ارزیابی', 'مرکز ارزیابی')])
+    year = SelectField(choices=[(i, i) for i in range(1385, 1411)])
+    from_month = SelectField(choices=[(i, i) for i in range(1, 13)])
+    to_month = SelectField(choices=[(i, i) for i in range(1, 13)])
+    continues = SubmitField('ادامه')
+
+
+class continue_form(Form):
     continues = SubmitField('ادامه')
 
 
