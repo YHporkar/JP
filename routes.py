@@ -4,7 +4,8 @@ from flask import Flask, render_template, request, session, redirect, url_for
 from forms import *
 from forms import adding_record
 from models import *
-import tkinter
+import matplotlib
+matplotlib.use('agg')
 import matplotlib.pyplot as plt
 
 from bidi.algorithm import get_display
