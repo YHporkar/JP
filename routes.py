@@ -4,7 +4,8 @@ from flask import Flask, render_template, request, session, redirect, url_for
 from forms import *
 from forms import adding_record
 from models import *
-# import matplotlib.pyplot as plt
+import tkinter
+import matplotlib.pyplot as plt
 
 from bidi.algorithm import get_display
 import arabic_reshaper
@@ -1447,14 +1448,14 @@ def amar_second_page():
             if not performance_percent(unit_code, subject) == 0:
                 perf_percent.update({subject: 100*performance_percent(unit_code, subject)/all_subject_records})
 
-        # for i in range(perf_percent.keys().__len__()):
-        #     farsi_subjects.append(make_farsi_text(perf_percent.keys()[i]))
-        # data = perf_percent.values()
-        # plt.axes(aspect=1)
-        # plt.pie(data, labels=farsi_subjects, autopct='%.1f%%')
-        # plt.legend(loc='lower right')
-        # plt.savefig('static/first_table_plot.svg')
-        # plt.close()
+        for i in range(perf_percent.keys().__len__()):
+            farsi_subjects.append(make_farsi_text(perf_percent.keys()[i]))
+        data = perf_percent.values()
+        plt.axes(aspect=1)
+        plt.pie(data, labels=farsi_subjects, autopct='%.1f%%')
+        plt.legend(loc='lower right')
+        plt.savefig('static/first_table_plot.svg')
+        plt.close()
 
         for i in range(perf_counts.values().__len__()):
             ys.append([])
@@ -1464,13 +1465,13 @@ def amar_second_page():
         for i in range(selected_months.__len__()):
             farsi_monthes.append(make_farsi_text(selected_months[i]))
 
-        # for i in range(ys.__len__()):
-        #     plt.plot(farsi_monthes, ys[i], linestyle='--', marker='o', label=farsi_subjects[i])
-        # plt.legend(loc='lower right')
-        # plt.xlabel(make_farsi_text('ماه'))
-        # plt.ylabel(make_farsi_text('عملکرد'))
-        # plt.savefig('static/second_table_plot.svg')
-        # plt.close()
+        for i in range(ys.__len__()):
+            plt.plot(farsi_monthes, ys[i], linestyle='--', marker='o', label=farsi_subjects[i])
+        plt.legend(loc='lower right')
+        plt.xlabel(make_farsi_text('ماه'))
+        plt.ylabel(make_farsi_text('عملکرد'))
+        plt.savefig('static/second_table_plot.svg')
+        plt.close()
 
         for subject in ['نمایش', 'جلسات_و_کارگاه_ها', 'نمایشگاه_ها', 'همایش_ها']:
             if not select_contacts_num(unit_code, subject) is None:
