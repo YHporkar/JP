@@ -1084,10 +1084,11 @@ def select_record_amar(unit, subject, year, from_month, to_month):
     return cursor.fetchall()
 
 
-def select_contacts_num(subject):
+def select_contacts_num(unit, subject):
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
-    cursor.execute("SELECT AVG(contacts_num) FROM %s;" % subject)
+    unit_code = unit + '%'
+    cursor.execute("SELECT AVG(contacts_num) FROM %s WHERE id LIKE '%s';" % (subject, unit_code))
     return cursor.fetchall()[0][0]
 
 

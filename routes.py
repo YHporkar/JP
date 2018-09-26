@@ -8,16 +8,10 @@ import matplotlib.pyplot as plt
 
 from bidi.algorithm import get_display
 import arabic_reshaper
-import sys
-
-reload(sys)
-sys.setdefaultencoding("utf-8")
-
 
 app = Flask(__name__)
 
 app.secret_key = "development-key"
-
 
 page_dict = {'نمایش': 'show', 'استودیو': 'studio', 'پروژه_ها': 'projects',
              'پروژه_های_عکاسی': 'photography_projects', 'جشنواره_ها': 'festivals', 'کارشناسی_رمان': 'romance',
@@ -1479,8 +1473,8 @@ def amar_second_page():
         plt.close()
 
         for subject in ['نمایش', 'جلسات_و_کارگاه_ها', 'نمایشگاه_ها', 'همایش_ها']:
-            if not select_contacts_num(subject) is None:
-                contacts_avgs.update({subject: int(select_contacts_num(subject))})
+            if not select_contacts_num(unit_code, subject) is None:
+                contacts_avgs.update({subject: int(select_contacts_num(unit_code, subject))})
 
         form = amar_second_form()
         if request.method == "POST":
@@ -1502,10 +1496,6 @@ def amar_search_results():
             if units_dict.keys()[i] == session['datas_for_search_p']['unit']:
                 unit_code = units_dict.values()[i]
         data_for_search = session['datas_for_search']
-        print select_record_amar(unit_code, data_for_search['subject'],
-                                                                     data_for_search['year'],
-                                                                     data_for_search['from_month'],
-                                                                     data_for_search['to_month'])
 
         if data_for_search['subject'] == 'نمایش':
             col_search_results = ['نام اثر', 'نویسنده', 'کارگردان', 'سالن اجرا', 'تعداد اجرا']
