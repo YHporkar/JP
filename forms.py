@@ -64,35 +64,42 @@ class eval_first_records(Form):
 class enter_evaluation(Form):
     code = StringField(render_kw={'readonly': True})
     name = StringField(render_kw={'readonly': True})
-    time_management = SelectField(choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
-                                           ('موضوعیتی_ندارد', 'موضوعیتی ندارد')])
-    people_cooperation = SelectField(choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
-                                              ('موضوعیتی_ندارد', 'موضوعیتی ندارد')])
-    hold_displn = SelectField(choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
-                                       ('موضوعیتی_ندارد', 'موضوعیتی ندارد')])
-    advertising = SelectField(choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
-                                       ('موضوعیتی_ندارد', 'موضوعیتی ندارد')])
-    sharee_time = SelectField(choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
-                                       ('موضوعیتی_ندارد', 'موضوعیتی ندارد')])
-    decor_tansb = SelectField(choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
-                                       ('موضوعیتی_ندارد', 'موضوعیتی ندارد')])
-    sound_quality = SelectField(choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
+    time_management = SelectField(
+        choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
+                 ('موضوعیتی_ندارد', 'موضوعیتی ندارد')])
+    people_cooperation = SelectField(
+        choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
+                 ('موضوعیتی_ندارد', 'موضوعیتی ندارد')])
+    hold_displn = SelectField(
+        choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
+                 ('موضوعیتی_ندارد', 'موضوعیتی ندارد')])
+    advertising = SelectField(validators=[DataRequired()], choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
+                                                                   ('موضوعیتی_ندارد', 'موضوعیتی ندارد')])
+    sharee_time = SelectField(validators=[DataRequired()], choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
+                                                                   ('موضوعیتی_ندارد', 'موضوعیتی ندارد')])
+    decor_tansb = SelectField(validators=[DataRequired()], choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
+                                                                   ('موضوعیتی_ندارد', 'موضوعیتی ندارد')])
+    sound_quality = SelectField(validators=[DataRequired()],
+                                choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
                                          ('موضوعیتی_ندارد', 'موضوعیتی ندارد')])
-    light_quality = SelectField(choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
+    light_quality = SelectField(validators=[DataRequired()],
+                                choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
                                          ('موضوعیتی_ندارد', 'موضوعیتی ندارد')])
-    area_adv = SelectField(choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
-                                   ('موضوعیتی_ندارد', 'موضوعیتی ندارد')])
-    attr_audience = SelectField(choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
+    area_adv = SelectField(validators=[DataRequired()], choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
+                                                                ('موضوعیتی_ندارد', 'موضوعیتی ندارد')])
+    attr_audience = SelectField(validators=[DataRequired()],
+                                choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
                                          ('موضوعیتی_ندارد', 'موضوعیتی ندارد')])
-    famous_persons = SelectField(choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
+    famous_persons = SelectField(validators=[DataRequired()],
+                                 choices=[('خوب', 'خوب'), ('متوسط', 'متوسط'), ('ضعیف', 'ضعیف'),
                                           ('موضوعیتی_ندارد', 'موضوعیتی ندارد')])
     office = StringField(render_kw={'readonly': True})
     subject = StringField(render_kw={'readonly': True})
-    power_points_imp = TextAreaField()
-    tah_able_imp = TextAreaField()
-    description = TextAreaField()
-    trip_summerize = TextAreaField()
-    evaluator_name = StringField()
+    power_points_imp = TextAreaField(validators=[DataRequired()])
+    tah_able_imp = TextAreaField(validators=[DataRequired()])
+    description = TextAreaField(validators=[DataRequired()])
+    trip_summerize = TextAreaField(validators=[DataRequired()])
+    evaluator_name = StringField(validators=[DataRequired()])
     add = SubmitField('ثبت')
     back = SubmitField('بازگشت')
 

@@ -1084,20 +1084,22 @@ def select_record_amar(unit, subject, year, from_month, to_month):
     return cursor.fetchall()
 
 
-def select_contacts_num(unit, subject):
+def select_contacts_num(unit, subject, year, from_month, to_month):
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
     unit_code = unit + '%'
-    cursor.execute("SELECT AVG(contacts_num) FROM %s WHERE id LIKE '%s';" % (subject, unit_code))
+    cursor.execute('''SELECT AVG(contacts_num) FROM %s WHERE id LIKE '%s' and rec_date_year='%s'
+                      and rec_date_month>='%s' and rec_date_month<='%s';''' % (subject, unit_code, year, from_month, to_month))
     return cursor.fetchall()[0][0]
 
 
 # select count of a subject's records according to their unit
-def performance_percent(unit, subject):
+def performance_percent(unit, subject, year, from_month, to_month):
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
     unit_code = unit + '%'
-    cursor.execute('''SELECT COUNT(id) FROM %s WHERE id LIKE '%s';''' % (subject, unit_code))
+    cursor.execute('''SELECT COUNT(id) FROM %s WHERE id LIKE '%s' and rec_date_year='%s'
+                      and rec_date_month>='%s' and rec_date_month<='%s';''' % (subject, unit_code, year, from_month, to_month))
 
     return cursor.fetchall()[0][0]
 

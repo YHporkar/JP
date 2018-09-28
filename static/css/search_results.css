@@ -295,26 +295,6 @@ body
    width: 76px;
    height: 18px;
 }
-#نتایج_جست_و_جوTable1 .cell1
-{
-   background-color: transparent;
-   background-image: none;
-   border: 1px #BFBFBF solid;
-   text-align: center;
-   vertical-align: top;
-   width: 100px;
-   height: 18px;
-}
-#نتایج_جست_و_جوTable1 .cell2
-{
-   background-color: transparent;
-   background-image: none;
-   border: 1px #BFBFBF solid;
-   text-align: left;
-   vertical-align: top;
-   width: 76px;
-   height: 18px;
-}
 #نتایج_جست_و_جوTable1 .cell3
 {
    background-color: transparent;
