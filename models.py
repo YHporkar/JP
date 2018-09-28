@@ -1114,4 +1114,17 @@ def select_by_month_year(unit, subject, month, year):
     return cursor.fetchall()[0][0]
 
 
+def insert():
+    conn = sqlite3.connect(db_name)
+    cursor = conn.cursor()
+    i = 2
+    for unit in ['روابط عمومی', 'موسسه سپهر سوره مهر', 'مرکز آفرینش های ادبی', 'مرکز تجسمی',
+                 'مرکز ترجمه', 'مرکز طنز', 'مرکز مطالعات و تحقیقات فرهنگ و ادب پایداری', 'مرکزک معماری',
+                 'مرکز موسیقی', 'مرکز هنرهای نمایشی', 'کودک و نوجوان']:
+        cursor.execute("INSERT INTO Admin (id, username, password) VALUES ('%s', '%s', '%s')" % (i, unit, 1))
+        i += 1
+    conn.commit()
+    conn.close()
+
+# insert()
 # make_database(db_name)

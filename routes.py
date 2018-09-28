@@ -80,7 +80,7 @@ def evaluation(error=None, message=None):
     return redirect('index')
 
 
-# search results for choose what to edit
+# search results for choose what to evaluate
 @app.route('/eval_search_results', methods=["POST", "GET"])
 def eval_search_results():
     if session.get('logged_in'):
@@ -90,26 +90,22 @@ def eval_search_results():
     return redirect('index')
 
 
-@app.route('/eval_first_record/<code>', methods=["POST", "GET"])
-@app.route('/eval_first_record', methods=["POST", "GET"])
-def eval_first_record(code):
+@app.route('/eval_first_record_filled/<code>', methods=["POST", "GET"])
+@app.route('/eval_first_record_filled', methods=["POST", "GET"])
+def eval_first_record_filled(code):
     if session.get('logged_in') and session['user'] == 'مرکز ارزیابی':
         form = eval_first_records()
-        if session['first_search']:
-            session['code'] = code
-            form.code.data = code
-            form.manager_name.data = select_record(code, session['subject'])[0][1]
-            form.m_p_k.data = select_record(code, session['subject'])[0][2]
-            form.m_s_e.data = select_record(code, session['subject'])[0][3]
-            form.m_t_e.data = select_record(code, session['subject'])[0][4]
-            form.rec_date_year.data = select_record(code, session['subject'])[0][5]
-            form.rec_date_month.data = select_record(code, session['subject'])[0][6]
-            form.rec_date_day.data = select_record(code, session['subject'])[0][7]
-            form.subject.data = session['subject']
-            session['first_search'] = 0
-        if request.method == "POST" and not session['first_search']:
-            if form.continues.data:
-                return redirect('last_evaluation')
+        form.code.data = code
+        session['code'] = form.code.data
+        form.manager_name.data = select_record(session['code'], session['subject'])[0][1]
+        form.m_p_k.data = select_record(session['code'], session['subject'])[0][2]
+        form.m_s_e.data = select_record(session['code'], session['subject'])[0][3]
+        form.m_t_e.data = select_record(session['code'], session['subject'])[0][4]
+        form.rec_date_year.data = select_record(session['code'], session['subject'])[0][5]
+        form.rec_date_month.data = select_record(session['code'], session['subject'])[0][6]
+        form.rec_date_day.data = select_record(session['code'], session['subject'])[0][7]
+        form.subject.data = session['subject']
+
                 # if request.form['subject'] != 'مکتوبات':
                 #     for i in range(page_dict.keys().__len__()):
                 #         if page_dict.keys()[i] == request.form['subject']:
@@ -117,6 +113,20 @@ def eval_first_record(code):
                 #             return redirect(url_for('edit_' + page_dict.values()[i]))
                 # elif request.form['subject'] == 'مکتوبات':
                 #     return redirect(url_for('letters'))
+
+        return render_template("evaluation - first_results.html", this_page=session['user'], form=form)
+    elif not session['user'] == 'مرکز ارزیابی':
+        return redirect('first_add_record')
+    return redirect('index')
+
+
+@app.route('/eval_first_record_form', methods=["POST", "GET"])
+def eval_first_record_form():
+    if session.get('logged_in') and session['user'] == 'مرکز ارزیابی':
+        form = eval_first_records()
+        if request.method == "POST":
+            if form.continues.data:
+                return redirect(url_for('last_evaluation'))
 
         return render_template("evaluation - first_results.html", this_page=session['user'], form=form)
     elif not session['user'] == 'مرکز ارزیابی':
@@ -1414,7 +1424,7 @@ def amar_first_page():
         form = amar_first_form()
         if request.method == "POST":
             session['datas_for_search_p'] = {'unit': form.username.data, 'year': form.year.data,
-                                             'from_month': form.from_month.data, 'to_month': form.to_month.data}
+                                             'from_month': form.from_month.data, 'to_month': form.to_month.data, 'subject':''}
 
             return redirect(url_for('amar_second_page'))
         return render_template("Amar_first_page.html", form=form, this_page=session['user'])
@@ -1439,29 +1449,31 @@ def amar_second_page():
     ys = []
     per_per = {}
     farsi_subjects = []
+    data_for_search = session['datas_for_search_p']
 
     if session['logged_in'] and session['user'] == 'مرکز ارزیابی':
         for i in range(units_dict.keys().__len__()):
-            if units_dict.keys()[i] == session['datas_for_search_p']['unit']:
+            if units_dict.keys()[i] == data_for_search['unit']:
                 unit_code = units_dict.values()[i]
 
-        for i in range(int(session['datas_for_search_p']['from_month'])-1,
-                       int(session['datas_for_search_p']['to_month'])):
+        for i in range(int(data_for_search['from_month']) - 1,
+                       int(data_for_search['to_month'])):
             selected_months.append(monthes[i])
             selected_months_num.append(i)
 
         subs = page_dict.keys()
         subs.remove('مکتوبات')
         for subject in subs:
-            per_per.update({subject: performance_percent(unit_code, subject, session['datas_for_search_p']['year'], session['datas_for_search_p']['from_month'],
-                                                         session['datas_for_search_p']['to_month'])})
+            per_per.update({subject: performance_percent(unit_code, subject, data_for_search['year'],
+                                                         data_for_search['from_month'],
+                                                         data_for_search['to_month'])})
         for subject in subs:
             if not per_per[subject] == 0:
                 perf_counts.update({subject: {}})
             for month in selected_months_num:
                 if not per_per[subject] == 0:
-                    perf_counts[subject].update({month+1: select_by_month_year(unit_code, subject, month+1,
-                                                                               session['datas_for_search_p']['year'])})
+                    perf_counts[subject].update({month + 1: select_by_month_year(unit_code, subject, month + 1,
+                                                                                 data_for_search['year'])})
         for subject in subs:
             if not per_per[subject] == 0:
                 all_subject_records += sum(perf_counts[subject].values())
@@ -1497,15 +1509,16 @@ def amar_second_page():
         plt.close()
 
         for subject in ['نمایش', 'جلسات_و_کارگاه_ها', 'نمایشگاه_ها', 'همایش_ها']:
-            if not select_contacts_num(unit_code, subject, session['datas_for_search_p']['year'], session['datas_for_search_p']['from_month'],
-                                       session['datas_for_search_p']['to_month']) is None:
-                contacts_avgs.update({subject: int(select_contacts_num(unit_code, subject, session['datas_for_search_p']['year'],
-                                                                       session['datas_for_search_p']['from_month'],
-                                                                       session['datas_for_search_p']['to_month']))})
+            if not select_contacts_num(unit_code, subject, data_for_search['year'], data_for_search['from_month'],
+                                       data_for_search['to_month']) is None:
+                contacts_avgs.update({subject: int(select_contacts_num(unit_code, subject, data_for_search['year'],
+                                                                       data_for_search['from_month'],
+                                                                       data_for_search['to_month']))})
 
         form = amar_second_form()
         if request.method == "POST":
-            session['datas_for_search_p'].update({'subject': form.subject.data})
+            data_for_search.update({'subject': form.subject.data})
+            session['datas_for_search_p'] = data_for_search
             return redirect(url_for('amar_search_results'))
         return render_template("Amar_second_page.html", form=form, this_page=session['user'],
                                performance_percents=perf_percent, contacts_avgs=contacts_avgs,
@@ -1522,7 +1535,7 @@ def amar_search_results():
             if units_dict.keys()[i] == session['datas_for_search_p']['unit']:
                 unit_code = units_dict.values()[i]
         data_for_search = session['datas_for_search_p']
-
+        print session['datas_for_search_p']
         if data_for_search['subject'] == 'نمایش':
             col_search_results = ['نام اثر', 'نویسنده', 'کارگردان', 'سالن اجرا', 'تعداد اجرا']
         if data_for_search['subject'] == 'استودیو':
@@ -1577,7 +1590,7 @@ def amar_search_results():
                                   'تعداد جشنواره داخلی', 'تعداد جشنواره مشارکت']
         elif data_for_search['subject'] == 'کتاب':
             col_search_results = ['نام کتاب', 'نویسنده', 'قالب', 'تعداد صفحه', 'محور محتوایی']
-        return render_template("Amar_search_results.html", main_subjec=session['datas_for_search']['subject'],
+        return render_template("Amar_search_results.html", main_subject=session['datas_for_search_p']['subject'],
                                this_page=session['user'],
                                row_search_results=select_record_amar(unit_code, data_for_search['subject'],
                                                                      data_for_search['year'],

@@ -3,23 +3,25 @@
 {% block content %}
 <table style="position:absolute;left:271px;top:236px;width:487px;height:58px;z-index:35;" id="نتایج_جست_و_جوTable1">
 <tr>
-<td class="cell0"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">وضعیت</span></td>
-<td class="cell0"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"> سال</span></td>
-<td class="cell0"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"> ماه</span></td>
-<td class="cell0"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"> روز</span></td>
-<td class="cell0"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"> موضوع</span></td>
-<td class="cell1"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"> کد</span></td>
+    <td class="cell1"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"> کد</span></td>
+    <td class="cell0"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"> موضوع</span></td>
+    <td class="cell0"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"> روز</span></td>
+    <td class="cell0"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"> ماه</span></td>
+    <td class="cell0"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"> سال</span></td>
+    <td class="cell0"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">وضعیت</span></td>
+<!--<td class="cell1"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"> واحد</span></td>-->
 </tr>
 {% for res in search_results %}
-<tr>
-<td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">
+    <tr>
+        <td class="cell2"><a href="{{ url_for('eval_first_record_filled', code=res[0] ) }}" style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ res[0] }} </a></td>
+        <td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ main_subject }} </span></td>
+        <td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ res[7] }} </span></td>
+        <td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ res[6] }} </span></td>
+        <td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ res[5] }} </span></td>
+        <td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">
     {% if res[search_results[0].__len__()-1] == 0 %} ارزیابی نشده
     {% else %} ارزیابی شده {% endif %} </span></td>
-<td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ res[5] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ res[6] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ res[7] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ main_subject }} </span></td>
-<td class="cell2"><a href="{{ url_for('eval_first_record', code=res[0] ) }}" style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ res[0] }} </a></td>
+<!--<td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ unit }} </span></td>-->
 <!--<td class="cell3"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"> </span></td>-->
 </tr>
 {% endfor %}
