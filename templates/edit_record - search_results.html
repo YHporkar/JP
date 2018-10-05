@@ -20,8 +20,13 @@
 <!--<td class="cell3"><span style="color:#000000;font-size:16px;line-height:16px;"> </span></td>-->
 </tr>
 {% endfor %}
+    <tr>
+        <td style="border: 1px solid white;" class="cell2" colspan="15">
+            <a class="back" style="float: left;" href="{{ url_for('edit_search_record') }}">بازگشت</a>
+        </td>
+    </tr>
 </table>
-<a class="back" style="position:absolute;left:88px;top:350px;z-index:21;" href="{{ url_for('edit_search_record') }}">بازگشت</a></form>
+
 </body>
 </html>
 {% endblock %}
