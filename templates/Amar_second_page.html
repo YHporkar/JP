@@ -4,13 +4,13 @@
 
 <table style="position:absolute;left:271px;top:236px;width:487px;height:58px;z-index:35;" id="نتایج_جست_و_جوTable1">
     <tr>
-        <td class="cell1"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">موضوع</span></td>
-        <td colspan="12" class="cell1"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">درصد عملکرد</span></td>
+        <td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">موضوع</span></td>
+        <td colspan="12" class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">درصد عملکرد</span></td>
     </tr>
     {% for i in range(performance_percents.values().__len__()) %}
     <tr class="cell2">
-        <td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ performance_percents.keys()[i] }}</span></td>
-        <td colspan="12" class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ performance_percents.values()[i] }}%</span></td>
+        <td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ performance_percents.keys()[i] }}</span></td>
+        <td colspan="12" class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ performance_percents.values()[i] }}%</span></td>
     </tr>
     {% endfor %}
     <tr STYLE="border-top: 3px solid black;" align="left">
@@ -18,27 +18,27 @@
     </tr>
     <tr style="border-bottom: 3px solid black;"></tr>
     <tr>
-        <td class="cell1"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">عنوان برنامه</span></td>
-        <td colspan="12" class="cell1"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">میانگین مخاطب</span></td>
+        <td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">عنوان برنامه</span></td>
+        <td colspan="12" class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">میانگین مخاطب</span></td>
     </tr>
     {% for i in range(contacts_avgs.values().__len__()) %}
     <tr>
-        <td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ contacts_avgs.keys()[i] }}</span></td>
-        <td colspan="12" class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ contacts_avgs.values()[i] }}</span></td>
+        <td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ contacts_avgs.keys()[i] }}</span></td>
+        <td colspan="12" class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ contacts_avgs.values()[i] }}</span></td>
     </tr>
     {% endfor %}
     <tr style="border-bottom: 3px solid black;"></tr>
     <tr>
-        <td class="cell1"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">موضوع</span></td>
+        <td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">موضوع</span></td>
         {% for month in selected_months %}
-            <td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ month }}</span></td>
+            <td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ month }}</span></td>
         {% endfor %}
     </tr>
         {% for i in range(perf_counts.__len__()) %}
         <tr>
-            <td  class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ perf_counts.keys()[i] }}</span></td>
+            <td  class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ perf_counts.keys()[i] }}</span></td>
             {% for j in range(perf_counts.values()[i].__len__()) %}
-                <td class="cell2"><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;">{{ perf_counts.values()[i].values()[j] }}</span></td>
+                <td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ perf_counts.values()[i].values()[j] }}</span></td>
             {% endfor %}
         </tr>
         {% endfor %}
@@ -48,16 +48,21 @@
     </tr>
     <tr>
         <td>موضوع</td>
+        <a class="back" style="position:absolute;left:80px;top:650px;z-index:21;" href="{{ url_for('amar_first_page') }}">بازگشت</a>
         <td colspan="12">
             <form name="edit_record_form" method="post" action="/amar_second_page" id="Form1">
                 {{ form.hidden_tag() }}
 
+                {% if subj_err %}
+                <span class="error-message", style="width:120px;">{{ subj_err }}</span>
+                {% endif %}
                 {{ form.subject(id="Combobox4") }}
                 {{ form.search(id="Button1") }}
             </form>
         </td>
     </tr>
 </table>
+
 <!--, style="position:absolute;left:200px;top:340px;width:90px;height:28px;z-index:6;-->
 <!--position:absolute;left:73px;top:463px;width:96px;height:25px;z-index:0;-->
 <!--<table style="position:absolute;left:271px;top:700px;width:487px;height:58px;z-index:35;" id="نتایج_جست_و_جوTable1">-->

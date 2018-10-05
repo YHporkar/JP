@@ -1,7 +1,8 @@
-a
-{
-   color: #0000FF;
-   text-decoration: underline;
+@font-face {
+  font-family: 'Roya';
+  src: url("fonts/Mitra.eot") format('eot'),
+       url('fonts/Mitra.woff') format('woff'),
+       url('fonts/Mitra.ttf') format('truetype');
 }
 a:visited
 {
@@ -22,7 +23,7 @@ input
 }
 h1, .h1
 {
-   font-family: Arial;
+   font-family: Roya, serif;
    font-weight: bold;
    font-size: 32px;
    text-decoration: none;
@@ -34,7 +35,7 @@ h1, .h1
 }
 h2, .h2
 {
-   font-family: Arial;
+   font-family: Roya, serif;
    font-weight: bold;
    font-size: 27px;
    text-decoration: none;
@@ -46,7 +47,7 @@ h2, .h2
 }
 h3, .h3
 {
-   font-family: Arial;
+   font-family: Roya, serif;
    font-weight: bold;
    font-size: 24px;
    text-decoration: none;
@@ -58,7 +59,7 @@ h3, .h3
 }
 h4, .h4
 {
-   font-family: Arial;
+   font-family: Roya, serif;
    font-weight: bold;
    font-size: 21px;
    font-style: italic;
@@ -71,7 +72,7 @@ h4, .h4
 }
 h5, .h5
 {
-   font-family: Arial;
+   font-family: Roya, serif;
    font-weight: bold;
    font-size: 19px;
    text-decoration: none;
@@ -83,7 +84,7 @@ h5, .h5
 }
 h6, .h6
 {
-   font-family: Arial;
+   font-family: Roya, serif;
    font-weight: bold;
    font-size: 16px;
    text-decoration: none;
@@ -95,7 +96,6 @@ h6, .h6
 }
 .CustomStyle
 {
-   font-family: "Courier New";
    font-weight: bold;
    font-size: 16px;
    text-decoration: none;
@@ -107,9 +107,9 @@ body
 {
    background-color: #FFFFFF;
    color: #000000;
-   font-family: Arial;
+   font-family: Roya, serif;
    font-weight: normal;
-   font-size: 13px;
+   font-size: 15px;
    line-height: 1.1875;
    margin: 0;
    padding: 0;
@@ -139,7 +139,6 @@ body
    width: 539px;
    height: 65px;
    background-color: transparent;
-   background-image: url(images/ثبت_گزارش_indexShape2_bkgrnd.png);
    background-repeat: repeat;
    background-position: left top;
    border: 2px #003264 solid;
@@ -238,7 +237,6 @@ body
    width: 479px;
    height: 26px;
    background-color: transparent;
-   background-image: url(images/ثبت_گزارش_indexShape4_bkgrnd.png);
    background-repeat: repeat;
    background-position: left top;
    border: 2px #003264 solid;
@@ -357,7 +355,34 @@ body
    background-image: none;
    border: 0px solid #CCCCCC;
 }
-
+a.code:link{
+   background-color: transparent;
+    color: white;
+    padding: 3px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+a.code:visited{
+   color: white;
+}
+a.code:hover{
+    color: yellow;
+}
+a.back:link{
+   background-color: #6c757d;
+    color: white;
+    padding: 3px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+a.back:visited{
+   color: white;
+}
+a.back:hover{
+   background-color: #495057;
+}
 a.edaddlink:link{
    background-color: #3370B7;
     color: white;
@@ -376,7 +401,7 @@ a.edaddlink:hover{
 a.logoutlink:link{
    background-color: #3370B7;
     color: white;
-    padding: 4px 20px;
+    padding: 2.5px 20px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -395,9 +420,8 @@ a.logoutlink:hover{
    background-color: #3370B7;
    background-image: none;
    color: #FFFFFF;
-   font-family: Arial;
+   font-family: Roya, serif;
    font-weight: normal;
-   font-size: 13px;
    margin: 0;
 }
 #wb_Text4
@@ -420,7 +444,7 @@ a.logoutlink:hover{
    background-color: #FFFFFF;
    background-image: none;
    color :#000000;
-   font-family: Arial;
+   font-family: Roya, serif;
    font-weight: normal;
    font-size: 13px;
    line-height: 17px;
@@ -436,7 +460,7 @@ a.logoutlink:hover{
    background-color: #FFFFFF;
    background-image: none;
    color :#000000;
-   font-family: Arial;
+   font-family: Roya, serif;
    font-weight: normal;
    font-size: 13px;
    line-height: 17px;
@@ -458,7 +482,7 @@ a.logoutlink:hover{
    background-color: #FFFFFF;
    background-image: none;
    color: #000000;
-   font-family: Arial;
+   font-family: Roya, serif;
    font-weight: normal;
    font-size: 13px;
    padding: 4px 4px 4px 4px;
@@ -492,7 +516,7 @@ a.logoutlink:hover{
    background-color: #FFFFFF;
    background-image: none;
    color :#000000;
-   font-family: Arial;
+   font-family: Roya, serif;
    font-weight: normal;
    font-size: 13px;
    line-height: 17px;
@@ -515,7 +539,7 @@ a.logoutlink:hover{
    background-color: #FFFFFF;
    background-image: none;
    color: #000000;
-   font-family: Arial;
+   font-family: Roya, serif;
    font-weight: normal;
    font-size: 13px;
    padding: 4px 4px 4px 4px;
@@ -536,7 +560,7 @@ a.logoutlink:hover{
    background-color: #FFFFFF;
    background-image: none;
    color: #000000;
-   font-family: Arial;
+   font-family: Roya, serif;
    font-weight: normal;
    font-size: 13px;
    padding: 4px 4px 4px 4px;
@@ -557,7 +581,7 @@ a.logoutlink:hover{
    background-color: #FFFFFF;
    background-image: none;
    color: #000000;
-   font-family: Arial;
+   font-family: Roya, serif;
    font-weight: normal;
    font-size: 13px;
    padding: 4px 4px 4px 4px;
@@ -578,7 +602,7 @@ a.logoutlink:hover{
    background-color: #FFFFFF;
    background-image: none;
    color :#000000;
-   font-family: Arial;
+   font-family: Roya, serif;
    font-weight: normal;
    font-size: 13px;
    line-height: 17px;
@@ -627,7 +651,7 @@ a.logoutlink:hover{
    background-color: #FFFFFF;
    background-image: none;
    color :#000000;
-   font-family: Arial;
+   font-family: Roya, serif;
    font-weight: normal;
    font-size: 13px;
    line-height: 17px;
@@ -650,7 +674,7 @@ a.logoutlink:hover{
    background-color: #FFFFFF;
    background-image: none;
    color :#000000;
-   font-family: Arial;
+   font-family: Roya, serif;
    font-weight: normal;
    font-size: 13px;
    line-height: 17px;
@@ -763,7 +787,7 @@ a.logoutlink:hover{
 }
 #نتایج_جست_و_جوTable1 .cell1
 {
-   background-color: transparent;
+   background-color: red;
    background-image: none;
    border: 1px #BFBFBF solid;
    text-align: center;

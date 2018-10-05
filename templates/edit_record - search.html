@@ -13,23 +13,27 @@
     {{ form.search(id="Button1", style="position:absolute;left:93px;top:200px;width:96px;height:25px;z-index:0;") }}
 
     <!--<div id="wb_Text4" style="position:absolute;left:389px;top:61px;width:52px;height:19px;text-align:right;z-index:10;">
-        <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>کد</strong></span></div>
+        <span style="color:#000000;font-size:16px;"><strong>کد</strong></span></div>
     <div id="wb_Text5" style="position:absolute;left:389px;top:100px;width:52px;height:19px;text-align:right;z-index:11;">
-        <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>نام مدیر</strong></span></div>
+        <span style="color:#000000;font-size:16px;"><strong>نام مدیر</strong></span></div>
     <div id="wb_Text7" style="position:absolute;left:331px;top:137px;width:111px;height:19px;text-align:right;z-index:12;">
-        <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>مسئول پیگیری کننده</strong></span></div>
+        <span style="color:#000000;font-size:16px;"><strong>مسئول پیگیری کننده</strong></span></div>
     <div id="wb_Text8" style="position:absolute;left:331px;top:175px;width:111px;height:19px;text-align:right;z-index:13;">
-        <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>مسئول ثبت اطلاعات</strong></span></div>
+        <span style="color:#000000;font-size:16px;"><strong>مسئول ثبت اطلاعات</strong></span></div>
     <div id="wb_Text9" style="position:absolute;left:297px;top:215px;width:145px;height:19px;text-align:right;z-index:14;">
-        <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>مسئول تأیید کننده اطلاعات</strong></span></div>-->
+        <span style="color:#000000;font-size:16px;"><strong>مسئول تأیید کننده اطلاعات</strong></span></div>-->
     <!--<div id="wb_Text3" style="position:absolute;left:300px;top:100px;width:52px;height:19px;text-align:right;z-index:15;">
-        <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>ماه</strong></span></div>
+        <span style="color:#000000;font-size:16px;"><strong>ماه</strong></span></div>
     <div id="wb_Text11" style="position:absolute;left:300px;top:61px;width:52px;height:19px;text-align:right;z-index:16;">
-        <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>سال</strong></span></div>-->
+        <span style="color:#000000;font-size:16px;"><strong>سال</strong></span></div>-->
     <!--<div id="wb_Text12" style="position:absolute;left:137px;top:137px;width:52px;height:19px;text-align:right;z-index:17;">
-        <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>روز</strong></span></div>-->
+        <span style="color:#000000;font-size:16px;"><strong>روز</strong></span></div>-->
     <div id="wb_Text13" style="position:absolute;left:300px;top:75px;width:52px;height:19px;text-align:right;z-index:18;">
-        <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>موضوع</strong></span></div>
+        <span style="color:#000000;font-size:16px;"><strong>موضوع</strong></span>
+        {% if subj_err %}
+            <p class="error-message", style="width:120px;">{{ subj_err }}</p>
+        {% endif %}
+    </div>
 </form>
 </div>
 {% endblock %}

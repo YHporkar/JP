@@ -6,8 +6,8 @@ from forms import adding_record
 from models import *
 import matplotlib
 matplotlib.use('agg')
-import matplotlib.pyplot as plt
 
+import matplotlib.pyplot as plt
 from bidi.algorithm import get_display
 import arabic_reshaper
 
@@ -30,7 +30,6 @@ units_dict = {'خانه عکاسان': 'a', 'روابط عمومی': 'b', 'مؤ�
               'مرکز هنرهای نمایشی': 'k', 'کودک و نوجوان': 'l'}
 
 
-
 @app.route("/")
 @app.route('/index', methods=["POST", "GET"])
 @app.route('/index/<error>', methods=["POST", "GET"])
@@ -41,26 +40,28 @@ def index(error=None):
             if not form.validate():
                 # return "false"
                 return render_template("index.html", form=form, error=error)
-            else:
+            if form.username.data == '':
+                error = 'لطفا برای ورود دفتر را انتخاب کنید'
+            elif form.username.data:
                 if authenticate_Admin(form.username.data, form.password.data) == 1:
                     make_online(form.username.data)
                     session['user'] = form.username.data
                     session['logged_in'] = True
-                    if form.username.data == 'مرکز ارزیابی':
+                    if form.username.data == 'اداره ارزیابی و نظارت':
                         return redirect(url_for('evaluation'))
                     return redirect(url_for('first_add_record'))
                 else:
                     error = "رمز عبور اشتباه است"
         return render_template("index.html", form=form, error=error)
-    elif session['user'] == 'مرکز ارزیابی':
+    elif session['user'] == 'اداره ارزیابی و نظارت':
         return redirect(url_for('evaluation'))
     return redirect(url_for('first_add_record'))
 
 
 @app.route("/evaluation", methods=["POST", "GET"])
 @app.route("/evaluation/<error>", methods=["POST", "GET"])
-def evaluation(error=None, message=None):
-    if session.get('logged_in') and session['user'] == 'مرکز ارزیابی':
+def evaluation(error=None, message=None, subj_err=None):
+    if session.get('logged_in') and session['user'] == 'اداره ارزیابی و نظارت':
         form = eval_record()
         subs = page_dict.keys()
         subs.remove('مکتوبات')
@@ -68,14 +69,17 @@ def evaluation(error=None, message=None):
         if request.method == "POST":
             if form.search.data:
                 session['subject'] = form.subject.data
-                if form.subject.data != 'مکتوبات':
-                    session['search_results'] = select_rec_by_subject_eval(form.subject.data, form.evaluated.data)
-                    return redirect(url_for('eval_search_results'))
-                elif form.subject.data == 'مکتوبات':
-                    return redirect(url_for('letters'))
+                if form.subject.data:
+                    if form.subject.data != 'مکتوبات':
+                        session['search_results'] = select_rec_by_subject_eval(form.subject.data, form.evaluated.data)
+                        return redirect(url_for('eval_search_results'))
+                    elif form.subject.data == 'مکتوبات':
+                        return redirect(url_for('letters'))
+                elif form.subject.data == '':
+                    subj_err = 'لطفا موضوعی انتخاب کنید'
         return render_template("evaluation - add.html", this_page=session['user'], form=form, error=error,
-                               message=message, evaluated_num=evaluated_num)
-    elif not session['user'] == 'مرکز ارزیابی':
+                               subj_err=subj_err, message=message, evaluated_num=evaluated_num)
+    elif not session['user'] == 'اداره ارزیابی و نظارت':
         return redirect('first_add_record')
     return redirect('index')
 
@@ -93,7 +97,7 @@ def eval_search_results():
 @app.route('/eval_first_record_filled/<code>', methods=["POST", "GET"])
 @app.route('/eval_first_record_filled', methods=["POST", "GET"])
 def eval_first_record_filled(code):
-    if session.get('logged_in') and session['user'] == 'مرکز ارزیابی':
+    if session.get('logged_in') and session['user'] == 'اداره ارزیابی و نظارت':
         form = eval_first_records()
         form.code.data = code
         session['code'] = form.code.data
@@ -115,28 +119,28 @@ def eval_first_record_filled(code):
                 #     return redirect(url_for('letters'))
 
         return render_template("evaluation - first_results.html", this_page=session['user'], form=form)
-    elif not session['user'] == 'مرکز ارزیابی':
+    elif not session['user'] == 'اداره ارزیابی و نظارت':
         return redirect('first_add_record')
     return redirect('index')
 
 
 @app.route('/eval_first_record_form', methods=["POST", "GET"])
 def eval_first_record_form():
-    if session.get('logged_in') and session['user'] == 'مرکز ارزیابی':
+    if session.get('logged_in') and session['user'] == 'اداره ارزیابی و نظارت':
         form = eval_first_records()
         if request.method == "POST":
             if form.continues.data:
                 return redirect(url_for('last_evaluation'))
 
         return render_template("evaluation - first_results.html", this_page=session['user'], form=form)
-    elif not session['user'] == 'مرکز ارزیابی':
+    elif not session['user'] == 'اداره ارزیابی و نظارت':
         return redirect('first_add_record')
     return redirect('index')
 
 
 @app.route("/last_evaluation", methods=["POST", "GET"])
 def last_evaluation():
-    if session.get('logged_in') and session['user'] == 'مرکز ارزیابی':
+    if session.get('logged_in') and session['user'] == 'اداره ارزیابی و نظارت':
         form = enter_evaluation()
         form.code.data = session['code']
         if session['subject'] not in ['بازبینی_آثار', 'عکس_های_خریداری_شده', 'کارشناسی_آثار_مکتوب', 'کارشناسی_رمان',
@@ -158,8 +162,8 @@ def last_evaluation():
 
 @app.route("/first_add_record", methods=["POST", "GET"])
 @app.route("/first_add_record/<error>", methods=["POST", "GET"])
-def first_add_record(error=None, message=None):
-    if session.get('logged_in') and session['user'] != 'مرکز ارزیابی':
+def first_add_record(error=None, message=None, subj_err=None):
+    if session.get('logged_in') and session['user'] != 'اداره ارزیابی و نظارت':
         form = adding_record()
         if request.method == "POST" and form.continues.data:
             session['submitted'] = 0
@@ -174,21 +178,24 @@ def first_add_record(error=None, message=None):
                                         'rec_date_month': form.rec_date_month.data,
                                         'rec_date_year': form.rec_date_year.data,
                                         'subject': form.subject.data}
-
-            if not form.subject.data == 'مکتوبات':
-                if auth_code(session['first_records']['code'], form.subject.data):
-                    error = 'این کد قبلا ثبت شده است'
-                else:
-                    for i in range(page_dict.keys().__len__()):
-                        if page_dict.keys()[i] == form.subject.data:
-                            return redirect(url_for(page_dict.values()[i]))
-            elif form.subject.data == 'مکتوبات':
-                return redirect(url_for('letters'))
+            if form.subject.data:
+                if not form.subject.data == 'مکتوبات':
+                    if auth_code(session['first_records']['code'], form.subject.data):
+                        error = 'این کد قبلا ثبت شده است'
+                    else:
+                        for i in range(page_dict.keys().__len__()):
+                            if page_dict.keys()[i] == form.subject.data:
+                                return redirect(url_for(page_dict.values()[i]))
+                elif form.subject.data == 'مکتوبات':
+                    return redirect(url_for('letters'))
+            elif form.subject.data == '':
+                subj_err = 'لطفا موضوعی انتخاب کنید'
         if session.get('added'):
             message = 'گزارش با موفقیت ثبت شد'
             session['added'] = 0
-        return render_template("add_record.html", this_page=session['user'], form=form, error=error, message=message)
-    elif session['user'] == 'مرکز ارزیابی':
+        return render_template("add_record.html", this_page=session['user'], form=form, error=error,
+                               subj_err=subj_err, message=message)
+    elif session['user'] == 'اداره ارزیابی و نظارت':
         return redirect('evaluation')
     return redirect('index')
 
@@ -626,20 +633,23 @@ def journal():
 # first page of search for edit
 @app.route("/edit_search_record", methods=["POST", "GET"])
 @app.route("/edit_search_record/<error>", methods=["POST", "GET"])
-def edit_search_record(error=None, message=None):
+def edit_search_record(error=None, message=None, subj_err=None):
     if session.get('logged_in'):
         form = editing_record()
         if request.method == "POST":
             if form.search.data:
                 session['subject'] = form.subject.data
-                if form.subject.data != 'مکتوبات':
-                    session['search_results'] = select_rec_by_subject(form.subject.data)
-                    return redirect(url_for('edit_search_results'))
-                elif form.subject.data == 'مکتوبات':
-                    return redirect(url_for('letters'))
+                if form.subject.data:
+                    if form.subject.data != 'مکتوبات':
+                        session['search_results'] = select_rec_by_subject(form.subject.data)
+                        return redirect(url_for('edit_search_results'))
+                    elif form.subject.data == 'مکتوبات':
+                        return redirect(url_for('letters'))
+                elif form.subject.data == '':
+                    subj_err = 'لطفا موضوعی انتخاب کنید'
         return render_template("edit_record - search.html", this_page=session['user'], form=form, error=error,
-                               message=message)
-    elif session['user'] == 'مرکز ارزیابی':
+                               subj_err=subj_err, message=message)
+    elif session['user'] == 'اداره ارزیابی و نظارت':
         return redirect('evaluation')
     return redirect('index')
 
@@ -656,7 +666,7 @@ def edit_search_results():
 @app.route('/edit_first_record_filled/<code>', methods=["POST", "GET"])
 @app.route('/edit_first_record_filled', methods=["POST", "GET"])
 def edit_first_record_filled(code, message=None):
-    if session.get('logged_in') and session['user'] != 'مرکز ارزیابی':
+    if session.get('logged_in') and session['user'] != 'اداره ارزیابی و نظارت':
         form = editing_first_record()
         form.code.data = code
         session['code'] = form.code.data
@@ -673,18 +683,17 @@ def edit_first_record_filled(code, message=None):
             message = 'گزارش با موفقیت ثبت شد'
             session['added'] = 0
         return render_template("edit_record - first_results.html", this_page=session['user'], form=form, message=message)
-    elif session['user'] == 'مرکز ارزیابی':
+    elif session['user'] == 'اداره ارزیابی و نظارت':
         return redirect('evaluation')
     return redirect('index')
 
 
 @app.route('/edit_first_record_form', methods=["POST", "GET"])
 def edit_first_record_form(message=None):
-    if session.get('logged_in') and session['user'] != 'مرکز ارزیابی':
+    if session.get('logged_in') and session['user'] != 'اداره ارزیابی و نظارت':
         form = editing_first_record()
         if request.method == "POST":
             if form.continues.data:
-                print 'code is', request.form['code']
                 session['code'] = request.form['code']
                 session['submitted'] = 0
                 session['first_rec_for_edit'] = {
@@ -710,7 +719,7 @@ def edit_first_record_form(message=None):
             message = 'گزارش با موفقیت ثبت شد'
             session['added'] = 0
         return render_template("edit_record - first_results.html", this_page=session['user'], form=form, message=message)
-    elif session['user'] == 'مرکز ارزیابی':
+    elif session['user'] == 'اداره ارزیابی و نظارت':
         return redirect('evaluation')
     return redirect('index')
 
@@ -1419,22 +1428,25 @@ def edit_journal():
 
 
 @app.route("/amar_first_page", methods=["POST", "GET"])
-def amar_first_page():
-    if session['logged_in'] and session['user'] == 'مرکز ارزیابی':
+def amar_first_page(subj_err=None):
+    if session['logged_in'] and session['user'] == 'اداره ارزیابی و نظارت':
         form = amar_first_form()
         if request.method == "POST":
-            session['datas_for_search_p'] = {'unit': form.username.data, 'year': form.year.data,
-                                             'from_month': form.from_month.data, 'to_month': form.to_month.data, 'subject':''}
+            if form.username.data:
+                session['datas_for_search_p'] = {'unit': form.username.data, 'year': form.year.data,
+                                                 'from_month': form.from_month.data, 'to_month': form.to_month.data, 'subject':''}
 
-            return redirect(url_for('amar_second_page'))
-        return render_template("Amar_first_page.html", form=form, this_page=session['user'])
-    elif not session['user'] == 'مرکز ارزیابی':
+                return redirect(url_for('amar_second_page'))
+            elif form.username.data == '':
+                subj_err = 'لطفا دفتر مورد نظر را انتخاب کنید'
+        return render_template("Amar_first_page.html", form=form, this_page=session['user'], subj_err=subj_err)
+    elif not session['user'] == 'اداره ارزیابی و نظارت':
         return redirect(url_for('first_add_record'))
     return redirect('index')
 
 
 @app.route("/amar_second_page", methods=["POST", "GET"])
-def amar_second_page():
+def amar_second_page(subj_err=None):
     perf_percent = {}
     perf_counts = {}
     contacts_avgs = {}
@@ -1451,7 +1463,7 @@ def amar_second_page():
     farsi_subjects = []
     data_for_search = session['datas_for_search_p']
 
-    if session['logged_in'] and session['user'] == 'مرکز ارزیابی':
+    if session['logged_in'] and session['user'] == 'اداره ارزیابی و نظارت':
         for i in range(units_dict.keys().__len__()):
             if units_dict.keys()[i] == data_for_search['unit']:
                 unit_code = units_dict.values()[i]
@@ -1517,20 +1529,23 @@ def amar_second_page():
 
         form = amar_second_form()
         if request.method == "POST":
-            data_for_search.update({'subject': form.subject.data})
-            session['datas_for_search_p'] = data_for_search
-            return redirect(url_for('amar_search_results'))
+            if form.subject.data:
+                data_for_search.update({'subject': form.subject.data})
+                session['datas_for_search_p'] = data_for_search
+                return redirect(url_for('amar_search_results'))
+            elif form.subject.data == '':
+                subj_err = 'لطفا موضوع را انتخاب کنید'
         return render_template("Amar_second_page.html", form=form, this_page=session['user'],
                                performance_percents=perf_percent, contacts_avgs=contacts_avgs,
-                               selected_months=selected_months, perf_counts=perf_counts)
-    elif not session['user'] == 'مرکز ارزیابی':
+                               selected_months=selected_months, perf_counts=perf_counts, subj_err=subj_err)
+    elif not session['user'] == 'اداره ارزیابی و نظارت':
         return redirect('first_add_record')
     return redirect('index')
 
 
 @app.route("/amar_search_results", methods=["POST", "GET"])
 def amar_search_results():
-    if session['logged_in'] and session['user'] == 'مرکز ارزیابی':
+    if session['logged_in'] and session['user'] == 'اداره ارزیابی و نظارت':
         for i in range(units_dict.keys().__len__()):
             if units_dict.keys()[i] == session['datas_for_search_p']['unit']:
                 unit_code = units_dict.values()[i]
@@ -1597,7 +1612,7 @@ def amar_search_results():
                                                                      data_for_search['from_month'],
                                                                      data_for_search['to_month']),
                                col_search_results=col_search_results, subject=data_for_search['subject'])
-    elif not session['user'] == 'مرکز ارزیابی':
+    elif not session['user'] == 'اداره ارزیابی و نظارت':
         return redirect('first_add_record')
     return redirect('index')
 

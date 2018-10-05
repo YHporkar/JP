@@ -10,21 +10,25 @@
     {% endif %}
 
     <!--<div id="wb_Text4" style="position:absolute;left:389px;top:61px;width:52px;height:19px;text-align:right;z-index:10;">
-        <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>کد</strong></span></div>
+        <span style="color:#000000;font-size:16px;"><strong>کد</strong></span></div>
     <div id="wb_Text3" style="position:absolute;left:137px;top:100px;width:52px;height:19px;text-align:right;z-index:15;">
-        <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>ماه</strong></span></div>
+        <span style="color:#000000;font-size:16px;"><strong>ماه</strong></span></div>
     <div id="wb_Text11" style="position:absolute;left:137px;top:61px;width:52px;height:19px;text-align:right;z-index:16;">
-        <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>سال</strong></span></div>
+        <span style="color:#000000;font-size:16px;"><strong>سال</strong></span></div>
     <div id="wb_Text12" style="position:absolute;left:137px;top:137px;width:52px;height:19px;text-align:right;z-index:17;">
-        <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>روز</strong></span></div>-->
+        <span style="color:#000000;font-size:16px;"><strong>روز</strong></span></div>-->
     <div id="wb_Text13" style="position:absolute;left:350px;top:100px;width:52px;height:19px;text-align:right;z-index:18;">
-        <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>موضوع</strong></span></div>
+        <span style="color:#000000;font-size:16px;"><strong>موضوع</strong></span>
+        {% if subj_err %}
+            <p class="error-message", style="width:120px;">{{ subj_err }}</p>
+        {% endif %}
+    </div>
     <!--<div id="wb_Text14" style="position:absolute;left:137px;top:210px;width:52px;height:19px;text-align:right;z-index:18;">
-<span style="color:#000000;font-family:Arial;font-size:16px;"><strong>وضعیت</strong></span></div>-->
+<span style="color:#000000;font-size:16px;"><strong>وضعیت</strong></span></div>-->
     <div id="wb_Text6" style="position:absolute;left:306px;top:250px;width:173px;height:19px;text-align:right;z-index:21;">
-    <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>تعداد گزارش های ارزیابی نشده </strong></span></div>
+    <span style="color:#000000;font-size:16px;"><strong>تعداد گزارش های ارزیابی نشده </strong></span></div>
     <div id="wb_Text2" style="position:absolute;left:115px;top:250px;width:173px;height:19px;text-align:right;z-index:22;">
-    <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>{{ evaluated_num }}</strong></span></div>
+    <span style="color:#000000;font-size:16px;"><strong>{{ evaluated_num }}</strong></span></div>
     {{ form.subject(id="Combobox4", style="position:absolute;left:245px;top:95px;width:90px;height:28px;z-index:6;") }}
     {{ form.evaluated(id="Combobox4", style="position:absolute;left:120px;top:95px;width:90px;height:28px;z-index:6;") }}
     {{ form.search(id="Button1", style="position:absolute;left:93px;top:200px;width:96px;height:25px;z-index:0;") }}

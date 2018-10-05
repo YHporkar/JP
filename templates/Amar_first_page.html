@@ -16,13 +16,17 @@
     {{ form.continues(id="Button1", style="position:absolute;left:93px;top:240px;width:96px;height:25px;z-index:0;") }}
 
     <div id="wb_Text13" style="position:absolute;left:300px;top:75px;width:52px;height:19px;text-align:right;z-index:18;">
-        <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>نام واحد</strong></span></div>
+        <span style="color:#000000;font-size:16px;"><strong>نام واحد</strong></span>
+        {% if subj_err %}
+            <p class="error-message", style="position:absolute;top:-10px;right:170px;width:150px;">{{ subj_err }}</p>
+        {% endif %}
+    </div>
     <div id="wb_Text11" style="position:absolute;left:300px;top:115px;width:52px;height:19px;text-align:right;z-index:16;">
-        <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>سال</strong></span></div>
+        <span style="color:#000000;font-size:16px;"><strong>سال</strong></span></div>
     <div id="wb_Text3" style="position:absolute;left:300px;top:155px;width:52px;height:19px;text-align:right;z-index:15;">
-        <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>از ماه</strong></span></div>
+        <span style="color:#000000;font-size:16px;"><strong>از ماه</strong></span></div>
     <div id="wb_Text9" style="position:absolute;left:300px;top:195px;width:52px;height:19px;text-align:right;z-index:15;">
-        <span style="color:#000000;font-family:Arial;font-size:16px;"><strong>تا ماه</strong></span></div>
+        <span style="color:#000000;font-size:16px;"><strong>تا ماه</strong></span></div>
 
 </form>
 </div>
