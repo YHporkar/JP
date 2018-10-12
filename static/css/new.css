@@ -4,6 +4,12 @@
        url('fonts/Mitra.woff') format('woff'),
        url('fonts/Mitra.ttf') format('truetype');
 }
+@font-face {
+  font-family: 'Titr';
+  src: url("fonts/TitrBold.eot") format('eot'),
+       url('fonts/TitrBold.woff') format('woff'),
+       url('fonts/TitrBold.ttf') format('truetype');
+}
 a:visited
 {
    color: #800080;
@@ -123,6 +129,7 @@ body
    background-image: none;
    border: 3px #003264 solid;
 }
+
 #Shape1
 {
    width: 794px;

@@ -200,6 +200,22 @@ def first_add_record(error=None, message=None, subj_err=None):
     return redirect('index')
 
 
+@app.route("/info_add_record", methods=["POST", "GET"])
+def info_add_record():
+    if session.get('logged_in') and session['user'] != 'اداره ارزیابی و نظارت':
+        subs = page_dict.keys()
+        subs.remove('مکتوبات')
+        results = {}
+        for subject in subs:
+            if select_rec_by_subject(subject):
+                results.update({subject: select_rec_by_subject(subject)})
+        return render_template("info_record - results.html",
+                               this_page=session['user'], search_results=results)
+    elif session['user'] == 'اداره ارزیابی و نظارت':
+        return redirect('evaluation')
+    return redirect('index')
+
+
 @app.route("/show", methods=["POST", "GET"])
 def show():
     if session.get('logged_in') and not session['submitted']:
