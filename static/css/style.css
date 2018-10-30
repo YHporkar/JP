@@ -1,12 +1,25 @@
+@font-face {
+  font-family: 'Roya';
+  src: url("fonts/Mitra.eot") format('eot'),
+       url('fonts/Mitra.woff') format('woff'),
+       url('fonts/Mitra.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Titr';
+  src: url("fonts/TitrBold.eot") format('eot'),
+       url('fonts/TitrBold.woff') format('woff'),
+       url('fonts/TitrBold.ttf') format('truetype');
+}
+
 body {
   margin: auto;
   background-size: 100%;
-  font-family: Roya;
   direction: rtl;
   background-repeat: no-repeat;
 }
+*{font-family: Roya}
 
-add_and_edit{
+.add_and_edit{
   text-align: right;
 }
 .info p {
@@ -269,7 +282,6 @@ li a.edaddlink.active {
   }
 
   .row .cell:before {
-    font-family: Roya;
     font-size: 12px;
     color: #808080;
     line-height: 1.2;
@@ -294,7 +306,6 @@ li a.edaddlink.active {
 }
 
 .row .cell {
-  font-family: Roya;
   font-size: 15px;
   color: #666666;
   line-height: 1.2;
@@ -306,7 +317,6 @@ li a.edaddlink.active {
 }
 
 .row.header .cell {
-  font-family: Roya;
   font-size: 18px;
   color: #fff;
   line-height: 1.2;
@@ -360,7 +370,6 @@ li a.edaddlink.active {
   }
 
   .row .cell {
-    font-family: Roya;
     font-size: 18px;
     color: #555555;
     line-height: 1.2;
