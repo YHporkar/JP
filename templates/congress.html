@@ -1,47 +1,81 @@
+{% extends "layout_add_second.html" %}
 
-{% extends "layout.html" %}{% block content %}<div id="wb_Form1" style="position:absolute;left:269px;top:230px;width:483px;height:507px;z-index:42;">
-<form name="contact" method="post" action="/congress" id="Form1">
-    {{ form.hidden_tag() }}
-    {{ form.name(id="Editbox3", style="position:absolute;left:233px;top:25px;width:82px;height:17px;z-index:4;") }}
-    {{ form.office(id="Combobox2", style="position:absolute;left:229px;top:63px;width:96px;height:28px;z-index:5;") }}
-    {{ form.contact_num(id="Editbox3", style="position:absolute;left:233px;top:100px;width:82px;height:17px;z-index:6;") }}
-    {{ form.contact_pos(id="Editbox3", style="position:absolute;left:233px;top:142px;width:82px;height:17px;z-index:7;") }}
-    {{ form.country(id="Editbox3", style="position:absolute;left:233px;top:182px;width:82px;height:17px;z-index:8;") }}
-    {{ form.city(id="Combobox2", style="position:absolute;left:229px;top:223px;width:96px;height:28px;z-index:9;") }}
-    {{ form.salon(id="Combobox2", style="position:absolute;left:229px;top:260px;width:96px;height:28px;z-index:10;") }}
-    {{ form.frame(id="Combobox2", style="position:absolute;left:229px;top:303px;width:96px;height:28px;z-index:11;") }}
-    {{ form.meh_moh(id="Combobox2", style="position:absolute;left:229px;top:343px;width:96px;height:28px;z-index:12;") }}
-    {{ form.famous_persons(id="TextArea1", style="position:absolute;left:17px;top:68px;width:149px;height:91px;z-index:23;") }}
-    {{ form.sokhanrans(id="TextArea1", style="position:absolute;left:13px;top:243px;width:149px;height:91px;z-index:24;") }}
+{% block content %}
+<form action="/congress" method="POST">
+{{ form.hidden_tag() }}
+    <div class="rightcontact">
+		    <div class="form-group">
+			<p>نام همایش</p>
+				{{ form.name }}
+				<div class="validation"></div>
+      		</div>
 
-    <!--{{form.back(id="Button3", style="position:absolute;left:88px;top:400px;width:90px;height:25px;z-index:21;")}}-->
-    {{form.add(id="Button1", style="position:absolute;left:304px;top:400px;width:90px;height:25px;z-index:23;")}}
+            <div class="form-group">
+            <p>نام دفتر </p>
+				{{ form.office }}
+                <div class="validation"></div>
+			</div>
 
-<div id="wb_همایش_هاText1" style="position:absolute;left:87px;top:29px;width:111px;height:19px;text-align:right;z-index:0;">
-<span style="color:#000000;font-size:16px;"><strong>مهمان های خاص</strong></span></div>
-<div id="wb_همایش_هاText2" style="position:absolute;left:87px;top:206px;width:111px;height:19px;text-align:right;z-index:1;">
-<span style="color:#000000;font-size:16px;"><strong>سخنران ها</strong></span></div>
-<!--<input type="submit" id="page2Button1" name="chap" value="چاپ" style="position:absolute;left:198px;top:425px;width:90px;height:25px;z-index:2;">-->
-<div id="wb_محصولات_موسیقیText6" style="position:absolute;left:359px;top:343px;width:111px;height:19px;text-align:right;z-index:14;">
-<span style="color:#000000;font-size:16px;"><strong>محور محتوایی</strong></span></div>
-<div id="wb_محصولات_موسیقیText5" style="position:absolute;left:359px;top:308px;width:111px;height:19px;text-align:right;z-index:15;">
-<span style="color:#000000;font-size:16px;"><strong>قالب برنامه</strong></span></div>
-<div id="wb_محصولات_موسیقیText4" style="position:absolute;left:359px;top:269px;width:111px;height:19px;text-align:right;z-index:16;">
-<span style="color:#000000;font-size:16px;"><strong>سالن محل برگزاری</strong></span></div>
-<div id="wb_محصولات_موسیقیText3" style="position:absolute;left:359px;top:232px;width:111px;height:19px;text-align:right;z-index:17;">
-<span style="color:#000000;font-size:16px;"><strong>استان محل برگزاری</strong></span></div>
-<div id="wb_محصولات_موسیقیText2" style="position:absolute;left:359px;top:190px;width:111px;height:19px;text-align:right;z-index:18;">
-<span style="color:#000000;font-size:16px;"><strong>کشور محل برگزاری</strong></span></div>
-<div id="wb_محصولات_موسیقیText1" style="position:absolute;left:358px;top:150px;width:111px;height:19px;text-align:right;z-index:19;">
-<span style="color:#000000;font-size:16px;"><strong>وضعیت مخاطب</strong></span></div>
-<div id="wb_page1Text4" style="position:absolute;left:359px;top:111px;width:111px;height:19px;text-align:right;z-index:20;">
-<span style="color:#000000;font-size:16px;"><strong>تعداد مخاطب</strong></span></div>
-<div id="wb_page1Text3" style="position:absolute;left:382px;top:68px;width:87px;height:19px;text-align:right;z-index:21;">
-<span style="color:#000000;font-size:16px;"><strong>نام دفتر</strong></span></div>
-<div id="wb_page1Text2" style="position:absolute;left:359px;top:29px;width:110px;height:19px;text-align:right;z-index:22;">
-<span style="color:#000000;font-size:16px;"><strong>نام همایش</strong></span></div>
+			<div class="form-group">
+			<p>تعداد مخاطب </p>
+                {{ form.contact_num }}
+                <div class="validation"></div>
+			</div>
 
-<a class="back" style="position:absolute;left:88px;top:350px;z-index:21;" href="{{ url_for('first_add_record') }}">بازگشت</a></form>
-</div>
-</body>
-</html>{% endblock %}
+			<div class="form-group">
+			<p>وضعیت مخاطب </p>
+				{{ form.contact_pos }}
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>کشور محل برگزاری </p>
+				{{ form.country }}
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>استان محل برگزاری </p>
+				{{ form.city }}
+				<div class="validation"></div>
+			</div>
+	</div>
+
+	<div class="leftcontact">
+
+			<div class="form-group">
+			<p>سالن محل برگزاری </p>
+				{{ form.salon }}
+				<div class="dropDownSelect2"></div>
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>قالب برنامه </p>
+				{{ form.frame }}
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>محور محتوایی </p>
+                {{ form.meh_moh }}
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>مهمان های خاص </p>
+                {{ form.famous_persons }}
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>سخنران ها </p>
+				{{ form.sokhanrans }}
+				<div class="validation"></div>
+			</div>
+	</div>
+    {{ form.add(class="bouton-contact") }}
+</form>
+
+    
+{% endblock %}

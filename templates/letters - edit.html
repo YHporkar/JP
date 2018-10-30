@@ -1,26 +1,81 @@
+{% extends "layout_edit.html" %}
 
-{% extends "layout - edit.html" %}{% block content %}<div id="wb_Form1" style="position:absolute;left:419px;top:239px;width:324px;height:354px;z-index:26;">
-<form name="contact" method="post" action="/edit_letters" id="Form1">
-    {{ form.hidden_tag() }}
-    <div id="wb_RadioButton4" style="position:absolute;left:195px;top:58px;width:50px;height:50px;z-index:0;">
-        {{ form.result_kind(id="RadioButton4", style="position:absolute;left:0;top:0;") }}</div>
+{% block content %}
+<form action="/edit_show" method="POST">
+{{ form.hidden_tag() }}
+    <div class="rightcontact">
+		    <div class="form-group">
+			<p>نام اثر</p>
+				{{ form.name }}
+				<div class="validation"></div>
+      		</div>
 
-    <!--{{form.back(id="Button3", style="position:absolute;left:107px;top:167px;width:90px;height:25px;z-index:7;")}}
-    {{form.continues(id="Button1", style="position:absolute;left:211px;top:167px;width:90px;height:25px;z-index:8;")}}
-<!--<div id="wb_RadioButton4" style="position:absolute;left:195px;top:58px;width:20px;height:20px;z-index:0;">
-<input type="radio" id="RadioButton4" name="ketab" value="Phone" checked style="position:absolute;left:0;top:0;"><label for="RadioButton4"></label></div>
-<div id="wb_RadioButton5" style="position:absolute;left:195px;top:94px;width:20px;height:20px;z-index:1;">
-<input type="radio" id="RadioButton5" name="nashrieh" value="E-mail" style="position:absolute;left:0;top:0;"><label for="RadioButton5"></label></div>
-<div id="wb_RadioButton6" style="position:absolute;left:195px;top:123px;width:20px;height:20px;z-index:2;">
-<input type="radio" id="RadioButton6" name="مقاله" value="Fax" style="position:absolute;left:0;top:0;"><label for="RadioButton6"></label></div>
-<div id="wb_Text4" style="position:absolute;left:249px;top:63px;width:52px;height:19px;text-align:right;z-index:3;">
-<span style="color:#000000;font-size:16px;"><strong>کتاب</strong></span></div>
-<div id="wb_Text5" style="position:absolute;left:249px;top:95px;width:53px;height:19px;text-align:right;z-index:4;">
-<span style="color:#000000;font-size:16px;"><strong>نشریه </strong></span></div>
+            <div class="form-group">
+            <p>نویسنده </p>
+				{{ form.author }}
+                <div class="validation"></div>
+			</div>
 
-<span style="color:#000000;font-size:16px;"><strong>نوع اثر</strong></span></div>-->
+			<div class="form-group">
+			<p>کارگردان </p>
+                {{ form.director }}
+                <div class="validation"></div>
+			</div>
 
-<a class="back" style="position:absolute;left:88px;top:350px;z-index:21;" href="{{ url_for('edit_search_record') }}">بازگشت</a></form>
-</div>
-</body>
-</html>{% endblock %}
+			<div class="form-group">
+			<p>محل اجرا </p>
+				{{ form.place }}
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>سالن اجرا </p>
+				{{ form.salon }}
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>نوع اجرا </p>
+				{{ form.show_kind }}
+				<div class="validation"></div>
+			</div>
+	</div>
+
+	<div class="leftcontact">
+
+			<div class="form-group">
+			<p>قالب اجرا </p>
+				{{ form.frame }}
+				<div class="dropDownSelect2"></div>
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>تعداد اجرا </p>
+				{{ form.ejra_num }}
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>تعداد مخاطب </p>
+                {{ form.contact_num }}
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>وضعیت مخاطب </p>
+                {{ form.contact_status }}
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>محور محتوایی </p>
+				{{ form.meh_moh }}
+				<div class="validation"></div>
+			</div>
+	</div>
+    {{ form.add(class="bouton-contact") }}
+</form>
+
+    
+{% endblock %}

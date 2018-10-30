@@ -1,43 +1,69 @@
+{% extends "layout_add_second.html" %}
 
-{% extends "layout - edit.html" %}{% block content %}<div id="wb_Form1" style="position:absolute;left:270px;top:219px;width:483px;height:507px;z-index:38;">
-<form name="contact" method="post" action="/edit_music_products" id="Form1">
-    {{ form.hidden_tag() }}
-    {{ form.music_name(id="Editbox3", style="position:absolute;left:214px;top:24px;width:82px;height:17px;z-index:0;")}}
-    {{ form.outing_pos(id="Editbox3", style="position:absolute;left:214px;top:63px;width:82px;height:17px;z-index:1;")}}
-    {{ form.outing_turn(id="Editbox3", style="position:absolute;left:214px;top:102px;width:82px;height:17px;z-index:2;")}}
-    {{ form.frame(id="Editbox3", style="position:absolute;left:214px;top:141px;width:82px;height:17px;z-index:3;")}}
-    {{ form.music_kind(id="Editbox3", style="position:absolute;left:214px;top:181px;width:82px;height:17px;z-index:4;")}}
-    {{ form.singer(id="Editbox3", style="position:absolute;left:214px;top:220px;width:82px;height:17px;z-index:5;")}}
-    {{ form.music_producer(id="Editbox3", style="position:absolute;left:214px;top:260px;width:82px;height:17px;z-index:6;")}}
-    {{ form.tirax(id="Editbox3", style="position:absolute;left:213px;top:297px;width:82px;height:17px;z-index:7;")}}
-    {{ form.meh_moh(id="Combobox1", style="position:absolute;left:209px;top:340px;width:96px;height:28px;z-index:8;")}}
+{% block content %}
+<form action="/edit_music_products" method="POST">
+{{ form.hidden_tag() }}
+    <div class="rightcontact">
+		    <div class="form-group">
+			<p>نام اثر</p>
+				{{ form.music_name }}
+				<div class="validation"></div>
+      		</div>
 
+            <div class="form-group">
+            <p>وضعیت انتشار </p>
+				{{ form.outing_pos }}
+                <div class="validation"></div>
+			</div>
 
-    <!--{{form.back(id="Button3", style="position:absolute;left:88px;top:400px;width:90px;height:25px;z-index:21;")}}-->
-    {{form.add(id="Button1", style="position:absolute;left:304px;top:400px;width:90px;height:25px;z-index:23;")}}
+			<div class="form-group">
+			<p>نوبت انتشار </p>
+                {{ form.outing_turn }}
+                <div class="validation"></div>
+			</div>
 
-<div id="wb_page1Text2" style="position:absolute;left:340px;top:28px;width:110px;height:19px;text-align:right;z-index:9;">
-<span style="color:#000000;font-size:16px;"><strong>نام اثر</strong></span></div>
-<div id="wb_page1Text3" style="position:absolute;left:363px;top:67px;width:87px;height:19px;text-align:right;z-index:10;">
-<span style="color:#000000;font-size:16px;"><strong>وضعیت انتشار</strong></span></div>
-<div id="wb_page1Text4" style="position:absolute;left:340px;top:110px;width:111px;height:19px;text-align:right;z-index:11;">
-<span style="color:#000000;font-size:16px;"><strong>نوبت انتشار</strong></span></div>
-<div id="wb_محصولات_موسیقیText1" style="position:absolute;left:339px;top:149px;width:111px;height:19px;text-align:right;z-index:12;">
-<span style="color:#000000;font-size:16px;"><strong>قالب</strong></span></div>
-<div id="wb_محصولات_موسیقیText2" style="position:absolute;left:340px;top:189px;width:111px;height:19px;text-align:right;z-index:13;">
-<span style="color:#000000;font-size:16px;"><strong>نوع اثر</strong></span></div>
-<div id="wb_محصولات_موسیقیText3" style="position:absolute;left:340px;top:231px;width:111px;height:19px;text-align:right;z-index:14;">
-<span style="color:#000000;font-size:16px;"><strong>نام خواننده</strong></span></div>
-<div id="wb_محصولات_موسیقیText4" style="position:absolute;left:339px;top:268px;width:111px;height:19px;text-align:right;z-index:15;">
-<span style="color:#000000;font-size:16px;"><strong>نام آهنگساز</strong></span></div>
-<div id="wb_محصولات_موسیقیText5" style="position:absolute;left:339px;top:305px;width:111px;height:19px;text-align:right;z-index:16;">
-<span style="color:#000000;font-size:16px;"><strong>تیراژ</strong></span></div>
-<div id="wb_محصولات_موسیقیText6" style="position:absolute;left:339px;top:340px;width:111px;height:19px;text-align:right;z-index:17;">
-<span style="color:#000000;font-size:16px;"><strong>محور محتوایی</strong></span></div>
+			<div class="form-group">
+			<p>قالب </p>
+				{{ form.frame }}
+                <div class="validation"></div>
+			</div>
 
-<!--<input type="submit" id="page2Button1" name="chap" value="چاپ" style="position:absolute;left:178px;top:422px;width:90px;height:25px;z-index:19;">-->
+			<div class="form-group">
+			<p>نوع اثر </p>
+				{{ form.music_kind }}
+                <div class="validation"></div>
+			</div>
+	</div>
 
-<a class="back" style="position:absolute;left:88px;top:350px;z-index:21;" href="{{ url_for('edit_search_record') }}">بازگشت</a></form>
-</div>
-</body>
-</html>{% endblock %}
+	<div class="leftcontact">
+
+			<div class="form-group">
+			<p>نام خواننده </p>
+				{{ form.singer }}
+				<div class="dropDownSelect2"></div>
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>نام آهنگساز </p>
+				{{ form.music_producer }}
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>تیتراژ </p>
+                {{ form.tirax }}
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>محور محتوایی </p>
+				{{ form.meh_moh }}
+				<div class="validation"></div>
+			</div>
+	</div>
+    {{ form.add(class="bouton-contact") }}
+</form>
+
+    
+{% endblock %}

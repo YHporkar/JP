@@ -346,10 +346,6 @@ body
 .login{
    position:absolute;left:20px;top:110px;width:90px;height:25px;z-index:1;
 }
-.error-message {
-  color: red;
-   font-size: 18px;
-}
 
 .form-group .error-message + input {
   border-bottom: 2px solid #db4437;

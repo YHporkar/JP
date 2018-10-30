@@ -71,13 +71,17 @@ def evaluation(error=None, message=None, subj_err=None):
                 session['subject'] = form.subject.data
                 if form.subject.data:
                     if form.subject.data != 'مکتوبات':
-                        session['search_results'] = select_rec_by_subject_eval(form.subject.data, form.evaluated.data)
+                        if form.evaluated.data == '1' or form.evaluated.data == '0':
+                            session['search_results'] = select_rec_by_subject_eval(form.subject.data,
+                                                                                   form.evaluated.data)
+                        else:
+                            session['search_results'] = select_rec_by_subject(form.subject.data)
                         return redirect(url_for('eval_search_results'))
                     elif form.subject.data == 'مکتوبات':
                         return redirect(url_for('letters'))
                 elif form.subject.data == '':
                     subj_err = 'لطفا موضوعی انتخاب کنید'
-        return render_template("evaluation - add.html", this_page=session['user'], form=form, error=error,
+        return render_template("evaluation - add.html", user=session['user'], form=form, error=error,
                                subj_err=subj_err, message=message, evaluated_num=evaluated_num)
     elif not session['user'] == 'اداره ارزیابی و نظارت':
         return redirect('first_add_record')
@@ -90,7 +94,7 @@ def eval_search_results():
     if session.get('logged_in'):
         session['first_search'] = 1
         return render_template("eval_search_results.html", main_subject=session.get('subject'),
-                               this_page=session['user'], search_results=session['search_results'])
+                               user=session['user'], search_results=session['search_results'])
     return redirect('index')
 
 
@@ -110,15 +114,7 @@ def eval_first_record_filled(code):
         form.rec_date_day.data = select_record(session['code'], session['subject'])[0][7]
         form.subject.data = session['subject']
 
-                # if request.form['subject'] != 'مکتوبات':
-                #     for i in range(page_dict.keys().__len__()):
-                #         if page_dict.keys()[i] == request.form['subject']:
-                #             session['first_search'] = 1
-                #             return redirect(url_for('edit_' + page_dict.values()[i]))
-                # elif request.form['subject'] == 'مکتوبات':
-                #     return redirect(url_for('letters'))
-
-        return render_template("evaluation - first_results.html", this_page=session['user'], form=form)
+        return render_template("evaluation - first_results.html", user=session['user'], form=form)
     elif not session['user'] == 'اداره ارزیابی و نظارت':
         return redirect('first_add_record')
     return redirect('index')
@@ -132,7 +128,7 @@ def eval_first_record_form():
             if form.continues.data:
                 return redirect(url_for('last_evaluation'))
 
-        return render_template("evaluation - first_results.html", this_page=session['user'], form=form)
+        return render_template("evaluation - first_results.html", user=session['user'], form=form)
     elif not session['user'] == 'اداره ارزیابی و نظارت':
         return redirect('first_add_record')
     return redirect('index')
@@ -147,6 +143,10 @@ def last_evaluation():
                                       'کارشناسی_شعر', 'کتابخانه_انقلاب', 'کتابخانه_جنگ']:
             form.name.data = select_record(session['code'], session['subject'])[0][8]
         form.subject.data = session['subject']
+        for i in range(units_dict.__len__()):
+            if form.code.data[0] == units_dict.values()[i]:
+                form.office.data = units_dict.keys()[i]
+
         if request.method == "POST":
             add_eval(form.time_management.data, form.people_cooperation.data, form.hold_displn.data,
                      form.advertising.data, form.sharee_time.data, form.decor_tansb.data, form.sound_quality.data,
@@ -156,7 +156,7 @@ def last_evaluation():
                      form.evaluator_name.data)
             set_evaluated(session['code'], session['subject'])
             return redirect('evaluation')
-        return render_template("evaluation - last_results.html", this_page=session['user'], form=form)
+        return render_template("evaluation - last_results.html", user=session['user'], form=form)
     return redirect('index')
 
 
@@ -193,7 +193,7 @@ def first_add_record(error=None, message=None, subj_err=None):
         if session.get('added'):
             message = 'گزارش با موفقیت ثبت شد'
             session['added'] = 0
-        return render_template("add_record.html", this_page=session['user'], form=form, error=error,
+        return render_template("add_record.html", user=session['user'], form=form, error=error,
                                subj_err=subj_err, message=message)
     elif session['user'] == 'اداره ارزیابی و نظارت':
         return redirect('evaluation')
@@ -209,8 +209,9 @@ def info_add_record():
         for subject in subs:
             if select_rec_by_subject(subject):
                 results.update({subject: select_rec_by_subject(subject)})
+
         return render_template("info_record - results.html",
-                               this_page=session['user'], search_results=results)
+                               user=session['user'], search_results=results)
     elif session['user'] == 'اداره ارزیابی و نظارت':
         return redirect('evaluation')
     return redirect('index')
@@ -228,7 +229,7 @@ def show():
             session['submitted'] = 1
             return redirect(url_for('first_add_record'))
 
-        return render_template("show.html", form=form, this_page=session['user'], main_subject=session.get('subject'))
+        return render_template("show.html", form=form, user=session['user'], main_subject=session.get('subject'))
     return redirect(url_for('first_add_record'))
 
 
@@ -243,7 +244,7 @@ def studio():
             session['submitted'] = 1
             return redirect(url_for('first_add_record'))
 
-        return render_template("studio.html", form=form, this_page=session['user'], main_subject=session.get('subject'))
+        return render_template("studio.html", form=form, user=session['user'], main_subject=session.get('subject'))
     return redirect(url_for('first_add_record'))
 
 
@@ -258,7 +259,7 @@ def projects():
             session['submitted'] = 1
             return redirect(url_for('first_add_record'))
 
-        return render_template("projects.html", form=form, this_page=session['user'],
+        return render_template("projects.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('first_add_record'))
 
@@ -274,7 +275,7 @@ def photography_projects():
             session['submitted'] = 1
             return redirect(url_for('first_add_record'))
 
-        return render_template("photography_projects.html", form=form, this_page=session['user'],
+        return render_template("photography_projects.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('first_add_record'))
 
@@ -291,7 +292,7 @@ def festivals():
             session['submitted'] = 1
             return redirect(url_for('first_add_record'))
 
-        return render_template("festivals.html", form=form, this_page=session['user'],
+        return render_template("festivals.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('first_add_record'))
 
@@ -309,7 +310,7 @@ def romance():
             session['submitted'] = 1
             return redirect(url_for('first_add_record'))
 
-        return render_template("romance_expert.html", form=form, this_page=session['user'],
+        return render_template("romance_expert.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('first_add_record'))
 
@@ -327,7 +328,7 @@ def sessions():
             session['submitted'] = 1
             return redirect(url_for('first_add_record'))
 
-        return render_template("sessions.html", form=form, this_page=session['user'],
+        return render_template("sessions.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('first_add_record'))
 
@@ -344,7 +345,7 @@ def multimedia():
             session['submitted'] = 1
             return redirect(url_for('first_add_record'))
 
-        return render_template("multimedia.html", form=form, this_page=session['user'],
+        return render_template("multimedia.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('first_add_record'))
 
@@ -371,7 +372,7 @@ def enghelab_lib():
             session['submitted'] = 1
             return redirect(url_for('first_add_record'))
 
-        return render_template("enghelab_library.html", form=form, this_page=session['user'],
+        return render_template("enghelab_library.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('first_add_record'))
 
@@ -398,7 +399,7 @@ def jang_lib():
             session['submitted'] = 1
             return redirect(url_for('first_add_record'))
 
-        return render_template("jang_library.html", form=form, this_page=session['user'],
+        return render_template("jang_library.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('first_add_record'))
 
@@ -414,7 +415,7 @@ def results_review():
             session['submitted'] = 1
             return redirect(url_for('first_add_record'))
 
-        return render_template("result_review.html", form=form, this_page=session['user'],
+        return render_template("result_review.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('first_add_record'))
 
@@ -433,7 +434,7 @@ def poem_expert():
             session['submitted'] = 1
             return redirect(url_for('first_add_record'))
 
-        return render_template("poem_expert.html", form=form, this_page=session['user'],
+        return render_template("poem_expert.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('first_add_record'))
 
@@ -449,7 +450,7 @@ def plato():
             session['submitted'] = 1
             return redirect(url_for('first_add_record'))
 
-        return render_template("platos.html", form=form, this_page=session['user'], main_subject=session.get('subject'))
+        return render_template("platos.html", form=form, user=session['user'], main_subject=session.get('subject'))
     return redirect(url_for('first_add_record'))
 
 
@@ -464,7 +465,7 @@ def visual_products():
             session['submitted'] = 1
             return redirect(url_for('first_add_record'))
 
-        return render_template("visual_products.html", form=form, this_page=session['user'],
+        return render_template("visual_products.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('first_add_record'))
 
@@ -482,7 +483,7 @@ def music_products():
             session['submitted'] = 1
             return redirect(url_for('first_add_record'))
 
-        return render_template("music_products.html", form=form, this_page=session['user'],
+        return render_template("music_products.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('first_add_record'))
 
@@ -499,7 +500,7 @@ def research():
             session['submitted'] = 1
             return redirect(url_for('first_add_record'))
 
-        return render_template("research.html", form=form, this_page=session['user'],
+        return render_template("research.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('first_add_record'))
 
@@ -517,7 +518,7 @@ def exhibitions():
             session['submitted'] = 1
             return redirect(url_for('first_add_record'))
 
-        return render_template("exhibitions.html", form=form, this_page=session['user'],
+        return render_template("exhibitions.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('first_add_record'))
 
@@ -535,7 +536,7 @@ def congress():
             session['submitted'] = 1
             return redirect(url_for('first_add_record'))
 
-        return render_template("congress.html", form=form, this_page=session['user'],
+        return render_template("congress.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('first_add_record'))
 
@@ -551,7 +552,7 @@ def bought_photos():
             session['submitted'] = 1
             return redirect(url_for('first_add_record'))
 
-        return render_template("bought_photos.html", form=form, this_page=session['user'],
+        return render_template("bought_photos.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('first_add_record'))
 
@@ -567,7 +568,7 @@ def letters_expert():
             session['submitted'] = 1
             return redirect(url_for('first_add_record'))
 
-        return render_template("letters_expert.html", form=form, this_page=session['user'],
+        return render_template("letters_expert.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('first_add_record'))
 
@@ -589,7 +590,7 @@ def festivals_detailed():
             session['submitted'] = 1
             return redirect(url_for('first_add_record'))
 
-        return render_template("festivals_detailed.html", form=form, this_page=session['user'],
+        return render_template("festivals_detailed.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('first_add_record'))
 
@@ -607,7 +608,7 @@ def letters():
                 session['first_records']['subject'] = 'نشریه'
                 return redirect(url_for('journal'))
 
-        return render_template("letters.html", form=form, this_page=session['user'],
+        return render_template("letters.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('first_add_record'))
 
@@ -625,7 +626,7 @@ def book():
             session['submitted'] = 1
             return redirect(url_for('first_add_record'))
 
-        return render_template("book.html", form=form, this_page=session['user'], main_subject=session.get('subject'))
+        return render_template("book.html", form=form, user=session['user'], main_subject=session.get('subject'))
     return redirect(url_for('first_add_record'))
 
 
@@ -641,7 +642,7 @@ def journal():
             session['submitted'] = 1
             return redirect(url_for('first_add_record'))
 
-        return render_template("journal.html", form=form, this_page=session['user'],
+        return render_template("journal.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('first_add_record'))
 
@@ -663,7 +664,7 @@ def edit_search_record(error=None, message=None, subj_err=None):
                         return redirect(url_for('letters'))
                 elif form.subject.data == '':
                     subj_err = 'لطفا موضوعی انتخاب کنید'
-        return render_template("edit_record - search.html", this_page=session['user'], form=form, error=error,
+        return render_template("edit_record - search.html", user=session['user'], form=form, error=error,
                                subj_err=subj_err, message=message)
     elif session['user'] == 'اداره ارزیابی و نظارت':
         return redirect('evaluation')
@@ -676,7 +677,7 @@ def edit_search_results():
     if session.get('logged_in'):
         session['first_search'] = 1
         return render_template("edit_record - search_results.html", main_subject=session.get('subject'),
-                               this_page=session['user'], search_results=session['search_results'])
+                               user=session['user'], search_results=session['search_results'])
 
 
 @app.route('/edit_first_record_filled/<code>', methods=["POST", "GET"])
@@ -698,7 +699,7 @@ def edit_first_record_filled(code, message=None):
         if session.get('added'):
             message = 'گزارش با موفقیت ثبت شد'
             session['added'] = 0
-        return render_template("edit_record - first_results.html", this_page=session['user'], form=form, message=message)
+        return render_template("edit_record - first_results.html", user=session['user'], form=form, message=message)
     elif session['user'] == 'اداره ارزیابی و نظارت':
         return redirect('evaluation')
     return redirect('index')
@@ -734,7 +735,7 @@ def edit_first_record_form(message=None):
         if session.get('added'):
             message = 'گزارش با موفقیت ثبت شد'
             session['added'] = 0
-        return render_template("edit_record - first_results.html", this_page=session['user'], form=form, message=message)
+        return render_template("edit_record - first_results.html", user=session['user'], form=form, message=message)
     elif session['user'] == 'اداره ارزیابی و نظارت':
         return redirect('evaluation')
     return redirect('index')
@@ -765,7 +766,7 @@ def edit_show():
             session['submitted'] = 1
             return redirect(url_for('edit_search_record'))
 
-        return render_template("show - edit.html", form=form, this_page=session['user'],
+        return render_template("show - edit.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('index'))
 
@@ -789,7 +790,7 @@ def edit_studio():
             session['submitted'] = 1
             return redirect(url_for('edit_search_record'))
 
-        return render_template("studio - edit.html", form=form, this_page=session['user'],
+        return render_template("studio - edit.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('index'))
 
@@ -813,7 +814,7 @@ def edit_projects():
             session['submitted'] = 1
             return redirect(url_for('edit_search_record'))
 
-        return render_template("projects - edit.html", form=form, this_page=session['user'],
+        return render_template("projects - edit.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('index'))
 
@@ -833,7 +834,7 @@ def edit_photography_projects():
             session['submitted'] = 1
             return redirect(url_for('edit_search_record'))
 
-        return render_template("photography_projects - edit.html", form=form, this_page=session['user'],
+        return render_template("photography_projects - edit.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('index'))
 
@@ -860,7 +861,7 @@ def edit_festivals():
             session['submitted'] = 1
             return redirect(url_for('edit_search_record'))
 
-        return render_template("festivals - edit.html", form=form, this_page=session['user'],
+        return render_template("festivals - edit.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('index'))
 
@@ -888,7 +889,7 @@ def edit_romance():
             session['submitted'] = 1
             return redirect(url_for('edit_search_record'))
 
-        return render_template("romance_expert - edit.html", form=form, this_page=session['user'],
+        return render_template("romance_expert - edit.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('index'))
 
@@ -923,7 +924,7 @@ def edit_sessions():
             session['submitted'] = 1
             return redirect(url_for('edit_search_record'))
 
-        return render_template("sessions - edit.html", form=form, this_page=session['user'],
+        return render_template("sessions - edit.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('index'))
 
@@ -951,7 +952,7 @@ def edit_multimedia():
             session['submitted'] = 1
             return redirect(url_for('edit_search_record'))
 
-        return render_template("multimedia - edit.html", form=form, this_page=session['user'],
+        return render_template("multimedia - edit.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('index'))
 
@@ -1008,7 +1009,7 @@ def edit_enghelab_lib():
             session['submitted'] = 1
             return redirect(url_for('edit_search_record'))
 
-        return render_template("enghelab_library - edit.html", form=form, this_page=session['user'],
+        return render_template("enghelab_library - edit.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('index'))
 
@@ -1065,7 +1066,7 @@ def edit_jang_lib():
             session['submitted'] = 1
             return redirect(url_for('edit_search_record'))
 
-        return render_template("jang_library - edit.html", form=form, this_page=session['user'],
+        return render_template("jang_library - edit.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('index'))
 
@@ -1086,7 +1087,7 @@ def edit_results_review():
             session['submitted'] = 1
             return redirect(url_for('edit_search_record'))
 
-        return render_template("result_review - edit.html", form=form, this_page=session['user'],
+        return render_template("result_review - edit.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('index'))
 
@@ -1118,7 +1119,7 @@ def edit_poem_expert():
             session['submitted'] = 1
             return redirect(url_for('edit_search_record'))
 
-        return render_template("poem_expert - edit.html", form=form, this_page=session['user'],
+        return render_template("poem_expert - edit.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('index'))
 
@@ -1141,7 +1142,7 @@ def edit_plato():
             session['submitted'] = 1
             return redirect(url_for('edit_search_record'))
 
-        return render_template("platos - edit.html", form=form, this_page=session['user'],
+        return render_template("platos - edit.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('index'))
 
@@ -1162,7 +1163,7 @@ def edit_visual_products():
             session['submitted'] = 1
             return redirect(url_for('edit_search_record'))
 
-        return render_template("visual_products - edit.html", form=form, this_page=session['user'],
+        return render_template("visual_products - edit.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('index'))
 
@@ -1191,7 +1192,7 @@ def edit_music_products():
             session['submitted'] = 1
             return redirect(url_for('edit_search_record'))
 
-        return render_template("music_products - edit.html", form=form, this_page=session['user'],
+        return render_template("music_products - edit.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('index'))
 
@@ -1214,7 +1215,7 @@ def edit_research():
             session['submitted'] = 1
             return redirect(url_for('edit_search_record'))
 
-        return render_template("research - edit.html", form=form, this_page=session['user'],
+        return render_template("research - edit.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('index'))
 
@@ -1244,7 +1245,7 @@ def edit_exhibitions():
             session['submitted'] = 1
             return redirect(url_for('edit_search_record'))
 
-        return render_template("exhibitions - edit.html", form=form, this_page=session['user'],
+        return render_template("exhibitions - edit.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('index'))
 
@@ -1275,7 +1276,7 @@ def edit_congress():
             session['submitted'] = 1
             return redirect(url_for('edit_search_record'))
 
-        return render_template("congress - edit.html", form=form, this_page=session['user'],
+        return render_template("congress - edit.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('index'))
 
@@ -1296,7 +1297,7 @@ def edit_bought_photos():
             session['submitted'] = 1
             return redirect(url_for('edit_search_record'))
 
-        return render_template("bought_photos - edit.html", form=form, this_page=session['user'],
+        return render_template("bought_photos - edit.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('index'))
 
@@ -1317,7 +1318,7 @@ def edit_letters_expert():
             session['submitted'] = 1
             return redirect(url_for('edit_search_record'))
 
-        return render_template("letters_expert - edit.html", form=form, this_page=session['user'],
+        return render_template("letters_expert - edit.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('index'))
 
@@ -1360,7 +1361,7 @@ def edit_festivals_detailed():
             session['submitted'] = 1
             return redirect(url_for('edit_search_record'))
 
-        return render_template("festivals_detailed - edit.html", form=form, this_page=session['user'],
+        return render_template("festivals_detailed - edit.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('index'))
 
@@ -1376,7 +1377,7 @@ def edit_letters():
             else:
                 return redirect(url_for('journal'))
 
-        return render_template("letters - edit.html", form=form, this_page=session['user'],
+        return render_template("letters - edit.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('index'))
 
@@ -1408,7 +1409,7 @@ def edit_book():
             session['submitted'] = 1
             return redirect(url_for('edit_search_record'))
 
-        return render_template("book - edit.html", form=form, this_page=session['user'],
+        return render_template("book - edit.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('index'))
 
@@ -1438,7 +1439,7 @@ def edit_journal():
             session['submitted'] = 1
             return redirect(url_for('edit_search_record'))
 
-        return render_template("journal - edit.html", form=form, this_page=session['user'],
+        return render_template("journal - edit.html", form=form, user=session['user'],
                                main_subject=session.get('subject'))
     return redirect(url_for('index'))
 
@@ -1455,7 +1456,7 @@ def amar_first_page(subj_err=None):
                 return redirect(url_for('amar_second_page'))
             elif form.username.data == '':
                 subj_err = 'لطفا دفتر مورد نظر را انتخاب کنید'
-        return render_template("Amar_first_page.html", form=form, this_page=session['user'], subj_err=subj_err)
+        return render_template("Amar_first_page.html", form=form, user=session['user'], subj_err=subj_err)
     elif not session['user'] == 'اداره ارزیابی و نظارت':
         return redirect(url_for('first_add_record'))
     return redirect('index')
@@ -1551,7 +1552,7 @@ def amar_second_page(subj_err=None):
                 return redirect(url_for('amar_search_results'))
             elif form.subject.data == '':
                 subj_err = 'لطفا موضوع را انتخاب کنید'
-        return render_template("Amar_second_page.html", form=form, this_page=session['user'],
+        return render_template("Amar_second_page.html", form=form, user=session['user'],
                                performance_percents=perf_percent, contacts_avgs=contacts_avgs,
                                selected_months=selected_months, perf_counts=perf_counts, subj_err=subj_err)
     elif not session['user'] == 'اداره ارزیابی و نظارت':
@@ -1622,7 +1623,7 @@ def amar_search_results():
         elif data_for_search['subject'] == 'کتاب':
             col_search_results = ['نام کتاب', 'نویسنده', 'قالب', 'تعداد صفحه', 'محور محتوایی']
         return render_template("Amar_search_results.html", main_subject=session['datas_for_search_p']['subject'],
-                               this_page=session['user'],
+                               user=session['user'],
                                row_search_results=select_record_amar(unit_code, data_for_search['subject'],
                                                                      data_for_search['year'],
                                                                      data_for_search['from_month'],

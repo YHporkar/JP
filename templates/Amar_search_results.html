@@ -1,205 +1,206 @@
-{% extends "layout - eval.html" %}
+{% extends "layout_second_amar.html" %}
 
 {% block content %}
-<table style="position:absolute;left:271px;top:236px;width:487px;height:58px;z-index:35;" id="نتایج_جست_و_جوTable1">
-<tr>
-    {% for col in col_search_results %}
-<td class="cell0"><span style="color:#000000;font-size:16px;line-height:16px;"> {{ col }}</span></td>
-    {% endfor %}
-</tr>
-{% for row in row_search_results %}
-    {% if subject=='نمایش' %}
-<tr>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[8] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[9] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[10] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[12] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[15] }} </span></td>
-</tr>
-    {% elif subject=='جشنواره_ها' %}
-<tr>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[8] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[5] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[6] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[7] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[15] }} </span></td>
-</tr>
-    {% elif subject=='جلسات_و_کارگاه_ها' %}
-<tr>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[8] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[19] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[18] }} </span></td>
-</tr>
-    {% elif subject=='عکس_های_خریداری_شده' %}
-<tr>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[8] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[5] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[6] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[7] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[9] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[10] }} </span></td>
-</tr>
-    {% elif subject=='محصولات_تجسمی' %}
-<tr>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[8] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[9] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[10] }} </span></td>
-</tr>
-    {% elif subject=='محصولات_موسیقی' %}
-<tr>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[8] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[13] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[5] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[6] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[7] }} </span></td>
-</tr>
-    {% elif subject=='نشریه' %}
-<tr>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[8] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[9] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[13] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[12] }} </span></td>
-</tr>
-    {% elif subject=='نمایشگاه_ها' %}
-<tr>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[8] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[5] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[6] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[7] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[13] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[15] }} </span></td>
-</tr>
-    {% elif subject=='همایش_ها' %}
-<tr>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[8] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[16] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[17] }} </span></td>
-</tr>
-    {% elif subject=='پروژه_های_عکاسی' %}
-<tr>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[8] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[5] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[6] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[7] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[9] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[10] }} </span></td>
-</tr>
-    {% elif subject=='چند_رسانه_ای' %}
-<tr>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[8] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[13] }} </span></td>
-</tr>
-    {% elif subject=='پروژه_ها' %}
-<tr>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[8] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[9] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[10] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[11] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[12] }} </span></td>
-</tr>
-    {% elif subject=='کارشناسی_رمان' %}
-<tr>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[8] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[10] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[11] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[12] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[13] }} </span></td>
-</tr>
-    {% elif subject=='کارشناسی_شعر' %}
-<tr>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[8] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[10] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[11] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[17] }} </span></td>
-</tr>
-    {% elif subject=='کتاب' %}
-<tr>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[8] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[9] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[14] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[19] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[17] }} </span></td>
-</tr>
-    {% elif subject=='استودیو' %}
-<tr>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[8] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[9] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[10] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[13] }} </span></td>
-</tr>
-    {% elif subject=='جشنواره_ها_تفصیلی' %}
-<tr>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[8] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[9] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[11] }} </span></td>
-</tr>
-    {% elif subject=='پژوهش' %}
-<tr>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[8] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[9] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[10] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[12] }} </span></td>
-</tr>
-    {% elif subject=='استودیو' %}
-<tr>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[8] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[9] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[10] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[11] }} </span></td>
-</tr>
-    {% elif subject=='بازبینی_آثار' %}
-<tr>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[8] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[9] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[10] }} </span></td>
-</tr>
-    {% elif subject=='جشنواره_ها_تفصیلی' %}
-<tr>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[8] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[9] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[10] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[11] }} </span></td>
-</tr>
-    {% elif subject=='پروژه_ها' %}
-<tr>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[8] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[9] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[10] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[13] }} </span></td>
-</tr>
+<form>
+    <div class="limiter">
+		<div class="container-table100">
+			<div class="wrap-table100">
+                <div class="table">
+                    <div class="row header">
+                        {% for col in col_search_results %}
+                            <div class="cell"> {{ col }}</div>
+                        {% endfor %}
+                    </div>
+                    {% for row in row_search_results %}
+                        {% if subject=='نمایش' %}
+                            <div class="row">
+                            <div class="cell">{{ row[8] }}</div>
+                            <div class="cell">{{ row[9] }}</div>
+                            <div class="cell">{{ row[10] }}</div>
+                            <div class="cell">{{ row[12] }}</div>
+                            <div class="cell">{{ row[15] }}</div>
+                            </div>
+                        {% elif subject=='جشنواره_ها' %}
+                            <div class="row">
+                            <div class="cell">{{ row[8] }}</div>
+                            <div class="cell">{{ row[5] }}</div>
+                            <div class="cell">{{ row[6] }}</div>
+                            <div class="cell">{{ row[7] }}</div>
+                            <div class="cell">{{ row[15] }}</div>
+                            </div>
+                        {% elif subject=='جلسات_و_کارگاه_ها' %}
+                            <div class="row">
+                            <div class="cell">{{ row[8] }}</div>
+                            <div class="cell">{{ row[19] }}</div>
+                            <div class="cell">{{ row[18] }}</div>
+                            </div>
+                        {% elif subject=='عکس_های_خریداری_شده' %}
+                            <div class="row">
+                            <div class="cell">{{ row[8] }}</div>
+                            <div class="cell">{{ row[5] }}</div>
+                            <div class="cell">{{ row[6] }}</div>
+                            <div class="cell">{{ row[7] }}</div>
+                            <div class="cell">{{ row[9] }}</div>
+                            <div class="cell">{{ row[10] }}</div>
+                            </div>
+                        {% elif subject=='محصولات_تجسمی' %}
+                            <div class="row">
+                            <div class="cell">{{ row[8] }}</div>
+                            <div class="cell">{{ row[9] }}</div>
+                            <div class="cell">{{ row[10] }}</div>
+                            </div>
+                        {% elif subject=='محصولات_موسیقی' %}
+                            <div class="row">
+                            <div class="cell">{{ row[8] }}</div>
+                            <div class="cell">{{ row[13] }}</div>
+                            <div class="cell">{{ row[5] }}</div>
+                            <div class="cell">{{ row[6] }}</div>
+                            <div class="cell">{{ row[7] }}</div>
+                            </div>
+                        {% elif subject=='نشریه' %}
+                            <div class="row">
+                            <div class="cell">{{ row[8] }}</div>
+                            <div class="cell">{{ row[9] }}</div>
+                            <div class="cell">{{ row[13] }}</div>
+                            <div class="cell">{{ row[12] }}</div>
+                            </div>
+                        {% elif subject=='نمایشگاه_ها' %}
+                            <div class="row">
+                            <div class="cell">{{ row[8] }}</div>
+                            <div class="cell">{{ row[5] }}</div>
+                            <div class="cell">{{ row[6] }}</div>
+                            <div class="cell">{{ row[7] }}</div>
+                            <div class="cell">{{ row[13] }}</div>
+                            <div class="cell">{{ row[15] }}</div>
+                            </div>
+                        {% elif subject=='همایش_ها' %}
+                            <div class="row">
+                            <div class="cell">{{ row[8] }}</div>
+                            <div class="cell">{{ row[16] }}</div>
+                            <div class="cell">{{ row[17] }}</div>
+                            </div>
+                        {% elif subject=='پروژه_های_عکاسی' %}
+                            <div class="row">
+                            <div class="cell">{{ row[8] }}</div>
+                            <div class="cell">{{ row[5] }}</div>
+                            <div class="cell">{{ row[6] }}</div>
+                            <div class="cell">{{ row[7] }}</div>
+                            <div class="cell">{{ row[9] }}</div>
+                            <div class="cell">{{ row[10] }}</div>
+                            </div>
+                        {% elif subject=='چند_رسانه_ای' %}
+                            <div class="row">
+                            <div class="cell">{{ row[8] }}</div>
+                            <div class="cell">{{ row[13] }}</div>
+                            </div>
+                        {% elif subject=='پروژه_ها' %}
+                            <div class="row">
+                            <div class="cell">{{ row[8] }}</div>
+                            <div class="cell">{{ row[9] }}</div>
+                            <div class="cell">{{ row[10] }}</div>
+                            <div class="cell">{{ row[11] }}</div>
+                            <div class="cell">{{ row[12] }}</div>
+                            </div>
+                        {% elif subject=='کارشناسی_رمان' %}
+                            <div class="row">
+                            <div class="cell">{{ row[8] }}</div>
+                            <div class="cell">{{ row[10] }}</div>
+                            <div class="cell">{{ row[11] }}</div>
+                            <div class="cell">{{ row[12] }}</div>
+                            <div class="cell">{{ row[13] }}</div>
+                            </div>
+                        {% elif subject=='کارشناسی_شعر' %}
+                            <div class="row">
+                            <div class="cell">{{ row[8] }}</div>
+                            <div class="cell">{{ row[10] }}</div>
+                            <div class="cell">{{ row[11] }}</div>
+                            <div class="cell">{{ row[17] }}</div>
+                            </div>
+                        {% elif subject=='کتاب' %}
+                            <div class="row">
+                            <div class="cell">{{ row[8] }}</div>
+                            <div class="cell">{{ row[9] }}</div>
+                            <div class="cell">{{ row[14] }}</div>
+                            <div class="cell">{{ row[19] }}</div>
+                            <div class="cell">{{ row[17] }}</div>
+                            </div>
+                        {% elif subject=='استودیو' %}
+                            <div class="row">
+                            <div class="cell">{{ row[8] }}</div>
+                            <div class="cell">{{ row[9] }}</div>
+                            <div class="cell">{{ row[10] }}</div>
+                            <div class="cell">{{ row[13] }}</div>
+                            </div>
+                        {% elif subject=='جشنواره_ها_تفصیلی' %}
+                            <div class="row">
+                            <div class="cell">{{ row[8] }}</div>
+                            <div class="cell">{{ row[9] }}</div>
+                            <div class="cell">{{ row[11] }}</div>
+                            </div>
+                        {% elif subject=='پژوهش' %}
+                            <div class="row">
+                            <div class="cell">{{ row[8] }}</div>
+                            <div class="cell">{{ row[9] }}</div>
+                            <div class="cell">{{ row[10] }}</div>
+                            <div class="cell">{{ row[12] }}</div>
+                            </div>
+                        {% elif subject=='استودیو' %}
+                            <div class="row">
+                            <div class="cell">{{ row[8] }}</div>
+                            <div class="cell">{{ row[9] }}</div>
+                            <div class="cell">{{ row[10] }}</div>
+                            <div class="cell">{{ row[11] }}</div>
+                            </div>
+                        {% elif subject=='بازبینی_آثار' %}
+                            <div class="row">
+                            <div class="cell">{{ row[8] }}</div>
+                            <div class="cell">{{ row[9] }}</div>
+                            <div class="cell">{{ row[10] }}</div>
+                            </div>
+                        {% elif subject=='جشنواره_ها_تفصیلی' %}
+                            <div class="row">
+                            <div class="cell">{{ row[8] }}</div>
+                            <div class="cell">{{ row[9] }}</div>
+                            <div class="cell">{{ row[10] }}</div>
+                            <div class="cell">{{ row[11] }}</div>
+                            </div>
+                        {% elif subject=='پروژه_ها' %}
+                            <div class="row">
+                            <div class="cell">{{ row[8] }}</div>
+                            <div class="cell">{{ row[9] }}</div>
+                            <div class="cell">{{ row[10] }}</div>
+                            <div class="cell">{{ row[13] }}</div>
+                            </div>
 
-    {% elif subject=='کارشناسی_آثار_مکتوب' %}
-<tr>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[8] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[9] }} </span></td>
-</tr>
-    {% elif subject=='کارکرد_پلاتوها' %}
-<tr>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[8] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[9] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[10] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[12] }} </span></td>
-</tr>
-    {% elif subject=='کتابخانه_انقلاب' %}
-<tr>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[8] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[9] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[10] }} </span></td>
-</tr>
-    {% elif subject=='کتابخانه_جنگ' %}
-<tr>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[8] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[9] }} </span></td>
-<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ row[10] }} </span></td>
-</tr>
-    {% endif %}
-{% endfor %}
-    <tr>
-        <td colspan="15" class="cell2" style="border: 1px solid white;">
-            <a class="back" style="float: left;" href="{{ url_for('amar_second_page') }}">بازگشت</a>
-        </td>
-    </tr>
-</table>
-</body>
-</html>
+                        {% elif subject=='کارشناسی_آثار_مکتوب' %}
+                            <div class="row">
+                            <div class="cell">{{ row[8] }}</div>
+                            <div class="cell">{{ row[9] }}</div>
+                            </div>
+                        {% elif subject=='کارکرد_پلاتوها' %}
+                            <div class="row">
+                            <div class="cell">{{ row[8] }}</div>
+                            <div class="cell">{{ row[9] }}</div>
+                            <div class="cell">{{ row[10] }}</div>
+                            <div class="cell">{{ row[12] }}</div>
+                            </div>
+                        {% elif subject=='کتابخانه_انقلاب' %}
+                            <div class="row">
+                            <div class="cell">{{ row[8] }}</div>
+                            <div class="cell">{{ row[9] }}</div>
+                            <div class="cell">{{ row[10] }}</div>
+                            </div>
+                        {% elif subject=='کتابخانه_جنگ' %}
+                            <div class="row">
+                            <div class="cell">{{ row[8] }}</div>
+                            <div class="cell">{{ row[9] }}</div>
+                            <div class="cell">{{ row[10] }}</div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 {% endblock %}

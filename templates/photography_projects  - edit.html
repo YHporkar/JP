@@ -1,0 +1,33 @@
+{% extends "layout_edit.html" %}
+
+{% block content %}
+<form action="/edit_photography_projects" method="POST">
+{{ form.hidden_tag() }}
+    <div class="rightcontact">
+		    <div class="form-group">
+			<p>نام پروژه</p>
+				{{ form.name }}
+				<div class="validation"></div>
+      		</div>
+
+            <div class="form-group">
+            <p>موضوع </p>
+				{{ form.photo_subject }}
+                <div class="validation"></div>
+			</div>
+	</div>
+
+	<div class="leftcontact">
+
+			<div class="form-group">
+			<p>هنرمند </p>
+				{{ form.photogragher_name }}
+				<div class="dropDownSelect2"></div>
+                <div class="validation"></div>
+			</div>
+	</div>
+    {{ form.add(class="bouton-contact") }}
+</form>
+
+    
+{% endblock %}

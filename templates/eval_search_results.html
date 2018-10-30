@@ -1,38 +1,35 @@
-{% extends "layout - eval.html" %}
+{% extends "layout_second_eval.html" %}
 
 {% block content %}
-<p style="position:absolute;left:271px;top:220px;width:487px;height:58px;z-index:35;">برای ثبت ارزیابی روی کد گزارش موردنظر کلیک کنید</p>
-<table style="position:absolute;left:271px;top:260px;width:487px;height:58px;z-index:35;" id="نتایج_جست_و_جوTable1">
-<tr>
-    <td class="cell1"><span style="color:#FFF;font-size:20px;line-height:16px;"> کد</span></td>
-    <td class="cell0"><span style="color:#000000;font-size:16px;line-height:16px;"> موضوع</span></td>
-    <td class="cell0"><span style="color:#000000;font-size:16px;line-height:16px;"> روز</span></td>
-    <td class="cell0"><span style="color:#000000;font-size:16px;line-height:16px;"> ماه</span></td>
-    <td class="cell0"><span style="color:#000000;font-size:16px;line-height:16px;"> سال</span></td>
-    <td class="cell0"><span style="color:#000000;font-size:16px;line-height:16px;">وضعیت</span></td>
-<!--<td class="cell1"><span style="color:#000000;font-size:16px;line-height:16px;"> واحد</span></td>-->
-</tr>
-{% for res in search_results %}
-    <tr>
-        <td class="cell1"><a href="{{ url_for('eval_first_record_filled', code=res[0] ) }}" class="code" style="text-decoration:none;color:#FFF;font-size:20px;line-height:25px;">{{ res[0] }} </a></td>
-        <td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ main_subject }} </span></td>
-        <td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ res[7] }} </span></td>
-        <td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ res[6] }} </span></td>
-        <td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ res[5] }} </span></td>
-        <td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">
-    {% if res[search_results[0].__len__()-1] == 0 %} ارزیابی نشده
-    {% else %} ارزیابی شده {% endif %} </span></td>
-<!--<td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ unit }} </span></td>-->
-<!--<td class="cell3"><span style="color:#000000;font-size:16px;line-height:16px;"> </span></td>-->
-    </tr>
-{% endfor %}
-    <tr>
-        <td colspan="15" class="cell2" style="border: 1px solid white;">
-            <a class="back" style="float: left;" href="{{ url_for('evaluation') }}">بازگشت</a>
-        </td>
-    </tr>
-</table>
-
-</body>
-</html>
+<form>
+    <div class="limiter">
+        <div class="container-table100">
+            <p style="color: midnightblue; font-size: 20px;">برای ثبت ارزیابی روی کد گزارش موردنظر کلیک کنید</p>
+            <div class="wrap-table100">
+                <div class="table">
+                    <div class="row header">
+                        <div class="cell"> کد</div>
+                        <div class="cell"> موضوع</div>
+                        <div class="cell"> روز</div>
+                        <div class="cell"> ماه</div>
+                        <div class="cell"> سال</div>
+                        <div class="cell">وضعیت</div>
+                    </div>
+                    {% for res in search_results %}
+                        <div class="row">
+                            <div class="cell"><a href="{{ url_for('eval_first_record_filled', code=res[0] ) }}">{{ res[0] }} </a></div>
+                            <div class="cell">{{ main_subject }} </div>
+                            <div class="cell">{{ res[7] }} </div>
+                            <div class="cell">{{ res[6] }} </div>
+                            <div class="cell">{{ res[5] }} </div>
+                            <div class="cell">
+                        {% if res[search_results[0].__len__()-1] == 0 %} ارزیابی نشده
+                        {% else %} ارزیابی شده {% endif %} </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 {% endblock %}

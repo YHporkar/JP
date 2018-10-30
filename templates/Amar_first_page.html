@@ -1,33 +1,39 @@
-{% extends "layout - eval.html" %}
+{% extends "layout_first_amar.html" %}
 
 {% block content %}
+<form action="/amar_first_page" method="POST">
+{{ form.hidden_tag() }}
+    <div class="rightcontact">
+		    <div class="form-group">
+			{% if subj_err %}
+				<p class="error-message">{{ subj_err }}</p>
+			{% endif %}
+			<p>نام دفتر </p>
+                {{ form.username }}
+                <div class="validation"></div>
+			</div>
+	</div>
 
-<div id="wb_Form1" style="position:absolute;left:770px;top:233px;width:483px;height:355px;z-index:36;">
-<form name="edit_record_form" method="post" action="/amar_first_page" id="Form1">
-    {{ form.hidden_tag() }}
-    {% if error %}
-        <div style="position:absolute;left:210px;top:25px;width:200px;height:17px;z-index:1;"><p class="error-message">{{ error }}</p></div>
-    {% endif %}
+	<div class="leftcontact">
 
-    {{ form.username(id="Combobox4", style="position:absolute;left:200px;top:70px;width:90px;height:28px;z-index:6;") }}
-    {{ form.year(id="Combobox4", style="position:absolute;left:200px;top:110px;width:90px;height:28px;z-index:6;") }}
-    {{ form.from_month(id="Combobox4", style="position:absolute;left:200px;top:150px;width:90px;height:28px;z-index:6;") }}
-    {{ form.to_month(id="Combobox4", style="position:absolute;left:200px;top:190px;width:90px;height:28px;z-index:6;") }}
-    {{ form.continues(id="Button1", style="position:absolute;left:93px;top:240px;width:96px;height:25px;z-index:0;") }}
+			<div class="form-group">
+                <p>سال </p>
+                {{ form.year }}
+                <div class="validation"></div>
+            </div>
 
-    <div id="wb_Text13" style="position:absolute;left:300px;top:75px;width:52px;height:19px;text-align:right;z-index:18;">
-        <span style="color:#000000;font-size:16px;"><strong>نام واحد</strong></span>
-        {% if subj_err %}
-            <p class="error-message", style="position:absolute;top:-10px;right:170px;width:150px;">{{ subj_err }}</p>
-        {% endif %}
-    </div>
-    <div id="wb_Text11" style="position:absolute;left:300px;top:115px;width:52px;height:19px;text-align:right;z-index:16;">
-        <span style="color:#000000;font-size:16px;"><strong>سال</strong></span></div>
-    <div id="wb_Text3" style="position:absolute;left:300px;top:155px;width:52px;height:19px;text-align:right;z-index:15;">
-        <span style="color:#000000;font-size:16px;"><strong>از ماه</strong></span></div>
-    <div id="wb_Text9" style="position:absolute;left:300px;top:195px;width:52px;height:19px;text-align:right;z-index:15;">
-        <span style="color:#000000;font-size:16px;"><strong>تا ماه</strong></span></div>
+            <div class="form-group">
+                <p>از ماه </p>
+                {{ form.from_month }}
+                <div class="validation"></div>
+            </div>
 
+            <div class="form-group">
+                <p>تا ماه </p>
+                {{ form.to_month }}
+                <div class="validation"></div>
+            </div>
+	</div>
+    {{ form.continues(class="bouton-contact") }}
 </form>
-</div>
 {% endblock %}

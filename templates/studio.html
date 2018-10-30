@@ -1,33 +1,52 @@
+{% extends "layout_add_second.html" %}
 
-{% extends "layout.html" %}{% block content %}<div id="wb_Form1" style="position:absolute;left:271px;top:236px;width:483px;height:419px;z-index:32;">
-<form name="contact" method="post" action="/studio" id="Form1">
-    {{ form.hidden_tag() }}
-    {{ form.group_name(id="Editbox2", style="position:absolute;left:215px;top:21px;width:82px;height:17px;z-index:0;") }}
-    {{ form.col_name(id="Editbox2", style="position:absolute;left:215px;top:60px;width:82px;height:17px;z-index:1;") }}
-    {{ form.group_head(id="Editbox2", style="position:absolute;left:215px;top:97px;width:82px;height:17px;z-index:2;") }}
-    {{ form.mah_fa(id="Combobox1", style="position:absolute;left:215px;top:139px;width:90px;height:28px;z-index:3;") }}
-    {{ form.using_time(id="Editbox2", style="position:absolute;left:214px;top:174px;width:82px;height:17px;z-index:4;") }}
-    {{ form.famous_person(id="TextArea1", style="position:absolute;left:210px;top:241px;width:90px;height:90px;z-index:5;") }}
-    {{ form.back(id="Button5", style="position:absolute;left:107px;top:350px;width:90px;height:25px;z-index:12;") }}
-    {{ form.add(id="Button6", style="position:absolute;left:323px;top:350px;width:90px;height:25px;z-index:14;") }}
+{% block content %}
+<form action="/show" method="POST">
+{{ form.hidden_tag() }}
+    <div class="rightcontact">
+		    <div class="form-group">
+			<p>نام گروه</p>
+				{{ form.group_name }}
+				<div class="validation"></div>
+      		</div>
 
-<div id="wb_Text2" style="position:absolute;left:399px;top:25px;width:52px;height:19px;text-align:right;z-index:6;">
-<span style="color:#000000;font-size:16px;"><strong>نام گروه</strong></span></div>
-<div id="wb_Text3" style="position:absolute;left:350px;top:64px;width:101px;height:19px;text-align:right;z-index:7;">
-<span style="color:#000000;font-size:16px;"><strong>نام اثر یا مجموعه</strong></span></div>
-<div id="wb_Text4" style="position:absolute;left:341px;top:101px;width:111px;height:19px;text-align:right;z-index:8;">
-<span style="color:#000000;font-size:16px;"><strong>سرپرست گروه</strong></span></div>
-<div id="wb_Text5" style="position:absolute;left:341px;top:139px;width:111px;height:19px;text-align:right;z-index:9;">
-<span style="color:#000000;font-size:16px;"><strong>ماهیت فعالیت</strong></span></div>
-<div id="wb_Text6" style="position:absolute;left:352px;top:177px;width:97px;height:38px;text-align:right;z-index:10;">
-<span style="color:#000000;font-size:16px;"><strong>مدت زمان استفاده</strong></span></div>
-<div id="wb_Text7" style="position:absolute;left:307px;top:222px;width:145px;height:19px;text-align:right;z-index:11;">
-<span style="color:#000000;font-size:16px;"><strong>چهره شاخص</strong></span></div>
-<!--<input type="submit" id="Button4" name="chap" value="چاپ" style="position:absolute;left:219px;top:365px;width:90px;height:25px;z-index:13;">-->
-<a class="back" style="position:absolute;left:88px;top:350px;z-index:21;" href="{{ url_for('first_add_record') }}">بازگشت</a></form>
-</div>
+            <div class="form-group">
+            <p>نام اثر یا مجموعه </p>
+				{{ form.col_name }}
+                <div class="validation"></div>
+			</div>
 
-<input type="submit" id="Button2" name="چاپ" value="چاپ" style="position:absolute;left:487px;top:1030px;width:90px;height:25px;z-index:34;">
+			<div class="form-group">
+			<p>سرپرست گروه </p>
+                {{ form.group_head }}
+                <div class="validation"></div>
+			</div>
+	</div>
 
-</body>
-</html>{% endblock %}
+	<div class="leftcontact">
+
+			<div class="form-group">
+			<p>ماهیت فعالیت </p>
+				{{ form.mah_fa }}
+				<div class="dropDownSelect2"></div>
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>مدت زمان استفاده </p>
+				{{ form.using_time }}
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>چهره شاخص </p>
+                {{ form.famous_person }}
+                <div class="validation"></div>
+			</div>
+
+	</div>
+    {{ form.add(class="bouton-contact") }}
+</form>
+
+    
+{% endblock %}

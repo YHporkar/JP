@@ -1,43 +1,69 @@
+{% extends "layout_edit.html" %}
 
-{% extends "layout - edit.html" %}{% block content %}<div id="wb_Form1" style="position:absolute;left:270px;top:239px;width:483px;height:445px;z-index:38;">
-<form name="contact" method="post" action="/edit_romance" id="Form1">
+{% block content %}
+<form action="/edit_romance" method="POST">
+{{ form.hidden_tag() }}
+    <div class="rightcontact">
+		    <div class="form-group">
+			<p>تعداد آثار ارسال شده</p>
+				{{ form.sent_asar_num }}
+				<div class="validation"></div>
+      		</div>
 
-    {{ form.hidden_tag() }}
-    {{ form.sent_asar_num(id="Editbox3", style="position:absolute;left:175px;top:0px;width:82px;height:17px;z-index:8;") }}
-    {{ form.seen_asar_num(id="Editbox3", style="position:absolute;left:175px;top:45px;width:82px;height:17px;z-index:7;") }}
-    {{ form.short_story_num(id="Editbox3", style="position:absolute;left:175px;top:82px;width:82px;height:17px;z-index:6;") }}
-    {{ form.romance_num(id="Editbox3", style="position:absolute;left:175px;top:120px;width:82px;height:17px;z-index:5;") }}
-    {{ form.sent_to_mehr_asar_num(id="Editbox3", style="position:absolute;left:175px;top:157px;width:82px;height:17px;z-index:4;") }}
-    {{ form.sent_to_city_asar_num(id="Editbox3", style="position:absolute;left:175px;top:194px;width:82px;height:17px;z-index:3;") }}
-    {{ form.printed_num(id="Editbox3", style="position:absolute;left:175px;top:232px;width:82px;height:17px;z-index:2;") }}
-    {{ form.in_printed_num(id="Editbox3", style="position:absolute;left:176px;top:267px;width:82px;height:17px;z-index:1;") }}
-    {{ form.rejected_num(id="Editbox3", style="position:absolute;left:176px;top:300px;width:82px;height:17px;z-index:0;") }}
+            <div class="form-group">
+            <p>تعداد آثار کارشناسی شده </p>
+				{{ form.seen_asar_num }}
+                <div class="validation"></div>
+			</div>
 
+			<div class="form-group">
+			<p>تعداد داستان کوتاه </p>
+                {{ form.short_story_num }}
+                <div class="validation"></div>
+			</div>
 
-    <!--{{form.back(id="Button3", style="position:absolute;left:88px;top:350px;width:90px;height:25px;z-index:21;")}}-->
-    {{form.add(id="Button1", style="position:absolute;left:304px;top:350px;width:90px;height:25px;z-index:23;")}}
+			<div class="form-group">
+			<p>تعداد رمان </p>
+				{{ form.romance_num }}
+                <div class="validation"></div>
+			</div>
 
-<div id="wb_page1Text2" style="position:absolute;left:340px;top:14px;width:110px;height:38px;text-align:right;z-index:9;">
-<span style="color:#000000;font-size:16px;"><strong>تعداد آثار ارسال شده</strong></span></div>
-<div id="wb_page1Text3" style="position:absolute;left:318px;top:53px;width:132px;height:38px;text-align:right;z-index:10;">
-<span style="color:#000000;font-size:16px;"><strong>تعداد آثار کارشناسی شده</strong></span></div>
-<div id="wb_page1Text4" style="position:absolute;left:340px;top:90px;width:111px;height:19px;text-align:right;z-index:11;">
-<span style="color:#000000;font-size:16px;"><strong>تعداد داستان کوتاه</strong></span></div>
-<div id="wb_page1Text5" style="position:absolute;left:340px;top:128px;width:111px;height:19px;text-align:right;z-index:12;">
-<span style="color:#000000;font-size:16px;"><strong>تعداد رمان</strong></span></div>
-<div id="wb_page1Text6" style="position:absolute;left:288px;top:161px;width:163px;height:38px;text-align:right;z-index:13;">
-<span style="color:#000000;font-size:16px;"><strong>تعداد آثار ارسالی به سوره مهر</strong></span></div>
-<div id="wb_page2Text1" style="position:absolute;left:288px;top:199px;width:163px;height:19px;text-align:right;z-index:14;">
-<span style="color:#000000;font-size:16px;"><strong>تعداد آثار ارسالی به استان ها&nbsp; </strong></span></div>
-<div id="wb_page2Text2" style="position:absolute;left:306px;top:239px;width:145px;height:19px;text-align:right;z-index:15;">
-<span style="color:#000000;font-size:16px;"><strong>تعداد چاپ شده</strong></span></div>
-<div id="wb_page1Text7" style="position:absolute;left:363px;top:271px;width:87px;height:19px;text-align:right;z-index:16;">
-<span style="color:#000000;font-size:16px;"><strong>تعداد نوبت چاپ</strong></span></div>
-<div id="wb_page1Text12" style="position:absolute;left:363px;top:304px;width:87px;height:19px;text-align:right;z-index:17;">
-<span style="color:#000000;font-size:16px;"><strong>تعداد رد شده</strong></span></div>
+			<div class="form-group">
+			<p>تعداد آثار ارسالی به سوره مهر </p>
+				{{ form.sent_to_mehr_asar_num }}
+                <div class="validation"></div>
+			</div>
+	</div>
 
-<!--<input type="submit" id="page2Button1" name="chap" value="چاپ" style="position:absolute;left:179px;top:388px;width:90px;height:25px;z-index:19;">-->
-<a class="back" style="position:absolute;left:88px;top:350px;z-index:21;" href="{{ url_for('edit_search_record') }}">بازگشت</a></form>
-</div>
-</body>
-</html>{% endblock %}
+	<div class="leftcontact">
+
+			<div class="form-group">
+			<p>تعداد آثار ارسالی به استان ها </p>
+				{{ form.sent_to_city_asar_num }}
+				<div class="dropDownSelect2"></div>
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>تعداد چاپ شده </p>
+				{{ form.printed_num }}
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>تعداد نوبت چاپ </p>
+                {{ form.in_printed_num }}
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>تعداد رد شده </p>
+                {{ form.rejected_num }}
+                <div class="validation"></div>
+			</div>
+	</div>
+    {{ form.add(class="bouton-contact") }}
+</form>
+
+    
+{% endblock %}

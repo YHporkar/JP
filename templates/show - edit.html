@@ -1,49 +1,81 @@
+{% extends "layout_edit.html" %}
 
-{% extends "layout - edit.html" %}{% block content %}<div id="wb_Form1" style="position:absolute;left:266px;top:245px;width:483px;height:355px;z-index:42;">
-<form name="contact" method="post" action="/edit_show" id="Form1">
-    {{ form.hidden_tag() }}
-    {{form.name(id="Editbox3", style="position:absolute;left:232px;top:17px;width:82px;height:17px;z-index:0;")}}
-    {{form.author(id="Editbox2", style="position:absolute;left:232px;top:56px;width:82px;height:17px;z-index:1;")}}
-    {{form.director(id="Editbox3", style="position:absolute;left:232px;top:93px;width:82px;height:17px;z-index:2;")}}
-    {{form.place(id="Editbox3", style="position:absolute;left:232px;top:131px;width:82px;height:17px;z-index:10;")}}
-    {{form.salon(id="Combobox1", style="position:absolute;left:233px;top:168px;width:90px;height:28px;z-index:11;")}}
-    {{form.show_kind(id="Combobox2", style="position:absolute;left:234px;top:207px;width:90px;height:28px;z-index:12;")}}
-    {{form.frame(id="Combobox3", style="position:absolute;left:234px;top:246px;width:90px;height:28px;z-index:13;")}}
-    {{form.ejra_num(id="Editbox3", style="position:absolute;left:16px;top:17px;width:82px;height:17px;z-index:7;")}}
-    {{form.contact_num(id="Editbox3", style="position:absolute;left:16px;top:56px;width:82px;height:17px;z-index:6;")}}
-    {{form.contact_status(id="Editbox6", style="position:absolute;left:16px;top:93px;width:82px;height:17px;z-index:3;")}}
-    {{form.meh_moh(id="Combobox4", style="position:absolute;left:17px;top:130px;width:90px;height:28px;z-index:24;")}}
-    <!--{{form.back(id="Button3", style="position:absolute;left:88px;top:350px;width:90px;height:25px;z-index:21;")}}-->
-    {{form.add(id="Button1", style="position:absolute;left:304px;top:350px;width:90px;height:25px;z-index:23;")}}
+{% block content %}
+<form action="/edit_show" method="POST">
+{{ form.hidden_tag() }}
+    <div class="rightcontact">
+		    <div class="form-group">
+			<p>نام اثر</p>
+				{{ form.name }}
+				<div class="validation"></div>
+      		</div>
 
-<div id="wb_Text11" style="position:absolute;left:118px;top:97px;width:87px;height:19px;text-align:right;z-index:4;">
-<span style="color:#000000;font-size:16px;"><strong>وضعیت مخاطب</strong></span></div>
-<div id="wb_Text12" style="position:absolute;left:139px;top:60px;width:66px;height:38px;text-align:right;z-index:5;">
-<span style="color:#000000;font-size:16px;"><strong>تعداد مخاطب</strong></span></div>
+            <div class="form-group">
+            <p>نویسنده </p>
+				{{ form.author }}
+                <div class="validation"></div>
+			</div>
 
-<div id="wb_Text13" style="position:absolute;left:153px;top:21px;width:52px;height:38px;text-align:right;z-index:8;">
-<span style="color:#000000;font-size:16px;"><strong>تعداد اجرا</strong></span></div>
-<div id="wb_Text9" style="position:absolute;left:118px;top:135px;width:87px;height:19px;text-align:right;z-index:9;">
-<span style="color:#000000;font-size:16px;"><strong>محور محتوایی</strong></span></div>
+			<div class="form-group">
+			<p>کارگردان </p>
+                {{ form.director }}
+                <div class="validation"></div>
+			</div>
 
-<div id="wb_Text2" style="position:absolute;left:416px;top:21px;width:52px;height:19px;text-align:right;z-index:14;">
-<span style="color:#000000;font-size:16px;"><strong>نام اثر</strong></span></div>
-<div id="wb_Text3" style="position:absolute;left:416px;top:60px;width:52px;height:19px;text-align:right;z-index:15;">
-<span style="color:#000000;font-size:16px;"><strong>نویسنده</strong></span></div>
-<div id="wb_Text7" style="position:absolute;left:323px;top:209px;width:145px;height:19px;text-align:right;z-index:16;">
-<span style="color:#000000;font-size:16px;"><strong>نوع اجرا</strong></span></div>
-<div id="wb_Text4" style="position:absolute;left:358px;top:97px;width:111px;height:19px;text-align:right;z-index:17;">
-<span style="color:#000000;font-size:16px;"><strong>کارگردان</strong></span></div>
-<div id="wb_Text5" style="position:absolute;left:358px;top:135px;width:111px;height:19px;text-align:right;z-index:18;">
-<span style="color:#000000;font-size:16px;"><strong>محل اجرا</strong></span></div>
-<div id="wb_Text6" style="position:absolute;left:324px;top:168px;width:145px;height:19px;text-align:right;z-index:19;">
-<span style="color:#000000;font-size:16px;"><strong>سالن اجرا</strong></span></div>
-<div id="wb_Text8" style="position:absolute;left:324px;top:246px;width:145px;height:19px;text-align:right;z-index:20;">
-<span style="color:#000000;font-size:16px;"><strong>قالب اجرا</strong></span></div>
-<!--<input type="submit" id="Button2" name="chap" value="چاپ" style="position:absolute;left:200px;top:303px;width:90px;height:25px;z-index:22;">-->
+			<div class="form-group">
+			<p>محل اجرا </p>
+				{{ form.place }}
+                <div class="validation"></div>
+			</div>
 
-<a class="back" style="position:absolute;left:88px;top:350px;z-index:21;" href="{{ url_for('edit_search_record') }}">بازگشت</a></form>
-</div>
+			<div class="form-group">
+			<p>سالن اجرا </p>
+				{{ form.salon }}
+                <div class="validation"></div>
+			</div>
 
-</body>
-</html>{% endblock %}
+			<div class="form-group">
+			<p>نوع اجرا </p>
+				{{ form.show_kind }}
+				<div class="validation"></div>
+			</div>
+	</div>
+
+	<div class="leftcontact">
+
+			<div class="form-group">
+			<p>قالب اجرا </p>
+				{{ form.frame }}
+				<div class="dropDownSelect2"></div>
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>تعداد اجرا </p>
+				{{ form.ejra_num }}
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>تعداد مخاطب </p>
+                {{ form.contact_num }}
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>وضعیت مخاطب </p>
+                {{ form.contact_status }}
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>محور محتوایی </p>
+				{{ form.meh_moh }}
+				<div class="validation"></div>
+			</div>
+	</div>
+    {{ form.add(class="bouton-contact") }}
+</form>
+
+    
+{% endblock %}

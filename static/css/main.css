@@ -25,7 +25,7 @@ body, html {
 /*---------------------------------------------*/
 a {
 	font-family: Roya;
-	font-size: 14px;
+	font-size: 20px;
 	line-height: 1.7;
 	color: #666666;
 	margin: 0px;
@@ -44,13 +44,13 @@ a:hover {
 }
 
 /*---------------------------------------------*/
-h1,h2,h3,h4,h5,h6 {
+/*h1,h2,h3,h4,h5,h6 {
 	margin: 0px;
-}
+}*/
 
 p {
 	font-family: Roya;
-	font-size: 14px;
+	font-size: 18px;
 	line-height: 1.7;
 	color: #666666;
 	margin: 0px;
@@ -368,7 +368,7 @@ textarea.input100 {
 
   font-family: Roya;
   color: #c80000;
-  font-size: 14px;
+  font-size: 18px;
   line-height: 1.4;
   text-align: left;
 
@@ -437,7 +437,7 @@ textarea.input100 {
 
 .contact100-more {
   font-family: Roya;
-  font-size: 16px;
+  font-size: 18px;
   color: #fff;
 
   position: fixed;
@@ -467,40 +467,4 @@ textarea.input100 {
 .contact100-more i {
   font-size: 20px;
   margin-right: 10px;
-}
-
-
-
-@media (max-width: 1200px) {
-  .wrap-contact100 {
-    width: 440px;
-  }
-
-  .contact100-map {
-    width: calc(100% - 440px);
-  }
-
-  .contact100-more {
-    left: calc((100% - 440px) / 2);
-  }
-}
-
-@media (max-width: 768px) {
-  .wrap-contact100 {
-    width: 100%;
-  }
-
-  .contact100-map {
-    display: none;
-  }
-
-  .contact100-more {
-    position: absolute;
-    background-color: transparent;
-    color: #39b54a;
-    bottom: 0px;
-    top: auto;
-    left: 50%;
-    z-index: 10;
-  }
 }

@@ -1,0 +1,69 @@
+{% extends "layout_edit.html" %}
+
+{% block content %}
+<form action="/edit_music_products" method="POST">
+{{ form.hidden_tag() }}
+    <div class="rightcontact">
+		    <div class="form-group">
+			<p>نام اثر</p>
+				{{ form.music_name }}
+				<div class="validation"></div>
+      		</div>
+
+            <div class="form-group">
+            <p>وضعیت انتشار </p>
+				{{ form.outing_pos }}
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>نوبت انتشار </p>
+                {{ form.outing_turn }}
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>قالب </p>
+				{{ form.frame }}
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>نوع اثر </p>
+				{{ form.music_kind }}
+                <div class="validation"></div>
+			</div>
+	</div>
+
+	<div class="leftcontact">
+
+			<div class="form-group">
+			<p>نام خواننده </p>
+				{{ form.singer }}
+				<div class="dropDownSelect2"></div>
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>نام آهنگساز </p>
+				{{ form.music_producer }}
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>تیتراژ </p>
+                {{ form.tirax }}
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>محور محتوایی </p>
+				{{ form.meh_moh }}
+				<div class="validation"></div>
+			</div>
+	</div>
+    {{ form.add(class="bouton-contact") }}
+</form>
+
+    
+{% endblock %}

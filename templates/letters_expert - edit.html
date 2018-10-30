@@ -1,24 +1,33 @@
+{% extends "layout_edit.html" %}
 
-{% extends "layout - edit.html" %}{% block content %}<div id="wb_Form1" style="position:absolute;left:278px;top:236px;width:483px;height:373px;z-index:26;">
-<form name="contact" method="post" action="/edit_letters_expert" id="Form1">
-    {{ form.hidden_tag() }}
-    {{ form.kar_number(id="Editbox3", style="position:absolute;left:204px;top:24px;width:82px;height:17px;z-index:5;") }}
-    {{ form.accepted_number(id="Editbox3", style="position:absolute;left:204px;top:63px;width:82px;height:17px;z-index:4;") }}
-    {{ form.frame(id="Combobox1", style="position:absolute;left:200px;top:105px;width:100px;height:28px;z-index:3;") }}
+{% block content %}
+<form action="/edit_show" method="POST">
+{{ form.hidden_tag() }}
+    <div class="rightcontact">
+		    <div class="form-group">
+			<p>تعداد آثار کارشناسی شده</p>
+				{{ form.kar_number }}
+				<div class="validation"></div>
+      		</div>
 
-    <!--{{form.back(id="Button3", style="position:absolute;left:88px;top:350px;width:90px;height:25px;z-index:21;")}}-->
-    {{form.add(id="Button1", style="position:absolute;left:304px;top:350px;width:90px;height:25px;z-index:23;")}}
+            <div class="form-group">
+            <p>تعداد آثار تأیید شده </p>
+				{{ form.accepted_number }}
+                <div class="validation"></div>
+			</div>
+	</div>
 
+	<div class="leftcontact">
 
-<!--<input type="submit" id="Button2" name="chap" value="چاپ" style="position:absolute;left:171px;top:308px;width:90px;height:25px;z-index:1;">-->
+			<div class="form-group">
+			<p>قالب اثر مکتوب </p>
+				{{ form.frame }}
+				<div class="dropDownSelect2"></div>
+                <div class="validation"></div>
+			</div>
+	</div>
+    {{ form.add(class="bouton-contact") }}
+</form>
 
-<div id="wb_page1Text2" style="position:absolute;left:305px;top:32px;width:135px;height:19px;text-align:right;z-index:6;">
-<span style="color:#000000;font-size:16px;"><strong>تعداد آثار کارشناسی شده </strong></span></div>
-<div id="wb_page1Text3" style="position:absolute;left:330px;top:67px;width:110px;height:19px;text-align:right;z-index:7;">
-<span style="color:#000000;font-size:16px;"><strong>تعداد آثار تأیید شده</strong></span></div>
-<div id="wb_page1Text4" style="position:absolute;left:330px;top:110px;width:111px;height:19px;text-align:right;z-index:8;">
-<span style="color:#000000;font-size:16px;"><strong>قالب اثر مکتوب</strong></span></div>
-<a class="back" style="position:absolute;left:88px;top:350px;z-index:21;" href="{{ url_for('edit_search_record') }}">بازگشت</a></form>
-</div>
-</body>
-</html>{% endblock %}
+    
+{% endblock %}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Elegant Contact Form </title>
+ 
+      <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+
+</head>
+
+<body background="{{url_for('static', filename='images/back-1.jpg')}}">
+	  <h2>خوش آمدید &nbsp;{{ user }}</h2>
+      <h2>ویرایش گزارش </h2>
+
+      <ul class="up-form">
+          <li><a class="edaddlink" href="{{ url_for('first_add_record') }}">ثبت گزارش</a></li>
+          <li><a class="edaddlink" href="{{ url_for('info_add_record') }}">گزارش های ثبت شده</a></li>
+          <li><a class="edaddlink" href="{{ url_for('edit_search_record') }}">ویرایش گزارش</a></li>
+          <li style="float: left"><a class="edaddlink" href="{{ url_for('logout') }}">خروج</a></li>
+      </ul>
+    
+    <script  src="{{url_for('static', filename='js/index.js')}}"></script>
+{% block content %}
+{% endblock %}
+
+</body>
+
+</html>

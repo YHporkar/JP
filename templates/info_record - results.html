@@ -1,33 +1,32 @@
-{% extends "layout - edit.html" %}
+{% extends "layout_edit.html" %}
 
 {% block content %}
-<!--<p style="position:absolute;left:271px;top:220px;width:487px;height:58px;z-index:35;">برای ویرایش گزارش روی کد گزارش موردنظر کلیک کنید</p>-->
-<table style="position:absolute;left:271px;top:260px;width:487px;height:58px;z-index:35;" id="نتایج_جست_و_جوTable1">
-<tr>
-    <td class="cell0"><span style="font-size:16px;line-height:16px;"> کد</span></td>
-    <td class="cell0"><span style="color:#000000;font-size:16px;line-height:16px;"> موضوع</span></td>
-    <td class="cell0"><span style="color:#000000;font-size:16px;line-height:16px;"> روز</span></td>
-    <td class="cell0"><span style="color:#000000;font-size:16px;line-height:16px;"> ماه</span></td>
-    <td class="cell0"><span style="color:#000000;font-size:16px;line-height:16px;"> سال</span></td>
-</tr>
-{% for i in range(search_results.__len__()) %}
-    {% for j in range(search_results.values()[i].__len__()) %}
-<tr>
-    <td class="cell2"><span style="font-size:16px;line-height:25px;">{{ search_results.values()[i][j][0] }} </span></td>
-    <td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ search_results.keys()[i] }} </span></td>
-    <td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ search_results.values()[i][j][7] }} </span></td>
-    <td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ search_results.values()[i][j][6] }} </span></td>
-    <td class="cell2"><span style="color:#000000;font-size:16px;line-height:16px;">{{ search_results.values()[i][j][5] }} </span></td>
-</tr>
-    {% endfor %}
-{% endfor %}
-    <tr>
-        <td style="border: 1px solid white;" class="cell2" colspan="15">
-            <a class="back" style="float: left;" href="{{ url_for('first_add_record') }}">بازگشت</a>
-        </td>
-    </tr>
-</table>
-
-</body>
-</html>
+<form>
+    <div class="limiter">
+		<div class="container-table100">
+			<div class="wrap-table100">
+                <div class="table">
+                    <div class="row header">
+                        <div class="cell" > کد</div>
+                        <div class="cell" > موضوع</div>
+                        <div class="cell" > روز</div>
+                        <div class="cell" > ماه</div>
+                        <div class="cell" > سال</div>
+                    </div>
+                    {% for i in range(search_results.__len__()) %}
+                        {% for j in range(search_results.values()[i].__len__()) %}
+                    <div class="row">
+                        <div class="cell" >{{ search_results.values()[i][j][0][1:] }} </div>
+                        <div class="cell" >{{ search_results.keys()[i] }} </div>
+                        <div class="cell" >{{ search_results.values()[i][j][7] }} </div>
+                        <div class="cell" >{{ search_results.values()[i][j][6] }} </div>
+                        <div class="cell" >{{ search_results.values()[i][j][5] }} </div>
+                    </div>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 {% endblock %}

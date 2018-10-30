@@ -1,25 +1,33 @@
+{% extends "layout_edit.html" %}
 
-{% extends "layout - edit.html" %}{% block content %}<div id="wb_Form1" style="position:absolute;left:270px;top:255px;width:483px;height:419px;z-index:26;">
-<form name="contact" method="post" action="/edit_results_review" id="Form1">
+{% block content %}
+<form action="/edit_results_review" method="POST">
+{{ form.hidden_tag() }}
+    <div class="rightcontact">
+		    <div class="form-group">
+			<p>تعداد آثار کارشناسی شده</p>
+				{{ form.kar_num }}
+				<div class="validation"></div>
+      		</div>
 
-    {{ form.hidden_tag() }}
-    {{ form.kar_num(id="Editbox3", style="position:absolute;left:197px;top:73px;width:82px;height:17px;z-index:4;") }}
-    {{ form.accepted_num(id="Editbox3", style="position:absolute;left:197px;top:38px;width:82px;height:17px;z-index:5;") }}
-    {{ form.show_kind(id="Combobox1", style="position:absolute;left:198px;top:109px;width:90px;height:28px;z-index:3;") }}
+            <div class="form-group">
+            <p>تعداد آثار تأیید شده </p>
+				{{ form.accepted_num }}
+                <div class="validation"></div>
+			</div>
+	</div>
 
+	<div class="leftcontact">
 
-    <!--{{form.back(id="Button3", style="position:absolute;left:88px;top:350px;width:90px;height:25px;z-index:21;")}}-->
-    {{form.add(id="Button1", style="position:absolute;left:304px;top:350px;width:90px;height:25px;z-index:23;")}}
+			<div class="form-group">
+			<p>نوع نمایش </p>
+				{{ form.show_kind }}
+				<div class="dropDownSelect2"></div>
+                <div class="validation"></div>
+			</div>
+	</div>
+    {{ form.add(class="bouton-contact") }}
+</form>
 
-    <!--<input type="submit" id="Button4" name="chap" value="چاپ" style="position:absolute;left:219px;top:201px;width:90px;height:25px;z-index:1;">-->
-
-<div id="wb_page1Text2" style="position:absolute;left:288px;top:38px;width:145px;height:19px;text-align:right;z-index:6;">
-<span style="color:#000000;font-size:16px;"><strong>تعداد آثار کارشناسی شده</strong></span></div>
-<div id="wb_page1Text3" style="position:absolute;left:323px;top:77px;width:110px;height:19px;text-align:right;z-index:7;">
-<span style="color:#000000;font-size:16px;"><strong>تعداد آثار تأیید شده </strong></span></div>
-<div id="wb_page1Text4" style="position:absolute;left:323px;top:114px;width:111px;height:19px;text-align:right;z-index:8;">
-<span style="color:#000000;font-size:16px;"><strong>نوع نمایش</strong></span></div>
-<a class="back" style="position:absolute;left:88px;top:350px;z-index:21;" href="{{ url_for('edit_search_record') }}">بازگشت</a></form>
-</div>
-</body>
-</html>{% endblock %}
+    
+{% endblock %}

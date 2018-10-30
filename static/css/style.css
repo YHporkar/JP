@@ -1,23 +1,9 @@
 body {
   margin: auto;
-  background: #eaeaea;  
+  background-size: 100%;
   font-family: 'Open Sans', sans-serif;
   direction: rtl;
-}
-a.logoutlink:link{
-   background-color: #7995ff;
-    padding: 5px 20px;
-    text-align: center;
-    border-radius: 5px 5px 0 0;
-    text-decoration: none;
-    display: inline-block;
-  font-size: 15px;
-}
-a.logoutlink:visited{
-   color: white;
-}
-a.logoutlink:hover{
-   background-color: #3f6bff;
+  background-repeat: no-repeat;
 }
 
 add_and_edit{
@@ -35,22 +21,26 @@ add_and_edit{
 .info i {
   color:#F6AA93;
 }
-form h1 {
+.up-form {
   font-size: 18px;
-  background: #F6AA93 none repeat scroll 0% 0%;
+  background: #7500f6 none repeat scroll 0% 0%;
   color: rgb(255, 255, 255);
   padding: 22px 25px;
   border-radius: 5px 5px 0px 0px;
-  margin: auto;
-  text-shadow: none; 
-  text-align:left
+  text-shadow: none;
+  text-align:right;
+  max-width:700px;
+  width:100%;
+  margin: 5% auto 0 auto;
+  overflow: hidden;
+  list-style-type: none;
 }
 
 form {
-  border-radius: 5px;
-  max-width:700px;
+  border-radius: 0 0 5px 5px;
+  max-width:750px;
   width:100%;
-  margin: 5% auto;
+  margin: 0 auto;
   background-color: #FFFFFF;
   overflow: hidden;
 }
@@ -66,20 +56,33 @@ p {
   color:#333;
 }
 
-h1 {
+h1,h2,h3 {
   text-align:center; 
-  color: #666;
-  text-shadow: 1px 1px 0px #FFF;
-  margin:50px 0px 0px 0px
+  color: darkblue;
+  margin:50px auto;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  width: 15%;
+
 }
 
 input {
   border-radius: 0px 5px 5px 0px;
-  border: 1px solid #eee;
+  border: 1px solid #818182;
   margin-bottom: 15px;
-  width: 75%;
+  width: 100%;
   height: 40px;
-  float: left;
+  float: right;
+  padding: 0px 15px;
+}
+
+select {
+  border-radius: 0px 5px 5px 0px;
+  border: 1px solid #818182;
+  margin-bottom: 15px;
+  width: 100%;
+  height: 40px;
+  float: right;
   padding: 0px 15px;
 }
 
@@ -102,32 +105,52 @@ textarea {
   clear: both;
 }
 
-.icon-case {
-  width: 35px;
-  float: left;
-  border-radius: 5px 0px 0px 5px;
-  background:#eeeeee;
-  height:42px;
-  position: relative;
-  text-align: center;
-  line-height:40px;
-}
-
 i {
   color:#555;
 }
+ul.navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: transparent;
+}
 
-.contentform {
-  padding: 40px 30px;
+li{
+    float: right;
+}
+li a.edaddlink, li.edaddlink {
+    display: block;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px 16px;
+    margin-right: 5px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+li a.edaddlink:hover:not(.active) {
+    background-color: #ab88f6;
+}
+
+li a.edaddlink.active {
+    color: white;
+    background-color: #4CAF50;
+}
+
+.error-message{
+  color: red;
+}
+.accept-message{
+  color: lawngreen;
 }
 
 .bouton-contact{
-  background-color: #81BDA4;
+  background-color: darkslateblue;
   color: #FFF;
   text-align: center;
   width: 100%;
   border:0;
-  padding: 17px 25px;
   border-radius: 0px 0px 5px 5px;
   cursor: pointer;
   margin-top: 40px;
@@ -135,18 +158,20 @@ i {
 }
 
 .leftcontact {
-  width:49.5%; 
-  float:left;
+  width:45%;
+  float:right;
   border-right: 1px dotted #CCC;
   box-sizing: border-box;
   padding: 0px 15px 0px 0px;
+  margin: 3% 5%;
 }
 
 .rightcontact {
-  width:49.5%;
+  width:35%;
   float:right;
   box-sizing: border-box;
   padding: 0px 0px 0px 15px;
+  margin: 3% 5%;
 }
 
 .validation {
@@ -174,4 +199,175 @@ i {
 
 #sendmessage.show,.show  {
   display:block;
+}
+
+/*//////////////////////////////////////////////////////////////////
+[ Table ]*/
+
+.limiter {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.container-table100 {
+  width: 100%;
+  min-height: 80vh;
+  background: #c4d3f6;
+
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  /*padding: 33px 30px;*/
+}
+
+.wrap-table100 {
+  width: 700px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  display: table;
+  margin: 0;
+  text-align: center;
+}
+
+@media screen and (max-width: 700px) {
+  .table {
+    display: block;
+  }
+}
+
+.row {
+  display: table-row;
+  background: #fff;
+}
+
+.row.header {
+  color: #ffffff;
+  background: #6c7ae0;
+}
+
+@media screen and (max-width: 700px) {
+  .row {
+    display: block;
+  }
+
+  .row.header {
+    padding: 0;
+    height: 0px;
+  }
+
+  .row.header .cell {
+    display: none;
+  }
+
+  .row .cell:before {
+    font-family: Poppins-Bold;
+    font-size: 12px;
+    color: #808080;
+    line-height: 1.2;
+    text-transform: uppercase;
+    font-weight: unset !important;
+
+    margin-bottom: 13px;
+    content: attr(data-title);
+    min-width: 98px;
+    display: block;
+  }
+}
+
+.cell {
+  display: table-cell;
+}
+
+@media screen and (max-width: 700px) {
+  .cell {
+    display: block;
+  }
+}
+
+.row .cell {
+  font-family: Roya;
+  font-size: 15px;
+  color: #666666;
+  line-height: 1.2;
+  font-weight: unset !important;
+
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #c8b8f2;
+}
+
+.row.header .cell {
+  font-family: Roya;
+  font-size: 18px;
+  color: #fff;
+  line-height: 1.2;
+  font-weight: unset !important;
+
+  padding-top: 19px;
+  padding-bottom: 19px;
+}
+/*
+
+.row .cell:nth-child(1) {
+  width: 360px;
+  padding-left: 40px;
+}
+
+.row .cell:nth-child(2) {
+  width: 160px;
+}
+
+.row .cell:nth-child(3) {
+  width: 250px;
+}
+
+.row .cell:nth-child(4) {
+  width: 190px;
+}
+*/
+
+
+.table, .row {
+  width: 100% !important;
+}
+
+@media (max-width: 700px) {
+  .row {
+    border-bottom: 1px solid #f2f2f2;
+    padding-bottom: 18px;
+    padding-top: 30px;
+    padding-right: 15px;
+    margin: 0;
+  }
+
+  .row .cell {
+    border: none;
+    padding-left: 30px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+  .row .cell:nth-child(1) {
+    padding-left: 30px;
+  }
+
+  .row .cell {
+    font-family: Roya;
+    font-size: 18px;
+    color: #555555;
+    line-height: 1.2;
+    font-weight: unset !important;
+  }
+
+  .table, .row, .cell {
+    width: 100% !important;
+  }
 }

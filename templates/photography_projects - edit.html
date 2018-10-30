@@ -1,24 +1,33 @@
+{% extends "layout_add_second.html" %}
 
-{% extends "layout - edit.html" %}{% block content %}<div id="wb_Form1" style="position:absolute;left:266px;top:254px;width:483px;height:419px;z-index:26;">
-<form name="contact" method="post" action="/edit_photography_projects" id="Form1">
+{% block content %}
+<form action="/edit_photography_projects" method="POST">
+{{ form.hidden_tag() }}
+    <div class="rightcontact">
+		    <div class="form-group">
+			<p>نام پروژه</p>
+				{{ form.name }}
+				<div class="validation"></div>
+      		</div>
 
-    <!--<input type="submit" id="Button4" name="chap" value="چاپ" style="position:absolute;left:219px;top:201px;width:90px;height:25px;z-index:1;">-->
+            <div class="form-group">
+            <p>موضوع </p>
+				{{ form.photo_subject }}
+                <div class="validation"></div>
+			</div>
+	</div>
 
-    {{ form.hidden_tag() }}
-    {{ form.name(id="Editbox3", style="position:absolute;left:200px;top:32px;width:82px;height:17px;z-index:3;") }}
-    {{ form.photo_subject(id="Editbox3", style="position:absolute;left:199px;top:67px;width:82px;height:17px;z-index:4;") }}
-    {{ form.photographer_name(id="Editbox3", style="position:absolute;left:200px;top:100px;width:82px;height:17px;z-index:5;") }}
+	<div class="leftcontact">
 
-    <!--{{form.back(id="Button3", style="position:absolute;left:88px;top:200px;width:90px;height:25px;z-index:21;")}}-->
-    {{form.add(id="Button1", style="position:absolute;left:304px;top:200px;width:90px;height:25px;z-index:23;")}}
+			<div class="form-group">
+			<p>هنرمند </p>
+				{{ form.photogragher_name }}
+				<div class="dropDownSelect2"></div>
+                <div class="validation"></div>
+			</div>
+	</div>
+    {{ form.add(class="bouton-contact") }}
+</form>
 
-<div id="wb_Text2" style="position:absolute;left:384px;top:32px;width:52px;height:19px;text-align:right;z-index:6;">
-<span style="color:#000000;font-size:16px;"><strong>نام پروژه</strong></span></div>
-<div id="wb_Text3" style="position:absolute;left:359px;top:71px;width:77px;height:19px;text-align:right;z-index:7;">
-<span style="color:#000000;font-size:16px;"><strong>موضوع</strong></span></div>
-<div id="wb_Text4" style="position:absolute;left:326px;top:108px;width:111px;height:19px;text-align:right;z-index:8;">
-<span style="color:#000000;font-size:16px;"><strong>هنرمند</strong></span></div>
-<a class="back" style="position:absolute;left:88px;top:350px;z-index:21;" href="{{ url_for('edit_search_record') }}">بازگشت</a></form>
-</div>
-</body>
-</html>{% endblock %}
+    
+{% endblock %}
