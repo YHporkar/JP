@@ -1,7 +1,7 @@
 body {
   margin: auto;
   background-size: 100%;
-  font-family: 'Open Sans', sans-serif;
+  font-family: Roya;
   direction: rtl;
   background-repeat: no-repeat;
 }
@@ -57,7 +57,7 @@ p {
 }
 
 h1,h2,h3 {
-  text-align:center; 
+  text-align:center;
   color: darkblue;
   margin:50px auto;
   background: rgba(255, 255, 255, 0.5);
@@ -95,7 +95,7 @@ textarea {
   border: 1px solid #EEE;
   margin: 0;
   width: 75%;
-  height: 130px; 
+  height: 130px;
   float: left;
   padding: 0px 15px;
 }
@@ -269,7 +269,7 @@ li a.edaddlink.active {
   }
 
   .row .cell:before {
-    font-family: Poppins-Bold;
+    font-family: Roya;
     font-size: 12px;
     color: #808080;
     line-height: 1.2;
