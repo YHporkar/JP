@@ -1,70 +1,64 @@
 {% extends "layout_add_second.html" %}
 
 {% block content %}
-<form action="/show" method="POST">
+<form action="/journal" method="POST">
 {{ form.hidden_tag() }}
     <div class="rightcontact">
 		    <div class="form-group">
-			<p>نام اثر</p>
+			<p>نام نشریه</p>
 				{{ form.name }}
 				<div class="validation"></div>
       		</div>
 
             <div class="form-group">
-            <p>نویسنده </p>
-				{{ form.author }}
+            <p>نام سردبیر نشریه </p>
+				{{ form.head_name }}
                 <div class="validation"></div>
 			</div>
 
 			<div class="form-group">
-			<p>کارگردان </p>
-                {{ form.director }}
+			<p>نوبت چاپ </p>
+                {{ form.print_turn }}
                 <div class="validation"></div>
 			</div>
 
 			<div class="form-group">
-			<p>محل اجرا </p>
-				{{ form.place }}
+			<p>تعداد جلد و شمارگان </p>
+				{{ form.shomargan_num }}
                 <div class="validation"></div>
 			</div>
 
 			<div class="form-group">
-			<p>سالن اجرا </p>
-				{{ form.salon }}
+			<p>تعداد صفحه </p>
+				{{ form.pages }}
                 <div class="validation"></div>
-			</div>
-
-			<div class="form-group">
-			<p>نوع اجرا </p>
-				{{ form.show_kind }}
-				<div class="validation"></div>
 			</div>
 	</div>
 
 	<div class="leftcontact">
 
 			<div class="form-group">
-			<p>قالب اجرا </p>
+			<p>موضوع و قالب </p>
 				{{ form.frame }}
 				<div class="dropDownSelect2"></div>
                 <div class="validation"></div>
 			</div>
 
 			<div class="form-group">
-			<p>تعداد اجرا </p>
-				{{ form.ejra_num }}
+			<p>برگزاری رونمایی </p>
+				{{ form.roo_bar }}
                 <div class="validation"></div>
 			</div>
 
 			<div class="form-group">
-			<p>تعداد مخاطب </p>
-                {{ form.contact_num }}
+			<p>نام استان ناشر </p>
+                {{ form.nasher_city }}
                 <div class="validation"></div>
 			</div>
 
 			<div class="form-group">
-			<p>وضعیت مخاطب </p>
-                {{ form.contact_status }}
+			<p>نام برنامه یا جشنواره </p>
+                {{ form.festival_name }}
                 <div class="validation"></div>
 			</div>
 

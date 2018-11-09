@@ -22,9 +22,9 @@ page_dict = {'نمایش': 'show', 'استودیو': 'studio', 'پروژه_ها'
              'کارکرد_پلاتوها': 'plato', 'محصولات_تجسمی': 'visual_products', 'محصولات_موسیقی': 'music_products',
              'پژوهش': 'research', 'نمایشگاه_ها': 'exhibitions', 'همایش_ها': 'congress',
              'عکس_های_خریداری_شده': 'bought_photos', 'کارشناسی_آثار_مکتوب': 'letters_expert',
-             'جشنواره_ها_تفصیلی': 'festivals_detailed', 'کتاب': 'book', 'نشریه': 'journal', 'مکتوبات': 'letters'}
+             'جشنواره_ها_تفصیلی': 'festivals_detailed', 'کتاب': 'book', 'نشریه': 'journal'}
 
-units_dict = {'خانه عکاسان': 'a', 'روابط عمومی': 'b', 'مؤسسه سپهر سوره مهر': 'c',
+units_dict = {'خانه عکاسان': 'a', 'روابط عمومی': 'b', 'موسسه سپهر سوره مهر': 'c',
               'مرکز آفرینش های ادبی': 'd', 'مرکز تجسمی': 'e', 'مرکز ترجمه': 'f', 'مرکز طنز': 'g',
               'مرکز تحقیقات و مطالعات فرهنگ و ادب پایداری': 'h', 'مرکز معماری': 'i', 'مرکز موسیقی': 'j',
               'مرکز هنرهای نمایشی': 'k', 'کودک و نوجوان': 'l'}
@@ -47,6 +47,9 @@ def index(error=None):
                     make_online(form.username.data)
                     session['user'] = form.username.data
                     session['logged_in'] = True
+                    for i in range(units_dict.keys().__len__()):
+                        if units_dict.keys()[i] == session['user']:
+                            session['unit'] = units_dict.values()[i]
                     if form.username.data == 'اداره ارزیابی و نظارت':
                         return redirect(url_for('evaluation'))
                     return redirect(url_for('first_add_record'))
@@ -63,9 +66,7 @@ def index(error=None):
 def evaluation(error=None, message=None, subj_err=None):
     if session.get('logged_in') and session['user'] == 'اداره ارزیابی و نظارت':
         form = eval_record()
-        subs = page_dict.keys()
-        subs.remove('مکتوبات')
-        evaluated_num = evaluated_num_cal(subs)
+        evaluated_num = evaluated_num_cal(page_dict.keys())
         if request.method == "POST":
             if form.search.data:
                 session['subject'] = form.subject.data
@@ -203,12 +204,10 @@ def first_add_record(error=None, message=None, subj_err=None):
 @app.route("/info_add_record", methods=["POST", "GET"])
 def info_add_record():
     if session.get('logged_in') and session['user'] != 'اداره ارزیابی و نظارت':
-        subs = page_dict.keys()
-        subs.remove('مکتوبات')
         results = {}
-        for subject in subs:
-            if select_rec_by_subject(subject):
-                results.update({subject: select_rec_by_subject(subject)})
+        for subject in page_dict.keys():
+            if select_rec_by_subject_unit(subject, session['unit']):
+                results.update({subject: select_rec_by_subject_unit(subject, session['unit'])})
 
         return render_template("info_record - results.html",
                                user=session['user'], search_results=results)
@@ -563,7 +562,7 @@ def letters_expert():
         form = bachelor_written()
         if request.method == "POST":
             letters_expert_record(0, session['first_records'], form.kar_number.data, form.accepted_number.data,
-                                  form.frame.data)
+                                  form.research.data, form.namayesh_name.data)
             session['added'] = 1
             session['submitted'] = 1
             return redirect(url_for('first_add_record'))
@@ -594,23 +593,23 @@ def festivals_detailed():
                                main_subject=session.get('subject'))
     return redirect(url_for('first_add_record'))
 
-
-@app.route("/letters", methods=["POST", "GET"])
-def letters():
-    if session.get('logged_in') and not session.get('submitted'):
-        form = letters_form()
-        if request.method == "POST":
-            session['subject'] = form.result_kind.data
-            if form.result_kind.data == 'کتاب':
-                session['first_records']['subject'] = 'کتاب'
-                return redirect(url_for('book'))
-            else:
-                session['first_records']['subject'] = 'نشریه'
-                return redirect(url_for('journal'))
-
-        return render_template("letters.html", form=form, user=session['user'],
-                               main_subject=session.get('subject'))
-    return redirect(url_for('first_add_record'))
+#
+# @app.route("/letters", methods=["POST", "GET"])
+# def letters():
+#     if session.get('logged_in') and not session.get('submitted'):
+#         form = letters_form()
+#         if request.method == "POST":
+#             session['subject'] = form.result_kind.data
+#             if form.result_kind.data == 'کتاب':
+#                 session['first_records']['subject'] = 'کتاب'
+#                 return redirect(url_for('book'))
+#             else:
+#                 session['first_records']['subject'] = 'نشریه'
+#                 return redirect(url_for('journal'))
+#
+#         return render_template("letters.html", form=form, user=session['user'],
+#                                main_subject=session.get('subject'))
+#     return redirect(url_for('first_add_record'))
 
 
 @app.route("/book", methods=["POST", "GET"])
@@ -658,7 +657,7 @@ def edit_search_record(error=None, message=None, subj_err=None):
                 session['subject'] = form.subject.data
                 if form.subject.data:
                     if form.subject.data != 'مکتوبات':
-                        session['search_results'] = select_rec_by_subject(form.subject.data)
+                        session['search_results'] = select_rec_by_subject_unit(form.subject.data, session['unit'])
                         return redirect(url_for('edit_search_results'))
                     elif form.subject.data == 'مکتوبات':
                         return redirect(url_for('letters'))
@@ -1223,7 +1222,7 @@ def edit_research():
 @app.route("/edit_exhibitions", methods=["POST", "GET"])
 def edit_exhibitions():
     if session.get('logged_in') and not session.get('submitted'):
-        form = exhibitions_form()
+        form = edit_exhibitions_form()
         form.name.data = select_record(session['code'], session['subject'])[0][8]
         form.show_subject.data = select_record(session['code'], session['subject'])[0][9]
         form.os_city.data = select_record(session['code'], session['subject'])[0][10]
@@ -1308,12 +1307,13 @@ def edit_letters_expert():
         form = bachelor_written()
         form.kar_number.data = select_record(session['code'], session['subject'])[0][8]
         form.accepted_number.data = select_record(session['code'], session['subject'])[0][9]
-        form.frame.data = select_record(session['code'], session['subject'])[0][10]
+        form.research.data = select_record(session['code'], session['subject'])[0][10]
+        form.namayesh_name.data = select_record(session['code'], session['subject'])[0][10]
 
         if request.method == "POST":
             letters_expert_record(1, session['first_rec_for_edit'],
                                   request.form["kar_number"], request.form["accepted_number"],
-                                  request.form["frame"])
+                                  request.form["research"], request.form["namayesh_name"])
             session['added'] = 1
             session['submitted'] = 1
             return redirect(url_for('edit_search_record'))
@@ -1366,20 +1366,20 @@ def edit_festivals_detailed():
     return redirect(url_for('index'))
 
 
-@app.route("/edit_letters", methods=["POST", "GET"])
-def edit_letters():
-    if session.get('logged_in') and not session.get('submitted'):
-        form = letters_form()
-        if request.method == "POST":
-            session['subject'] = request.form["result_kind"]
-            if form.result_kind.data == 'کتاب':
-                return redirect(url_for('book'))
-            else:
-                return redirect(url_for('journal'))
-
-        return render_template("letters - edit.html", form=form, user=session['user'],
-                               main_subject=session.get('subject'))
-    return redirect(url_for('index'))
+# @app.route("/edit_letters", methods=["POST", "GET"])
+# def edit_letters():
+#     if session.get('logged_in') and not session.get('submitted'):
+#         form = letters_form()
+#         if request.method == "POST":
+#             session['subject'] = request.form["result_kind"]
+#             if form.result_kind.data == 'کتاب':
+#                 return redirect(url_for('book'))
+#             else:
+#                 return redirect(url_for('journal'))
+#
+#         return render_template("letters - edit.html", form=form, user=session['user'],
+#                                main_subject=session.get('subject'))
+#     return redirect(url_for('index'))
 
 
 @app.route("/edit_book", methods=["POST", "GET"])
@@ -1398,7 +1398,6 @@ def edit_book():
         form.meh_moh.data = select_record(session['code'], session['subject'])[0][17]
         form.shomargan_num.data = select_record(session['code'], session['subject'])[0][18]
         form.pages.data = select_record(session['code'], session['subject'])[0][19]
-
         if request.method == "POST":
             book_record(1, session['first_rec_for_edit'], request.form["name"],
                         request.form["author"], request.form["translator"],
@@ -1490,24 +1489,22 @@ def amar_second_page(subj_err=None):
             selected_months.append(monthes[i])
             selected_months_num.append(i)
 
-        subs = page_dict.keys()
-        subs.remove('مکتوبات')
-        for subject in subs:
+        for subject in page_dict.keys():
             per_per.update({subject: performance_percent(unit_code, subject, data_for_search['year'],
                                                          data_for_search['from_month'],
                                                          data_for_search['to_month'])})
-        for subject in subs:
+        for subject in page_dict.keys():
             if not per_per[subject] == 0:
                 perf_counts.update({subject: {}})
             for month in selected_months_num:
                 if not per_per[subject] == 0:
                     perf_counts[subject].update({month + 1: select_by_month_year(unit_code, subject, month + 1,
                                                                                  data_for_search['year'])})
-        for subject in subs:
+        for subject in page_dict.keys():
             if not per_per[subject] == 0:
                 all_subject_records += sum(perf_counts[subject].values())
 
-        for subject in subs:
+        for subject in page_dict.keys():
             if not per_per[subject] == 0:
                 perf_percent.update({subject: 100 * sum(perf_counts[subject].values()) / all_subject_records})
 
@@ -1587,7 +1584,7 @@ def amar_search_results():
         if data_for_search['subject'] == 'پژوهش':
             col_search_results = ['نام پژوهش', 'نویسنده یا مؤلف', 'قالب', 'محور محتوایی']
         if data_for_search['subject'] == 'کارشناسی_آثار_مکتوب':
-            col_search_results = ['تعداد آثار کارشناسی شده', 'تعداد آثار تأیید شده']
+            col_search_results = ['تعداد آثار کارشناسی شده', 'تعداد آثار تأیید شده', 'پژوهش', 'نمایشنامه']
         elif data_for_search['subject'] == 'جشنواره_ها':
             col_search_results = ['نام جشنواره', 'سال', 'ماه', 'روز', 'توضیح و معرفی']
         elif data_for_search['subject'] == 'جلسات_و_کارگاه_ها':

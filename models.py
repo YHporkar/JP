@@ -333,7 +333,8 @@ def make_database(db_name):
                       rec_date_year INTEGER, rec_date_month INTEGER, rec_date_day INTEGER,
                       kar_number INTEGER,
                       accepted_number INTEGER,
-                      frame VARCHAR(200),
+                      research VARCHAR(200),
+                      namayesh_name VARCHAR(200),
                       valued INTEGER NOT NULL DEFAULT 0
                       );
                       ''')
@@ -635,6 +636,15 @@ def select_rec_by_subject(subject):
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
     cursor.execute(''' SELECT * FROM %s;''' % subject)
+    rec = cursor.fetchall()
+    return rec
+
+
+def select_rec_by_subject_unit(subject, unit):
+    conn = sqlite3.connect(db_name)
+    cursor = conn.cursor()
+    unit_code = unit + '%'
+    cursor.execute(''' SELECT * FROM %s WHERE id LIKE '%s';''' % (subject, unit_code))
     rec = cursor.fetchall()
     return rec
 
@@ -952,10 +962,11 @@ def exhibitions_record(edit_mode, first_records, name, show_subject, os_city,
     cursor = conn.cursor()
     first_record(first_records, edit_mode)
     cursor.execute("UPDATE نمایشگاه_ها SET name = '%s', show_subject = '%s', os_city = '%s',"
-                   " city = '%s', contacts_num = '%s', meh_moh = '%s', finish_date = '%s',"
+                   " city = '%s', contacts_num = '%s', meh_moh = '%s', finish_date_day = '%s',"
+                   " finish_date_month = '%s', finish_date_year = '%s',"
                    " description = '%s'"
                    "WHERE id = '%s';" % (name, show_subject, os_city, city, contacts_num, meh_moh,
-                                         (finish_date_day + '-' + finish_date_month + '-' + finish_date_year),
+                                         finish_date_day, finish_date_month, finish_date_year,
                                          description, first_records['code']))
 
     conn.commit()
@@ -988,12 +999,12 @@ def bought_photos_record(edit_mode, first_records, photo_subject, number, tar_gh
     conn.close()
 
 
-def letters_expert_record(edit_mode, first_records, kar_number, accepted_number, frame):
+def letters_expert_record(edit_mode, first_records, kar_number, accepted_number, research, namayesh_name):
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
     first_record(first_records, edit_mode)
-    cursor.execute("UPDATE کارشناسی_آثار_مکتوب SET kar_number = '%s', accepted_number = '%s', frame = '%s'"
-                   "WHERE id = '%s';" % (kar_number, accepted_number, frame, first_records['code']))
+    cursor.execute("UPDATE کارشناسی_آثار_مکتوب SET kar_number = '%s', accepted_number = '%s', research = '%s', namayesh_name = '%s'"
+                   "WHERE id = '%s';" % (kar_number, accepted_number, research, namayesh_name, first_records['code']))
 
     conn.commit()
     conn.close()

@@ -1,7 +1,7 @@
 {% extends "layout_add_second.html" %}
 
 {% block content %}
-<form action="/show" method="POST">
+<form action="/letters_expert" method="POST">
 {{ form.hidden_tag() }}
     <div class="rightcontact">
 		    <div class="form-group">
@@ -21,8 +21,14 @@
 
 			<div class="form-group">
 			<p>قالب اثر مکتوب </p>
-				{{ form.frame }}
-				<div class="dropDownSelect2"></div>
+			<p>پژوهش </p>
+				{{ form.research }}
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>نمایشنامه </p>
+				{{ form.namayesh_name }}
                 <div class="validation"></div>
 			</div>
 	</div>
