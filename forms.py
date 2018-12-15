@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from flask_wtf import Form
-from wtforms import StringField, PasswordField, SubmitField, SelectField, TextAreaField
+from wtforms import StringField, PasswordField, SubmitField, SelectField, TextAreaField, RadioField, BooleanField
 from wtforms.validators import DataRequired
 import sys
 
@@ -26,10 +26,14 @@ class Login(Form):
 
 class adding_record(Form):
     code = StringField(validators=[DataRequired('لطفا کد را وارد کنید')])
+    contract = StringField(validators=[DataRequired()])
     manager_name = StringField(validators=[DataRequired('لطفا نام مدیر را وارد کنید')])
     m_p_k = StringField(validators=[DataRequired('لطفا نام مسئول پیگیری کننده را وارد کنید')])
     m_s_e = StringField(validators=[DataRequired('لطفا کد را وارد کنید')])
     m_t_e = StringField(validators=[DataRequired('لطفا کد را وارد کنید')])
+    performance = SelectField(choices=[('', ''), ('پژوهشی', 'پژوهشی'), ('آموزشی', 'آموزشی'), ('تولیدی', 'تولیدی')])
+    strategic = SelectField(choices=[('', ''), ('روتین', 'روتین'), ('مهم', 'مهم'), ('بسیار مهم', 'بسیار مهم'),
+                                     ('استراتژیک', 'استراتژیک')])
     rec_date_year = SelectField(choices=[(i, i) for i in range(1385, 1411)])
     rec_date_month = SelectField(choices=[(i, i) for i in range(1, 13)])
     rec_date_day = SelectField(choices=[(i, i) for i in range(1, 32)])
@@ -192,13 +196,14 @@ class eval_record(Form):
 
 class editing_first_record(Form):
     code = StringField(render_kw={'readonly': True})
+    contract = StringField(render_kw={'readonly': True})
     manager_name = StringField()
     m_p_k = StringField()
     m_s_e = StringField()
     m_t_e = StringField()
-    # rec_date_year = SelectField(choices=[(i, i) for i in range(1385, 1411)])
-    # rec_date_month = SelectField(choices=[(i, i) for i in range(1, 13)])
-    # rec_date_day = SelectField(choices=[(i, i) for i in range(1, 32)])
+    performance = SelectField(choices=[('', ''), ('پژوهشی', 'پژوهشی'), ('آموزشی', 'آموزشی'), ('تولیدی', 'تولیدی')])
+    strategic = SelectField(choices=[('', ''), ('روتین', 'روتین'), ('مهم', 'مهم'), ('بسیار مهم', 'بسیار مهم'),
+                                     ('استراتژیک', 'استراتژیک')])
     rec_date_year = StringField()
     rec_date_month = StringField()
     rec_date_day = StringField()
@@ -651,46 +656,6 @@ class exhibitions_form(Form):
     logout = SubmitField('خروج')
 
 
-class edit_exhibitions_form(Form):
-    name = StringField(validators=[DataRequired()])
-    show_subject = StringField(validators=[DataRequired()])
-    os_city = SelectField(choices=[('', ''), ('آذربایجان شرقی', 'آذربایجان شرقی'), ('آذربایجان غربی', 'آذربایجان غربی'),
-                                   ('اردبیل', 'اردبیل'),
-                                   ('اصفهان', 'اصفهان'), ('البرز', 'البرز'),
-                                   ('ایلام', 'ایلام'),
-                                   ('بوشهر', 'بوشهر'), ('تهران', 'تهران'),
-                                   ('چهارمحال بختیاری', 'چهارمحال بختیاری'),
-                                   ('خراسان جنوبی', 'خراسان جنوبی'), ('خراسان رضوی', 'خراسان رضوی'),
-                                   ('خراسان شمالی', 'خراسان شمالی'),
-                                   ('خوزستان', 'خوزستان'), ('زنجان', 'زنجان'),
-                                   ('سمنان', 'سمنان'),
-                                   ('سیستان و بلوچستان', 'سیستان و بلوچستان'), ('فارس', 'فارس'), ('قزوین', 'قزوین'),
-                                   ('قم', 'قم'),
-                                   ('کردستان', 'کردستان'),
-                                   ('کرمان', 'کرمان'), ('کرمانشاه', 'کرمانشاه'),
-                                   ('کهکیلویه و بویراحمد', 'کهکیلویه و بویراحمد'),
-                                   ('گلستان', 'گلستان'), ('گیلان', 'گیلان'), ('لرستان', 'لرستان'),
-                                   ('مازندران', 'مازندران'),
-                                   ('مرکزی', 'مرکزی'),
-                                   ('هرمزگان', 'هرمزگان'), ('همدان', 'همدان'),
-                                   ('یزد', 'یزد')])
-    city = StringField(validators=[DataRequired()])
-    contact_num = StringField(validators=[DataRequired()])
-    meh_moh = SelectField(
-        choices=[('', ''), ('بیداری اسلامی', 'بیداری اسلامی'), ('پایداری', 'پایداری'), ('حجاب و عفاف', 'حجاب و عفاف'),
-                 ('دفاع مقدس', 'دفاع مقدس'), ('سبک زندگی ایرانی اسلامی', 'سبک زندگی ایرانی اسلامی'),
-                 ('مدیریت جهادی و اقتصاد مقاومتی', 'مدیریت جهادی و اقتصاد مقاومتی'),
-                 ('مکارم اخلاقی و اخلاق مداری', 'مکارم اخلاقی و اخلاق مداری'),
-                 ('خانواده، کودک و نوجوان', 'خانواده، کودک و نوجوان'), ('انقلاب اسلامی', 'انقلاب اسلامی'),
-                 ('تمدن اسلامی', 'تمدن اسلامی'), ('ارتقاء کارآمدی', 'ارتقاء کارآمدی')])
-    finish_date_day = StringField(validators=[DataRequired()])
-    finish_date_month = StringField(validators=[DataRequired()])
-    finish_date_year = StringField(validators=[DataRequired()])
-    description = TextAreaField(validators=[DataRequired()])
-    add = SubmitField('ثبت')
-    logout = SubmitField('خروج')
-
-
 class congress_form(Form):
     name = StringField(validators=[DataRequired()])
     office = SelectField(choices=[('', ''), ('خانه عکاسان', 'خانه عکاسان'), ('روابط عمومی', 'روابط عمومی'),
@@ -824,7 +789,7 @@ class festivals_detailed_form(Form):
                  ('مرکز موسیقی', 'مرکز موسیقی'),
                  ('مرکز پایداری', 'مرکز پایداری'),
                  ('مرکز معماری', 'مرکز معماری'), ('مرکز طنز', 'مرکز طنز'), ('مرکز هنرهای نمایشی', 'مرکز هنرهای نمایشی')
-                 , ('مرکز روابط عمومی', 'مرکز روابط عمومی')])
+            , ('مرکز روابط عمومی', 'مرکز روابط عمومی')])
     choosing_asar_team = StringField(validators=[DataRequired()])
     referees = StringField(validators=[DataRequired()])
     asar_parted_num = StringField(validators=[DataRequired()])
@@ -853,7 +818,7 @@ class book_form(Form):
     lang = StringField(validators=[DataRequired()])
     print_turn = StringField(validators=[DataRequired()])
     sub_frame = StringField(validators=[DataRequired()])
-    roo_bar = SelectField(choices=[('', ''), (1, 'برگزار شده'), (0, 'برگزار نشده')])
+    roo_bar = BooleanField()
     nasher_city = SelectField(
         choices=[('', ''), ('آذربایجان شرقی', 'آذربایجان شرقی'), ('آذربایجان غربی', 'آذربایجان غربی'),
                  ('اردبیل', 'اردبیل'),
@@ -895,7 +860,7 @@ class journal_form(Form):
     shomargan_num = StringField(validators=[DataRequired()])
     pages = StringField(validators=[DataRequired()])
     frame = StringField(validators=[DataRequired()])
-    roo_bar = SelectField(choices=[('', ''), (1, 'برگزار شده'), (0, 'برگزار نشده')])
+    roo_bar = BooleanField()
     nasher_city = SelectField(
         choices=[('', ''), ('آذربایجان شرقی', 'آذربایجان شرقی'), ('آذربایجان غربی', 'آذربایجان غربی'),
                  ('اردبیل', 'اردبیل'),

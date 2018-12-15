@@ -172,9 +172,12 @@ def first_add_record(error=None, message=None, subj_err=None):
             for i in range(units_dict.keys().__len__()):
                 if units_dict.keys()[i] == session['user']:
                     session['code'] = units_dict.values()[i] + form.code.data
-            session['first_records'] = {'code': session['code'], 'manager_name': form.manager_name.data,
+            session['first_records'] = {'code': session['code'], 'contract': form.contract.data,
+                                        'manager_name': form.manager_name.data,
                                         'm_s_e': form.m_s_e.data, 'm_t_e': form.m_t_e.data,
                                         'm_p_k': form.m_p_k.data,
+                                        'performance': form.performance.data,
+                                        'strategic': form.strategic.data,
                                         'rec_date_day': form.rec_date_day.data,
                                         'rec_date_month': form.rec_date_month.data,
                                         'rec_date_year': form.rec_date_year.data,
@@ -562,7 +565,7 @@ def letters_expert():
         form = bachelor_written()
         if request.method == "POST":
             letters_expert_record(0, session['first_records'], form.kar_number.data, form.accepted_number.data,
-                                  form.research.data, form.namayesh_name.data)
+                                  form.frame.data)
             session['added'] = 1
             session['submitted'] = 1
             return redirect(url_for('first_add_record'))
@@ -686,10 +689,13 @@ def edit_first_record_filled(code, message=None):
         form = editing_first_record()
         form.code.data = code
         session['code'] = form.code.data
+        form.contract.data = select_record(session['code'], session['subject'])[0][8]
         form.manager_name.data = select_record(session['code'], session['subject'])[0][1]
         form.m_p_k.data = select_record(session['code'], session['subject'])[0][2]
         form.m_s_e.data = select_record(session['code'], session['subject'])[0][3]
         form.m_t_e.data = select_record(session['code'], session['subject'])[0][4]
+        form.performance.data = select_record(session['code'], session['subject'])[0][9]
+        form.strategic.data = select_record(session['code'], session['subject'])[0][10]
         form.rec_date_year.data = select_record(session['code'], session['subject'])[0][5]
         form.rec_date_month.data = select_record(session['code'], session['subject'])[0][6]
         form.rec_date_day.data = select_record(session['code'], session['subject'])[0][7]
@@ -719,7 +725,10 @@ def edit_first_record_form(message=None):
                     'rec_date_day': request.form['rec_date_day'],
                     'rec_date_month': request.form['rec_date_month'],
                     'rec_date_year': request.form['rec_date_year'],
-                    'subject': request.form['subject']
+                    'subject': request.form['subject'],
+                    'contract': request.form['contract'],
+                    'performance': request.form['performance'],
+                    'strategic': request.form['strategic']
                 }
                 first_record(session['first_rec_for_edit'], 1)
 
@@ -1105,7 +1114,6 @@ def edit_poem_expert():
         form.in_printed_num.data = select_record(session['code'], session['subject'])[0][15]
         form.rejected_num.data = select_record(session['code'], session['subject'])[0][16]
         form.famous_persons.data = select_record(session['code'], session['subject'])[0][17]
-        form.achievements.data = select_record(session['code'], session['subject'])[0][18]
 
         if request.method == "POST":
             poem_expert_record(1, session['first_rec_for_edit'],
@@ -1222,7 +1230,7 @@ def edit_research():
 @app.route("/edit_exhibitions", methods=["POST", "GET"])
 def edit_exhibitions():
     if session.get('logged_in') and not session.get('submitted'):
-        form = edit_exhibitions_form()
+        form = exhibitions_form()
         form.name.data = select_record(session['code'], session['subject'])[0][8]
         form.show_subject.data = select_record(session['code'], session['subject'])[0][9]
         form.os_city.data = select_record(session['code'], session['subject'])[0][10]
@@ -1307,13 +1315,12 @@ def edit_letters_expert():
         form = bachelor_written()
         form.kar_number.data = select_record(session['code'], session['subject'])[0][8]
         form.accepted_number.data = select_record(session['code'], session['subject'])[0][9]
-        form.research.data = select_record(session['code'], session['subject'])[0][10]
-        form.namayesh_name.data = select_record(session['code'], session['subject'])[0][10]
+        form.frame.data = select_record(session['code'], session['subject'])[0][10]
 
         if request.method == "POST":
             letters_expert_record(1, session['first_rec_for_edit'],
                                   request.form["kar_number"], request.form["accepted_number"],
-                                  request.form["research"], request.form["namayesh_name"])
+                                  request.form["frame"])
             session['added'] = 1
             session['submitted'] = 1
             return redirect(url_for('edit_search_record'))
@@ -1366,20 +1373,20 @@ def edit_festivals_detailed():
     return redirect(url_for('index'))
 
 
-# @app.route("/edit_letters", methods=["POST", "GET"])
-# def edit_letters():
-#     if session.get('logged_in') and not session.get('submitted'):
-#         form = letters_form()
-#         if request.method == "POST":
-#             session['subject'] = request.form["result_kind"]
-#             if form.result_kind.data == 'کتاب':
-#                 return redirect(url_for('book'))
-#             else:
-#                 return redirect(url_for('journal'))
-#
-#         return render_template("letters - edit.html", form=form, user=session['user'],
-#                                main_subject=session.get('subject'))
-#     return redirect(url_for('index'))
+@app.route("/edit_letters", methods=["POST", "GET"])
+def edit_letters():
+    if session.get('logged_in') and not session.get('submitted'):
+        form = letters_form()
+        if request.method == "POST":
+            session['subject'] = request.form["result_kind"]
+            if form.result_kind.data == 'کتاب':
+                return redirect(url_for('book'))
+            else:
+                return redirect(url_for('journal'))
+
+        return render_template("letters - edit.html", form=form, user=session['user'],
+                               main_subject=session.get('subject'))
+    return redirect(url_for('index'))
 
 
 @app.route("/edit_book", methods=["POST", "GET"])
@@ -1398,6 +1405,7 @@ def edit_book():
         form.meh_moh.data = select_record(session['code'], session['subject'])[0][17]
         form.shomargan_num.data = select_record(session['code'], session['subject'])[0][18]
         form.pages.data = select_record(session['code'], session['subject'])[0][19]
+
         if request.method == "POST":
             book_record(1, session['first_rec_for_edit'], request.form["name"],
                         request.form["author"], request.form["translator"],

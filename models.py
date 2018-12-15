@@ -8,6 +8,15 @@ import geocoder
 import urllib2
 import json
 
+page_dict = {'نمایش': 'show', 'استودیو': 'studio', 'پروژه_ها': 'projects',
+             'پروژه_های_عکاسی': 'photography_projects', 'جشنواره_ها': 'festivals', 'کارشناسی_رمان': 'romance',
+             'جلسات_و_کارگاه_ها': 'sessions', 'چند_رسانه_ای': 'multimedia', 'کتابخانه_انقلاب': 'enghelab_lib',
+             'کتابخانه_جنگ': 'jang_lib', 'بازبینی_آثار': 'results_review', 'کارشناسی_شعر': 'poem_expert',
+             'کارکرد_پلاتوها': 'plato', 'محصولات_تجسمی': 'visual_products', 'محصولات_موسیقی': 'music_products',
+             'پژوهش': 'research', 'نمایشگاه_ها': 'exhibitions', 'همایش_ها': 'congress',
+             'عکس_های_خریداری_شده': 'bought_photos', 'کارشناسی_آثار_مکتوب': 'letters_expert',
+             'جشنواره_ها_تفصیلی': 'festivals_detailed', 'کتاب': 'book', 'نشریه': 'journal'}
+
 db_name = "Records_DB"
 
 
@@ -508,6 +517,30 @@ def make_database(db_name):
     conn.close()
 
 
+def change_db(db_name):
+    conn = sqlite3.connect(db_name)
+    cursor = conn.cursor()
+    subject = page_dict.keys()
+    for sub in subject:
+        cursor.execute('''
+                          ALTER TABLE %s ADD COLUMN contract VARCHAR(200);
+                      ''' % sub)
+
+        cursor.execute('''
+                              ALTER TABLE %s ADD COLUMN performance VARCHAR(200);
+                       ''' % sub)
+
+        cursor.execute('''
+                              ALTER TABLE %s ADD COLUMN strategic VARCHAR(200);
+                       ''' % sub)
+
+    conn.commit()
+    conn.close()
+
+
+# change_db(db_name)
+
+
 def authenticate_Admin(username, password):
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
@@ -596,10 +629,12 @@ def first_record(first_records, edit_mode):
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
     if not edit_mode:
-        cursor.execute("INSERT INTO %s (id, manager, m_p_k, m_s_e, m_t_e, rec_date_year, rec_date_month, rec_date_day)"
-                       " VALUES ('%s','%s','%s','%s','%s','%s','%s','%s');"
-                       % (first_records['subject'], first_records['code'], first_records['manager_name'],
+        cursor.execute("INSERT INTO %s (id, contract, manager, m_p_k, m_s_e, m_t_e, performance, strategic,"
+                       " rec_date_year, rec_date_month, rec_date_day)"
+                       " VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');"
+                       % (first_records['subject'], first_records['code'], first_records['contract'], first_records['manager_name'],
                           first_records['m_p_k'], first_records['m_s_e'], first_records['m_t_e'],
+                          first_records['performance'], first_records['strategic'],
                           first_records['rec_date_year'], first_records['rec_date_month'],
                           first_records['rec_date_day']))
     elif edit_mode:
@@ -962,11 +997,10 @@ def exhibitions_record(edit_mode, first_records, name, show_subject, os_city,
     cursor = conn.cursor()
     first_record(first_records, edit_mode)
     cursor.execute("UPDATE نمایشگاه_ها SET name = '%s', show_subject = '%s', os_city = '%s',"
-                   " city = '%s', contacts_num = '%s', meh_moh = '%s', finish_date_day = '%s',"
-                   " finish_date_month = '%s', finish_date_year = '%s',"
+                   " city = '%s', contacts_num = '%s', meh_moh = '%s', finish_date = '%s',"
                    " description = '%s'"
                    "WHERE id = '%s';" % (name, show_subject, os_city, city, contacts_num, meh_moh,
-                                         finish_date_day, finish_date_month, finish_date_year,
+                                         (finish_date_day + '-' + finish_date_month + '-' + finish_date_year),
                                          description, first_records['code']))
 
     conn.commit()
@@ -1138,4 +1172,4 @@ def insert():
     conn.close()
 
 # insert()
-# make_database(db_name)
+make_database(db_name)

@@ -13,7 +13,13 @@
 			<p>کد </p>
 				{{ form.code }}
       		</div>
-
+			
+			<div class="form-group">
+            <p>شماره قرارداد </p>
+				{{ form.contract }}
+                <div class="validation"></div>
+			</div>
+			
             <div class="form-group">
             <p>نام مدیر </p>
 				{{ form.manager_name }}
@@ -47,7 +53,21 @@
 	</div>
 
 	<div class="leftcontact">
-
+			
+			<div class="form-group">
+			<p>کارکرد </p>
+				{{ form.performace }}
+				<div class="dropDownSelect2"></div>
+                <div class="validation"></div>
+			</div>
+			
+			<div class="form-group">
+			<p>اهمیت استراتژیک </p>
+				{{ form.strategic }}
+				<div class="dropDownSelect2"></div>
+                <div class="validation"></div>
+			</div>
+			
 			<div class="form-group">
 			<p>سال </p>
 				{{ form.rec_date_year }}
